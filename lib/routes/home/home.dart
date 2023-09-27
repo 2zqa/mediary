@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const AddDrugRoute()),
+            MaterialPageRoute(builder: (_) => const AddDrugRoute()),
           );
         },
         label: const Text('Add drug usage'),
