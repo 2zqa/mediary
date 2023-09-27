@@ -28,7 +28,6 @@ class _HomePageState extends State<HomePage> {
             MaterialPageRoute(builder: (context) => const AddDrugRoute()),
           );
         },
-        tooltip: 'Increment',
         label: const Text('Add drug usage'),
         icon: const Icon(Icons.add),
       ),
