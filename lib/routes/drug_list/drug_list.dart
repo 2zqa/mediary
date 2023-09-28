@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mediary/models/drug_diary_item.dart';
-import 'package:mediary/routes/drug_list/widgets/drug_list_item.dart';
+import 'package:mediary/routes/drug_list/drug_list_item.dart';
 
 class DrugList extends StatefulWidget {
   const DrugList({
