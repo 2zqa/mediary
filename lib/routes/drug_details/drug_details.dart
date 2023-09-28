@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mediary/formatting/date_formatter.dart';
 import 'package:mediary/models/drug_diary_item.dart';
-import 'package:intl/intl.dart';
-
-var formatter = DateFormat.yMEd();
 
 class DrugDetails extends StatelessWidget {
   final DrugDiaryItem drug;
