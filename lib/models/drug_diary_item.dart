@@ -1,3 +1,7 @@
+import 'package:uuid/uuid.dart';
+
+const _uuid = Uuid();
+
 enum Unit {
   mg,
   ug,
@@ -24,6 +28,7 @@ Unit parseUnit(String unitString) {
 }
 
 class DrugDiaryItem implements Comparable<DrugDiaryItem> {
+  final String id;
   final String name;
   final double amount;
   final Unit unit;
@@ -31,12 +36,14 @@ class DrugDiaryItem implements Comparable<DrugDiaryItem> {
   final String? notes;
 
   DrugDiaryItem({
+    String? id,
     required this.name,
     required this.amount,
     required this.unit,
     required this.date,
     this.notes,
-  });
+  })  : assert(id == null || Uuid.isValidUUID(fromString: id)),
+        id = id ?? _uuid.v4();
 
   factory DrugDiaryItem.fromJson(Map<String, dynamic> json) {
     return DrugDiaryItem(
