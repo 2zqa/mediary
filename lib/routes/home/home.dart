@@ -21,15 +21,14 @@ class _HomePageState extends State<HomePage> {
       body: const Scrollbar(
         child: DrugList(),
       ),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => const AddDrugRoute()),
           );
         },
-        label: const Text('Add drug usage'),
-        icon: const Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
