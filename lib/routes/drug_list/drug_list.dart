@@ -100,7 +100,7 @@ class _DrugListState extends State<DrugList> {
     return GroupedListView(
       elements: drugDiaryItems,
       groupBy: (element) => element.date,
-      useStickyGroupSeparators: true,
+      sort: true,
       groupSeparatorBuilder: (date) => Text(date.toString()),
       indexedItemBuilder: (context, element, index) {
         return DrugListItem(element);
