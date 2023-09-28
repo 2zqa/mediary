@@ -16,12 +16,12 @@ class DrugList extends StatefulWidget {
 }
 
 class _DrugListState extends State<DrugList> {
-  List drugDiaryItems = <DrugDiaryItem>[
+  List<DrugDiaryItem> drugDiaryItems = [
     DrugDiaryItem(
       name: 'Speed',
       amount: 5,
       unit: Unit.mg,
-      date: DateTime.parse('2021-09-01 12:00:00'),
+      date: DateTime.parse('2021-09-01 12:01:00'),
     ),
     DrugDiaryItem(
       name: 'Weed',
@@ -32,9 +32,9 @@ class _DrugListState extends State<DrugList> {
     ),
     DrugDiaryItem(
         name: 'Cocaine',
-        amount: 100,
+        amount: 120,
         unit: Unit.mg,
-        date: DateTime.parse('2021-09-02 12:00:00'),
+        date: DateTime.parse('2021-09-02 12:30:00'),
         notes: 'Idk more cocaine notes.'),
     DrugDiaryItem(
         name: 'Cocaine',
@@ -100,9 +100,9 @@ class _DrugListState extends State<DrugList> {
 
   @override
   Widget build(BuildContext context) {
-    return GroupedListView(
+    return GroupedListView<DrugDiaryItem, DateTime>(
       elements: drugDiaryItems,
-      groupBy: (element) => element.date,
+      groupBy: (drug) => DateUtils.dateOnly(drug.date),
       sort: true,
       groupSeparatorBuilder: (date) =>
           GroupHeader(heading: formatter.format(date)),
