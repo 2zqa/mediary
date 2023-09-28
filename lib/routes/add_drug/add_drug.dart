@@ -7,7 +7,6 @@ class AddDrugRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Add Drug Use'),
       ),
       body: const Center(
