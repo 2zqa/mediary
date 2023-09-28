@@ -17,6 +17,8 @@ dependencies:
   grouped_list: ^5.1.2
   sticky_headers: ^0.3.0+2
   flutter_launcher_icons: ^0.13.1
+  flutter_riverpod: ^2.4.1
+  uuid: ^4.1.0
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
@@ -67,4 +68,28 @@ class DrugDiaryItem implements Comparable<DrugDiaryItem> {
 
   @override
   int compareTo(DrugDiaryItem other) => date.compareTo(other.date);
+}
+
+/// An object that controls a list of [DrugDiaryItem].
+class DrugDiaryItemList extends StateNotifier<List<DrugDiaryItem>> {
+  DrugDiaryItemList([List<DrugDiaryItem>? initialDrugDiaryItems])
+      : super(initialDrugDiaryItems ?? []);
+
+  void add(DrugDiaryItem drugDiaryItem) {
+    state = [
+      ...state,
+      drugDiaryItem,
+    ];
+  }
+
+  void remove(DrugDiaryItem target) {
+    state = state.where((drug) => drug.id != target.id).toList();
+  }
+
+  void update(DrugDiaryItem drugDiaryItem) {
+    state = [
+      for (final drug in state)
+        if (drug.id == drugDiaryItem.id) drugDiaryItem else drug,
+    ];
+  }
 }
