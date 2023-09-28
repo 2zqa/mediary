@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:mediary/formatting/date_formatter.dart';
 import 'package:mediary/models/drug_diary_item.dart';
@@ -6,102 +7,49 @@ import 'package:mediary/models/drug_diary_item.dart';
 import 'drug_list_item.dart';
 import 'group_header.dart';
 
-class DrugList extends StatefulWidget {
-  const DrugList({
-    super.key,
-  });
-
-  @override
-  State<DrugList> createState() => _DrugListState();
-}
-
-class _DrugListState extends State<DrugList> {
-  List<DrugDiaryItem> drugDiaryItems = [
+/// Creates a [DrugDiaryItemList] and initialise it with pre-defined values.
+///
+/// We are using [StateNotifierProvider] here as a `List<DrugDiaryItem>` is a complex
+/// object, with advanced business logic like how to edit a drugDiaryItem.
+final drugDiaryItemListProvider =
+    StateNotifierProvider<DrugDiaryItemList, List<DrugDiaryItem>>((ref) {
+  return DrugDiaryItemList([
     DrugDiaryItem(
       name: 'Speed',
-      amount: 5,
+      amount: 1.0,
       unit: Unit.mg,
-      date: DateTime.parse('2021-09-01 12:01:00'),
+      date: DateTime.utc(2023, 28, 9),
+      notes: 'I feel great!',
     ),
     DrugDiaryItem(
-      name: 'Weed',
-      amount: 0.3,
+      name: 'Wiet',
+      amount: 5.0,
       unit: Unit.g,
-      date: DateTime.parse('2021-09-02 12:00:00'),
-      notes: 'Felt okay, but not great.',
+      date: DateTime.utc(2023, 28, 9),
+      notes: 'I feel great!',
     ),
     DrugDiaryItem(
-        name: 'Cocaine',
-        amount: 120,
-        unit: Unit.mg,
-        date: DateTime.parse('2021-09-02 12:30:00'),
-        notes: 'Idk more cocaine notes.'),
-    DrugDiaryItem(
-        name: 'Cocaine',
-        amount: 100,
-        unit: Unit.mg,
-        date: DateTime.parse('2021-09-02 12:00:00'),
-        notes: 'Idk more cocaine notes.'),
-    DrugDiaryItem(
-        name: 'Cocaine',
-        amount: 100,
-        unit: Unit.mg,
-        date: DateTime.parse('2021-09-01 12:00:00'),
-        notes: 'Idk more cocaine notes.'),
-    DrugDiaryItem(
-        name: 'Cocaine',
-        amount: 100,
-        unit: Unit.mg,
-        date: DateTime.parse('2021-09-01 12:00:00'),
-        notes: 'Idk more cocaine notes.'),
-    DrugDiaryItem(
-        name: 'Cocaine',
-        amount: 100,
-        unit: Unit.mg,
-        date: DateTime.parse('2023-09-01 12:00:00'),
-        notes: 'Idk more cocaine notes.'),
-    DrugDiaryItem(
-        name: 'Cocaine',
-        amount: 100,
-        unit: Unit.mg,
-        date: DateTime.parse('2023-09-01 12:00:00'),
-        notes: 'Idk more cocaine notes.'),
-    DrugDiaryItem(
-        name: 'Cocaine',
-        amount: 100,
-        unit: Unit.mg,
-        date: DateTime.parse('2023-09-01 12:00:00'),
-        notes: 'Idk more cocaine notes.'),
-    DrugDiaryItem(
-        name: 'Cocaine',
-        amount: 100,
-        unit: Unit.mg,
-        date: DateTime.parse('2023-09-01 12:00:00'),
-        notes: 'Idk more cocaine notes.'),
-    DrugDiaryItem(
-        name: 'Cocaine',
-        amount: 100,
-        unit: Unit.mg,
-        date: DateTime.parse('2023-09-01 12:00:00'),
-        notes: 'Idk more cocaine notes.'),
-    DrugDiaryItem(
-        name: 'Cocaine',
-        amount: 100,
-        unit: Unit.mg,
-        date: DateTime.parse('2023-09-01 12:00:00'),
-        notes: 'Idk more cocaine notes.'),
-    DrugDiaryItem(
-        name: 'Cocaine',
-        amount: 100,
-        unit: Unit.mg,
-        date: DateTime.parse('2023-09-01 12:00:00'),
-        notes: 'Idk more cocaine notes.'),
-  ];
+      name: 'XTC',
+      amount: 7.0,
+      unit: Unit.ug,
+      date: DateTime.utc(2023, 28, 9, 12, 30),
+      notes: 'I feel great!',
+    ),
+  ]);
+});
 
+class DrugList extends ConsumerStatefulWidget {
+  const DrugList({Key? key}) : super(key: key);
+
+  @override
+  DrugListState createState() => DrugListState();
+}
+
+class DrugListState extends ConsumerState<DrugList> {
   @override
   Widget build(BuildContext context) {
     return GroupedListView<DrugDiaryItem, DateTime>(
-      elements: drugDiaryItems,
+      elements: ref.watch(drugDiaryItemListProvider),
       groupBy: (drug) => DateUtils.dateOnly(drug.date),
       sort: true,
       groupSeparatorBuilder: (date) =>
