@@ -23,7 +23,7 @@ Unit parseUnit(String unitString) {
   }
 }
 
-class DrugDiaryItem {
+class DrugDiaryItem implements Comparable<DrugDiaryItem> {
   final String name;
   final double amount;
   final Unit unit;
@@ -53,4 +53,7 @@ class DrugDiaryItem {
         'date': date,
         'notes': notes,
       };
+
+  @override
+  int compareTo(DrugDiaryItem other) => date.compareTo(other.date);
 }
