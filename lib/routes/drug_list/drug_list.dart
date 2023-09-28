@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
+import 'package:mediary/formatting/date_formatter.dart';
 import 'package:mediary/models/drug_diary_item.dart';
-import 'package:mediary/routes/drug_list/drug_list_item.dart';
+
+import 'drug_list_item.dart';
+import 'group_header.dart';
 
 class DrugList extends StatefulWidget {
   const DrugList({
@@ -101,7 +104,8 @@ class _DrugListState extends State<DrugList> {
       elements: drugDiaryItems,
       groupBy: (element) => element.date,
       sort: true,
-      groupSeparatorBuilder: (date) => Text(date.toString()),
+      groupSeparatorBuilder: (date) =>
+          GroupHeader(heading: formatter.format(date)),
       indexedItemBuilder: (context, element, index) {
         return DrugListItem(element);
       },
