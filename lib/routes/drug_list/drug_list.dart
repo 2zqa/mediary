@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grouped_list/grouped_list.dart';
 import 'package:mediary/models/drug_diary_item.dart';
 import 'package:mediary/routes/drug_list/drug_list_item.dart';
 
@@ -96,11 +97,18 @@ class _DrugListState extends State<DrugList> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: drugDiaryItems.length,
-      itemBuilder: (context, index) {
-        return DrugListItem(drugDiaryItems[index]);
+    return GroupedListView(
+      elements: drugDiaryItems,
+      groupBy: (element) => element.date,
+      useStickyGroupSeparators: true,
+      groupSeparatorBuilder: (date) => Text(date.toString()),
+      indexedItemBuilder: (context, element, index) {
+        return DrugListItem(element);
       },
+      // itemCount: drugDiaryItems.length,
+      // itemBuilder: (context, index) {
+      //   return DrugListItem(drugDiaryItems[index]);
+      // },
     );
   }
 }
