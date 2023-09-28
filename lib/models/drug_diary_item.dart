@@ -38,21 +38,25 @@ class DrugDiaryItem implements Comparable<DrugDiaryItem> {
     this.notes,
   });
 
-  factory DrugDiaryItem.fromJson(Map<String, dynamic> json) => DrugDiaryItem(
-        name: json['drug'],
-        amount: double.parse(json['amount']),
-        unit: parseUnit(json['unit']),
-        date: DateTime.parse(json['date']),
-        notes: json['notes'],
-      );
+  factory DrugDiaryItem.fromJson(Map<String, dynamic> json) {
+    return DrugDiaryItem(
+      name: json['drug'],
+      amount: double.parse(json['amount']),
+      unit: parseUnit(json['unit']),
+      date: DateTime.parse(json['date']),
+      notes: json['notes'],
+    );
+  }
 
-  Map<String, dynamic> toJson() => {
-        'drug': name,
-        'amount': amount,
-        'unit': unit,
-        'date': date,
-        'notes': notes,
-      };
+  Map<String, dynamic> toJson() {
+    return {
+      'drug': name,
+      'amount': amount,
+      'unit': unit,
+      'date': date,
+      'notes': notes,
+    };
+  }
 
   @override
   int compareTo(DrugDiaryItem other) => date.compareTo(other.date);
