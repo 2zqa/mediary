@@ -22,7 +22,7 @@ class DrugDetails extends StatelessWidget {
             const SizedBox(height: 8),
             const Text('Hoeveelheid:',
                 style: TextStyle(fontWeight: FontWeight.bold)),
-            Text('${drug.amount} ${drug.unit.name}'),
+            Text(drug.amount),
             const SizedBox(height: 8),
             const Text('Datum:', style: TextStyle(fontWeight: FontWeight.bold)),
             Text(formatter.format(drug.date)),
