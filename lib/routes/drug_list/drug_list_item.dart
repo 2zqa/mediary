@@ -22,6 +22,6 @@ class DrugListItem extends StatelessWidget {
         },
         title: Text(drug.name),
         subtitle: Text(
-            '${drug.amount.toString()} ${drug.unit.name} gebruikt om ${dayFormatter.format(drug.date)}'));
+            '${drug.amount.toString()} gebruikt om ${dayFormatter.format(drug.date)}'));
   }
 }
