@@ -7,17 +7,31 @@ import '../drug_details/drug_details.dart';
 class DrugListItem extends StatelessWidget {
   final DrugDiaryItem drug;
   final void Function()? onDelete;
+  final void Function()? onUndo;
 
   const DrugListItem({
     required this.drug,
     this.onDelete,
+    this.onUndo,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      onDismissed: (_) => onDelete?.call(),
+      onDismissed: (_) {
+        onDelete?.call();
+        if (onUndo == null) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('${drug.name} verwijderd'),
+            action: SnackBarAction(
+              label: 'Annuleer',
+              onPressed: onUndo!,
+            ),
+          ),
+        );
+      },
       key: super.key ?? ValueKey(drug.id),
       direction: DismissDirection.endToStart,
       background: Container(
