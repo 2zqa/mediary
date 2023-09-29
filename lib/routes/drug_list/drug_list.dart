@@ -16,22 +16,19 @@ final drugDiaryItemListProvider =
   return DrugDiaryItemList([
     DrugDiaryItem(
       name: 'Speed',
-      amount: 1.0,
-      unit: Unit.mg,
+      amount: '2 gram',
       date: DateTime.utc(2023, 28, 9),
       notes: 'I feel great!',
     ),
     DrugDiaryItem(
       name: 'Wiet',
-      amount: 5.0,
-      unit: Unit.g,
+      amount: '1 joint',
       date: DateTime.utc(2023, 28, 9),
       notes: 'I feel great!',
     ),
     DrugDiaryItem(
       name: 'XTC',
-      amount: 7.0,
-      unit: Unit.ug,
+      amount: '1 pil',
       date: DateTime.utc(2023, 28, 9, 12, 30),
       notes: 'I feel great!',
     ),
