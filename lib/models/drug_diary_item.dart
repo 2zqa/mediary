@@ -37,8 +37,17 @@ class DrugDiaryItem implements Comparable<DrugDiaryItem> {
     };
   }
 
+  /// Sorts by date, then by name, then by id.
+  ///
+  /// The id is included to ensure that the sort is stable.
   @override
-  int compareTo(DrugDiaryItem other) => date.compareTo(other.date);
+  int compareTo(DrugDiaryItem other) {
+    final dateComparison = date.compareTo(other.date);
+    if (dateComparison != 0) return dateComparison;
+    final nameComparison = name.compareTo(other.name);
+    if (nameComparison != 0) return nameComparison;
+    return id.compareTo(other.id);
+  }
 }
 
 /// An object that controls a list of [DrugDiaryItem].
