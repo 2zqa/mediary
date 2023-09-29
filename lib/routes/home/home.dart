@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mediary/routes/add_drug/add_drug.dart';
+import 'package:mediary/routes/add_drug_form/add_drug_form.dart';
 import 'package:mediary/routes/drug_list/drug_list.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => const AddDrugRoute()),
+            MaterialPageRoute(builder: (_) => const AddDrugForm()),
           );
         },
         child: const Icon(Icons.add),
