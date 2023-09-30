@@ -6,8 +6,8 @@ import '../drug_details/drug_details.dart';
 
 class DrugListItem extends StatelessWidget {
   final DrugDiaryItem drug;
-  final void Function()? onDelete;
-  final void Function()? onUndo;
+  final void Function(DrugDiaryItem drug)? onDelete;
+  final void Function(DrugDiaryItem drug)? onUndo;
 
   const DrugListItem({
     required this.drug,
@@ -20,14 +20,14 @@ class DrugListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dismissible(
       onDismissed: (_) {
-        onDelete?.call();
+        onDelete?.call(drug);
         if (onUndo == null) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('${drug.name} verwijderd'),
             action: SnackBarAction(
               label: 'Annuleer',
-              onPressed: onUndo!,
+              onPressed: () => onUndo?.call(drug),
             ),
           ),
         );

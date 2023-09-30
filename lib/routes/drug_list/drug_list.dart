@@ -27,9 +27,8 @@ class DrugListState extends ConsumerState<DrugList> {
       indexedItemBuilder: (context, drug, index) {
         return DrugListItem(
           drug: drug,
-          onDelete: () =>
-              ref.read(drugDiaryItemListProvider.notifier).remove(drug),
-          onUndo: () => ref.read(drugDiaryItemListProvider.notifier).add(drug),
+          onDelete: drugStateNotifier.remove,
+          onUndo: drugStateNotifier.add,
         );
       },
       // itemCount: drugDiaryItems.length,
