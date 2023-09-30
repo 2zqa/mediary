@@ -16,10 +16,10 @@ class DrugList extends ConsumerStatefulWidget {
 }
 
 class DrugListState extends ConsumerState<DrugList> {
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildList(List<DrugDiaryItem> drugs) {
+    final drugStateNotifier = ref.read(drugDiaryItemListProvider.notifier);
     return GroupedListView<DrugDiaryItem, DateTime>(
-      elements: ref.watch(drugDiaryItemListProvider),
+      elements: drugs,
       groupBy: (drug) => DateUtils.dateOnly(drug.date),
       sort: true,
       groupSeparatorBuilder: (date) =>
@@ -36,5 +36,31 @@ class DrugListState extends ConsumerState<DrugList> {
       //   return DrugListItem(drugDiaryItems[index]);
       // },
     );
+  }
+
+  Widget _buildEmptyList() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.science_outlined,
+            size: 64,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          Text(
+            'Niets te zien hier... ',
+            style: Theme.of(context).textTheme.headlineSmall,
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final drugs = ref.watch(drugDiaryItemListProvider);
+    return drugs.isEmpty ? _buildEmptyList() : _buildList(drugs);
   }
 }
