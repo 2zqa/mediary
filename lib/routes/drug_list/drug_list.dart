@@ -26,15 +26,11 @@ class DrugListState extends ConsumerState<DrugList> {
           GroupHeader(heading: formatter.format(date)),
       indexedItemBuilder: (context, drug, index) {
         return DrugListItem(
-          drug: drug,
+                    drug: drug,
           onDelete: drugStateNotifier.remove,
           onUndo: drugStateNotifier.add,
         );
       },
-      // itemCount: drugDiaryItems.length,
-      // itemBuilder: (context, index) {
-      //   return DrugListItem(drugDiaryItems[index]);
-      // },
     );
   }
 
