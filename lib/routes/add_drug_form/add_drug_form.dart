@@ -29,7 +29,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
       ),
       maxLength: 25,
       validator: (value) {
-        if (value == null || value.isEmpty) {
+        if (value == null || value.trim().isEmpty) {
           return 'Naam is vereist.';
         }
 
@@ -50,7 +50,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
       ),
       maxLength: 25,
       validator: (value) {
-        if (value == null || value.isEmpty) {
+        if (value == null || value.trim().isEmpty) {
           return 'Hoeveelheid is vereist.';
         }
 
