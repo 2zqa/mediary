@@ -9,9 +9,3 @@ final drugDiaryItemListProvider =
     StateNotifierProvider<DrugDiaryItemList, List<DrugDiaryItem>>((ref) {
   return DrugDiaryItemList([]);
 });
-
-final drugDiaryNameIterableProvider = Provider<Iterable<String>>((ref) {
-  final drugs = ref.watch(drugDiaryItemListProvider);
-
-  return drugs.map((e) => e.name);
-});

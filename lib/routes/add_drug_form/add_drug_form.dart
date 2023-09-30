@@ -20,12 +20,31 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
   DateTime? _date;
   String? _notes;
 
+  Iterable<DrugDiaryItem> _getAutocompleteSuggestions(
+      String text, Iterable<DrugDiaryItem> drugs) {
+    if (text.trim().isEmpty) {
+      return const Iterable.empty();
+    }
+    return drugs.where((drug) {
+      return drug.name.toLowerCase().contains(text.toLowerCase());
+    });
+  }
+
   Widget _buildNameField() {
-    return TextFormField(
-      decoration: const InputDecoration(
+    final Iterable<DrugDiaryItem> drugs = ref.watch(drugDiaryItemListProvider);
+    return Autocomplete<DrugDiaryItem>(
+      optionsBuilder: ((textEditingValue) =>
+          _getAutocompleteSuggestions(textEditingValue.text, drugs)),
+      displayStringForOption: (drug) => drug.name,
+      fieldViewBuilder: (_, controller, focusNode, onFieldSubmitted) =>
+          TextFormField(
+        controller: controller,
+        focusNode: focusNode,
+        onFieldSubmitted: (_) => onFieldSubmitted(),
+        decoration: InputDecoration(
         labelText: 'Naam',
-        border: OutlineInputBorder(),
-        hintText: 'e.g. Alcohol',
+          border: const OutlineInputBorder(),
+          hintText: 'e.g. ${drugs.lastOrNull?.name ?? 'Alcohol'}',
       ),
       maxLength: 25,
       validator: (value) {
