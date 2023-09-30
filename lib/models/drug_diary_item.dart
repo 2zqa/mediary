@@ -12,11 +12,14 @@ class DrugDiaryItem implements Comparable<DrugDiaryItem> {
 
   DrugDiaryItem({
     String? id,
-    required this.name,
-    required this.amount,
+    required String name,
+    required String amount,
     required this.date,
-    this.notes,
+    String? notes,
   })  : assert(id == null || Uuid.isValidUUID(fromString: id)),
+        name = name.trim(),
+        amount = amount.trim(),
+        notes = notes?.trim(),
         id = id ?? _uuid.v4();
 
   factory DrugDiaryItem.fromJson(Map<String, dynamic> json) {
