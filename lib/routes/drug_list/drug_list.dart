@@ -49,7 +49,7 @@ class DrugListState extends ConsumerState<DrugList> {
             color: Theme.of(context).colorScheme.primary,
           ),
           Text(
-            'Niets te zien hier... ',
+            'Niets te zien hier…',
             style: Theme.of(context).textTheme.headlineSmall,
             textAlign: TextAlign.center,
           ),
