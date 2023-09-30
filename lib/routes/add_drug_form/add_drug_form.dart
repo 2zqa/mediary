@@ -42,21 +42,20 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
         focusNode: focusNode,
         onFieldSubmitted: (_) => onFieldSubmitted(),
         decoration: InputDecoration(
-        labelText: 'Naam',
+          labelText: 'Naam',
           border: const OutlineInputBorder(),
           hintText: 'e.g. ${drugs.lastOrNull?.name ?? 'Alcohol'}',
-      ),
-      maxLength: 25,
-      validator: (value) {
-        if (value == null || value.trim().isEmpty) {
-          return 'Naam is vereist.';
-        }
+        ),
+        maxLength: 25,
+        validator: (value) {
+          if (value == null || value.trim().isEmpty) {
+            return 'Naam is vereist.';
+          }
 
-        return null;
-      },
-      onSaved: (value) {
-        _name = value!;
-      },
+          return null;
+        },
+        onSaved: (value) => _name = value!,
+      ),
     );
   }
 
@@ -75,9 +74,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
 
         return null;
       },
-      onSaved: (value) {
-        _amount = value!;
-      },
+      onSaved: (value) => _amount = value!,
     );
   }
 
@@ -106,9 +103,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
         keyboardType: TextInputType.multiline,
         maxLength: 1000,
         maxLengthEnforcement: MaxLengthEnforcement.none,
-        onSaved: (value) {
-          _notes = value!;
-        },
+        onSaved: (value) => _notes = value!,
       ),
     );
   }
