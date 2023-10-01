@@ -22,17 +22,19 @@ class DrugDiaryItem implements Comparable<DrugDiaryItem> {
         notes = notes?.trim(),
         id = id ?? _uuid.v4();
 
-  factory DrugDiaryItem.fromJson(Map<String, dynamic> json) {
+  factory DrugDiaryItem.fromMap(Map<String, dynamic> map) {
     return DrugDiaryItem(
-      name: json['drug'],
-      amount: json['amount'],
-      date: DateTime.parse(json['date']),
-      notes: json['notes'],
+      id: map['id'],
+      name: map['drug'],
+      amount: map['amount'],
+      date: DateTime.parse(map['date']),
+      notes: map['notes'],
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'name': name,
       'amount': amount,
       'date': date.toIso8601String(),
