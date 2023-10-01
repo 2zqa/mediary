@@ -9,13 +9,13 @@ void main() {
     // application in a "ProviderScope" widget.
     // This is where the state of our providers will be stored.
     const ProviderScope(
-      child: MyApp(),
+      child: MediaryApp(),
     ),
   );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MediaryApp extends StatelessWidget {
+  const MediaryApp({super.key});
 
   @override
   Widget build(BuildContext context) {
