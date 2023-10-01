@@ -25,7 +25,7 @@ class DrugDiaryItem implements Comparable<DrugDiaryItem> {
   factory DrugDiaryItem.fromMap(Map<String, dynamic> map) {
     return DrugDiaryItem(
       id: map['id'],
-      name: map['drug'],
+      name: map['name'],
       amount: map['amount'],
       date: DateTime.parse(map['date']),
       notes: map['notes'],
