@@ -1,4 +1,7 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
@@ -56,19 +59,60 @@ class DrugDiaryItem implements Comparable<DrugDiaryItem> {
 }
 
 /// An object that controls a list of [DrugDiaryItem].
-class DrugDiaryItemList extends StateNotifier<List<DrugDiaryItem>> {
-  DrugDiaryItemList([List<DrugDiaryItem>? initialDrugDiaryItems])
-      : super(initialDrugDiaryItems ?? []);
+class DrugDiaryProvider extends StateNotifier<List<DrugDiaryItem>> {
+  final Future<Database> _database;
+
+  DrugDiaryProvider() : super([]) {
+    _init();
+  }
+
+  Future<void> _init() async {
+    _database = openDatabase(
+      join(await getDatabasesPath(), 'drug_diary.db'),
+      onCreate: (db, version) {
+        return db.execute(
+          'CREATE TABLE drug_diary(id TEXT PRIMARY KEY, name TEXT NOT NULL, amount TEXT NOT NULL, date TEXT NOT NULL, notes TEXT NOT NULL)',
+        );
+      },
+      onOpen: (db) async {
+        final List<Map<String, Object?>> drugMaps =
+            await db.query('drug_diary');
+        state =
+            drugMaps.map((drugMap) => DrugDiaryItem.fromMap(drugMap)).toList();
+      },
+      version: 1,
+    );
+  }
 
   void add(DrugDiaryItem drugDiaryItem) {
     state = [
       ...state,
       drugDiaryItem,
     ];
+
+    _insertIntoDatabase(drugDiaryItem);
+  }
+
+  Future<int> _insertIntoDatabase(DrugDiaryItem drugDiaryItem) {
+    final db = await _database;
+    return _database.insert(
+      'drug_diary',
+      drugDiaryItem.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
   void remove(DrugDiaryItem target) {
     state = state.where((drug) => drug.id != target.id).toList();
+    _deleteFromDatabase(target);
+  }
+
+  void _deleteFromDatabase(DrugDiaryItem target) {
+    _database.delete(
+      'drug_diary',
+      where: 'id = ?',
+      whereArgs: [target.id],
+    );
   }
 
   void update(DrugDiaryItem drugDiaryItem) {
@@ -76,5 +120,6 @@ class DrugDiaryItemList extends StateNotifier<List<DrugDiaryItem>> {
       for (final drug in state)
         if (drug.id == drugDiaryItem.id) drugDiaryItem else drug,
     ];
+    _insertIntoDatabase(drugDiaryItem);
   }
 }

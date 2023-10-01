@@ -19,6 +19,8 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_riverpod: ^2.4.1
   uuid: ^4.1.0
+  sqflite: ^2.3.0
+  path: ^1.8.3
 
 dev_dependencies:
   flutter_test:
