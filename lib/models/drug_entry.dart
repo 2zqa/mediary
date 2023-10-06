@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -57,67 +59,51 @@ class DrugEntry implements Comparable<DrugEntry> {
   }
 }
 
-/// An object that controls a list of [DrugEntry].
-class DrugEntriesProvider extends StateNotifier<List<DrugEntry>> {
+class AsyncDrugEntriesNotifier extends AsyncNotifier<List<DrugEntry>> {
+  late final Database _database;
   static const _tableName = 'drug_entries';
-  late final Future<Database> _database;
+  Future<List<DrugEntry>> _fetchDrugEntry() async {
+    List<Map<String, Object?>> drugMaps = await _database.query(_tableName);
+    return drugMaps.map(DrugEntry.fromMap).toList();
+  }
 
-  DrugEntriesProvider() : super([]);
-
-  Future<void> initialize() async {
-    _database = openDatabase(
+  @override
+  FutureOr<List<DrugEntry>> build() async {
+    _database = await openDatabase(
       join(await getDatabasesPath(), 'mediary.db'),
+      version: 1,
       onCreate: (db, version) {
         return db.execute(
-          'CREATE TABLE $_tableName(id TEXT PRIMARY KEY, name TEXT NOT NULL, amount TEXT NOT NULL, date TEXT NOT NULL, notes TEXT NOT NULL)',
+          'CREATE TABLE $_tableName(id TEXT PRIMARY KEY, name TEXT NOT NULL, amount TEXT NOT NULL, date TEXT NOT NULL, notes TEXT)',
         );
       },
-      onOpen: (db) async {
-        final List<Map<String, Object?>> drugMaps =
-            await db.query(_tableName);
-        state =
-            drugMaps.map((drugMap) => DrugEntry.fromMap(drugMap)).toList();
-      },
-      version: 1,
     );
+    return _fetchDrugEntry();
   }
 
-  void add(DrugEntry drug) {
-    state = [
-      ...state,
-      drug,
-    ];
-
-    _insertIntoDatabase(drug);
+  Future<void> addDrugEntry(DrugEntry drugEntry) async {
+    // Set the state to loading
+    state = const AsyncValue.loading();
+    // Add the new drugEntry and reload the drugEntry list from the remote repository
+    state = await AsyncValue.guard(() async {
+      await _database.insert(
+        _tableName,
+        drugEntry.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+      return _fetchDrugEntry();
+    });
   }
 
-  Future<int> _insertIntoDatabase(DrugEntry drug) {
-    final db = await _database;
-    return _database.insert(
-      'drug_diary',
-      drug.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-  }
-
-  void remove(DrugEntry target) {
-    state = state.where((drug) => drug.id != target.id).toList();
-    _deleteFromDatabase(target);
-  }
-
-  void _deleteFromDatabase(DrugEntry drug) {
-    _database.delete(
-      'drug_diary',
-      where: 'id = ?',
-      whereArgs: [drug.id],
-    );
-  }
-
-  void update(DrugEntry target) {
-    state = [
-      for (final drug in state)
-        if (drug.id == target.id) target else drug,
-    ];
-    _insertIntoDatabase(target);
+  Future<void> removeDrugEntry(DrugEntry drugEntry) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      await _database.delete(
+        _tableName,
+        where: 'id = ?',
+        whereArgs: [drugEntry.id],
+      );
+      return _fetchDrugEntry();
+    });
   }
 }
