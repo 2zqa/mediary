@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mediary/models/drug_diary_item.dart';
-import 'package:mediary/providers/drug_diary_item_list_provider.dart';
+import 'package:mediary/models/drug_entry.dart';
+import 'package:mediary/providers/drug_entries_provider.dart';
 
 class AddDrugForm extends ConsumerStatefulWidget {
   const AddDrugForm({super.key});
@@ -20,8 +20,8 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
   DateTime? _date;
   String? _notes;
 
-  Iterable<DrugDiaryItem> _getAutocompleteSuggestions(
-      String text, Iterable<DrugDiaryItem> drugs) {
+  Iterable<DrugEntry> _getAutocompleteSuggestions(
+      String text, Iterable<DrugEntry> drugs) {
     if (text.trim().isEmpty) {
       return const Iterable.empty();
     }
@@ -31,8 +31,8 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
   }
 
   Widget _buildNameField() {
-    final Iterable<DrugDiaryItem> drugs = ref.watch(drugDiaryItemListProvider);
-    return Autocomplete<DrugDiaryItem>(
+    final Iterable<DrugEntry> drugs = ref.watch(drugEntriesProvider);
+    return Autocomplete<DrugEntry>(
       optionsBuilder: ((textEditingValue) =>
           _getAutocompleteSuggestions(textEditingValue.text, drugs)),
       displayStringForOption: (drug) => drug.name,
@@ -134,16 +134,14 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
                       onPressed: () {
                         _formKey.currentState!.save();
                         if (_formKey.currentState!.validate()) {
-                          DrugDiaryItem item = DrugDiaryItem(
+                          DrugEntry item = DrugEntry(
                             name: _name!,
                             amount: _amount!,
                             date: _date!,
                             notes: _notes,
                           );
 
-                          ref
-                              .read(drugDiaryItemListProvider.notifier)
-                              .add(item);
+                          ref.read(drugEntriesProvider.notifier).add(item);
 
                           Navigator.pop(context);
                         }

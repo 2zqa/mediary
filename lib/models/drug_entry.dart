@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -6,14 +5,14 @@ import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
 
-class DrugDiaryItem implements Comparable<DrugDiaryItem> {
+class DrugEntry implements Comparable<DrugEntry> {
   final String id;
   final String name;
   final String amount;
   final DateTime date;
   final String? notes;
 
-  DrugDiaryItem({
+  DrugEntry({
     String? id,
     required String name,
     required String amount,
@@ -25,8 +24,8 @@ class DrugDiaryItem implements Comparable<DrugDiaryItem> {
         notes = notes?.trim(),
         id = id ?? _uuid.v4();
 
-  factory DrugDiaryItem.fromMap(Map<String, dynamic> map) {
-    return DrugDiaryItem(
+  factory DrugEntry.fromMap(Map<String, dynamic> map) {
+    return DrugEntry(
       id: map['id'],
       name: map['name'],
       amount: map['amount'],
@@ -49,7 +48,7 @@ class DrugDiaryItem implements Comparable<DrugDiaryItem> {
   ///
   /// The id is included to ensure that the sort is stable.
   @override
-  int compareTo(DrugDiaryItem other) {
+  int compareTo(DrugEntry other) {
     final dateComparison = date.compareTo(other.date);
     if (dateComparison != 0) return dateComparison;
     final nameComparison = name.compareTo(other.name);
@@ -58,68 +57,67 @@ class DrugDiaryItem implements Comparable<DrugDiaryItem> {
   }
 }
 
-/// An object that controls a list of [DrugDiaryItem].
-class DrugDiaryProvider extends StateNotifier<List<DrugDiaryItem>> {
-  final Future<Database> _database;
+/// An object that controls a list of [DrugEntry].
+class DrugEntriesProvider extends StateNotifier<List<DrugEntry>> {
+  static const _tableName = 'drug_entries';
+  late final Future<Database> _database;
 
-  DrugDiaryProvider() : super([]) {
-    _init();
-  }
+  DrugEntriesProvider() : super([]);
 
-  Future<void> _init() async {
+  Future<void> initialize() async {
     _database = openDatabase(
-      join(await getDatabasesPath(), 'drug_diary.db'),
+      join(await getDatabasesPath(), 'mediary.db'),
       onCreate: (db, version) {
         return db.execute(
-          'CREATE TABLE drug_diary(id TEXT PRIMARY KEY, name TEXT NOT NULL, amount TEXT NOT NULL, date TEXT NOT NULL, notes TEXT NOT NULL)',
+          'CREATE TABLE $_tableName(id TEXT PRIMARY KEY, name TEXT NOT NULL, amount TEXT NOT NULL, date TEXT NOT NULL, notes TEXT NOT NULL)',
         );
       },
       onOpen: (db) async {
         final List<Map<String, Object?>> drugMaps =
-            await db.query('drug_diary');
+            await db.query(_tableName);
         state =
-            drugMaps.map((drugMap) => DrugDiaryItem.fromMap(drugMap)).toList();
+            drugMaps.map((drugMap) => DrugEntry.fromMap(drugMap)).toList();
       },
       version: 1,
     );
   }
 
-  void add(DrugDiaryItem drugDiaryItem) {
+  void add(DrugEntry drug) {
     state = [
       ...state,
-      drugDiaryItem,
+      drug,
     ];
 
-    _insertIntoDatabase(drugDiaryItem);
+    _insertIntoDatabase(drug);
   }
 
-  Future<int> _insertIntoDatabase(DrugDiaryItem drugDiaryItem) {
+  Future<int> _insertIntoDatabase(DrugEntry drug) {
     final db = await _database;
     return _database.insert(
       'drug_diary',
-      drugDiaryItem.toMap(),
+      drug.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
-  void remove(DrugDiaryItem target) {
+  void remove(DrugEntry target) {
     state = state.where((drug) => drug.id != target.id).toList();
     _deleteFromDatabase(target);
   }
 
-  void _deleteFromDatabase(DrugDiaryItem target) {
+  void _deleteFromDatabase(DrugEntry drug) {
     _database.delete(
       'drug_diary',
       where: 'id = ?',
-      whereArgs: [target.id],
+      whereArgs: [drug.id],
     );
   }
 
-  void update(DrugDiaryItem drugDiaryItem) {
+  void update(DrugEntry target) {
     state = [
       for (final drug in state)
-        if (drug.id == drugDiaryItem.id) drugDiaryItem else drug,
+        if (drug.id == target.id) target else drug,
     ];
-    _insertIntoDatabase(drugDiaryItem);
+    _insertIntoDatabase(target);
   }
 }

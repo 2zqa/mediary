@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mediary/formatting/date_formatter.dart';
-import 'package:mediary/models/drug_diary_item.dart';
+import 'package:mediary/models/drug_entry.dart';
 
 class DrugDetails extends StatelessWidget {
-  final DrugDiaryItem drug;
+  final DrugEntry drug;
   const DrugDetails(this.drug, {super.key});
 
   @override

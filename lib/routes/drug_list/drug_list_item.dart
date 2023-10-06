@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mediary/formatting/date_formatter.dart';
-import 'package:mediary/models/drug_diary_item.dart';
+import 'package:mediary/models/drug_entry.dart';
 
 import '../drug_details/drug_details.dart';
 
 class DrugListItem extends StatelessWidget {
-  final DrugDiaryItem drug;
-  final void Function(DrugDiaryItem drug)? onDelete;
-  final void Function(DrugDiaryItem drug)? onUndo;
+  final DrugEntry drug;
+  final void Function(DrugEntry drug)? onDelete;
+  final void Function(DrugEntry drug)? onUndo;
 
   const DrugListItem({
     required this.drug,

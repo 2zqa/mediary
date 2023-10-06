@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:mediary/formatting/date_formatter.dart';
-import 'package:mediary/models/drug_diary_item.dart';
+import 'package:mediary/models/drug_entry.dart';
 
-import '../../providers/drug_diary_item_list_provider.dart';
+import '../../providers/drug_entries_provider.dart';
 import 'drug_list_item.dart';
 import 'group_header.dart';
 
@@ -16,9 +16,9 @@ class DrugList extends ConsumerStatefulWidget {
 }
 
 class DrugListState extends ConsumerState<DrugList> {
-  Widget _buildList(List<DrugDiaryItem> drugs) {
-    final drugStateNotifier = ref.read(drugDiaryItemListProvider.notifier);
-    return GroupedListView<DrugDiaryItem, DateTime>(
+  Widget _buildList(List<DrugEntry> drugs) {
+    final drugStateNotifier = ref.read(drugEntriesProvider.notifier);
+    return GroupedListView<DrugEntry, DateTime>(
       elements: drugs,
       groupBy: (drug) => DateUtils.dateOnly(drug.date),
       sort: true,
@@ -26,7 +26,7 @@ class DrugListState extends ConsumerState<DrugList> {
           GroupHeader(heading: formatter.format(date)),
       indexedItemBuilder: (context, drug, index) {
         return DrugListItem(
-                    drug: drug,
+          drug: drug,
           onDelete: drugStateNotifier.remove,
           onUndo: drugStateNotifier.add,
         );
@@ -56,7 +56,7 @@ class DrugListState extends ConsumerState<DrugList> {
 
   @override
   Widget build(BuildContext context) {
-    final drugs = ref.watch(drugDiaryItemListProvider);
+    final drugs = ref.watch(drugEntriesProvider);
     return drugs.isEmpty ? _buildEmptyList() : _buildList(drugs);
   }
 }
