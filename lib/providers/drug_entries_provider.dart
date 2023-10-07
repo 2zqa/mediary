@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mediary/models/drug_entry.dart';
 
-final asyncTodosProvider =
+final asyncDrugEntriesProvider =
     AsyncNotifierProvider<AsyncDrugEntriesNotifier, List<DrugEntry>>(() {
   return AsyncDrugEntriesNotifier();
 });

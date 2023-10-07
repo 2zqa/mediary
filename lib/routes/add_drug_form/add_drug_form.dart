@@ -30,8 +30,15 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
     });
   }
 
-  Widget _buildNameField() {
-    final Iterable<DrugEntry> drugs = ref.watch(drugEntriesProvider);
+  String? notEmptyValidator(String? value, String fieldName) {
+    if (value == null || value.trim().isEmpty) {
+      return '$fieldName is vereist.';
+    }
+
+    return null;
+  }
+
+  Widget _buildNameField(Iterable<DrugEntry> drugs) {
     return Autocomplete<DrugEntry>(
       optionsBuilder: ((textEditingValue) =>
           _getAutocompleteSuggestions(textEditingValue.text, drugs)),
@@ -47,13 +54,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
           hintText: 'e.g. ${drugs.lastOrNull?.name ?? 'Alcohol'}',
         ),
         maxLength: 25,
-        validator: (value) {
-          if (value == null || value.trim().isEmpty) {
-            return 'Naam is vereist.';
-          }
-
-          return null;
-        },
+        validator: (value) => notEmptyValidator(value, 'Naam'),
         onSaved: (value) => _name = value!,
       ),
     );
@@ -67,13 +68,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
         border: OutlineInputBorder(),
       ),
       maxLength: 25,
-      validator: (value) {
-        if (value == null || value.trim().isEmpty) {
-          return 'Hoeveelheid is vereist.';
-        }
-
-        return null;
-      },
+      validator: (value) => notEmptyValidator(value, 'Hoeveelheid'),
       onSaved: (value) => _amount = value!,
     );
   }
@@ -110,46 +105,53 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Drug toevoegen'),
-      ),
-      body: Scrollbar(
-        child: SingleChildScrollView(
-          child: Container(
-            margin: const EdgeInsets.all(24),
-            child: Form(
-              key: _formKey,
-              child: Wrap(
-                spacing: 20,
-                runSpacing: 20,
-                children: <Widget>[
-                  _buildNameField(),
-                  _buildAmountField(),
-                  _buildDateField(),
-                  _buildNotesField(),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        _formKey.currentState!.save();
-                        if (_formKey.currentState!.validate()) {
-                          DrugEntry item = DrugEntry(
-                            name: _name!,
-                            amount: _amount!,
-                            date: _date!,
-                            notes: _notes,
-                          );
+    final asyncDrugsValue = ref.watch(asyncDrugEntriesProvider);
+    return asyncDrugsValue.when(
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, stack) => Center(child: Text('Error: $error')),
+      data: (drugs) => Scaffold(
+        appBar: AppBar(
+          title: const Text('Drug toevoegen'),
+        ),
+        body: Scrollbar(
+          child: SingleChildScrollView(
+            child: Container(
+              margin: const EdgeInsets.all(24),
+              child: Form(
+                key: _formKey,
+                child: Wrap(
+                  spacing: 20,
+                  runSpacing: 20,
+                  children: <Widget>[
+                    _buildNameField(drugs),
+                    _buildAmountField(),
+                    _buildDateField(),
+                    _buildNotesField(),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _formKey.currentState!.save();
+                          if (_formKey.currentState!.validate()) {
+                            DrugEntry drug = DrugEntry(
+                              name: _name!,
+                              amount: _amount!,
+                              date: _date!,
+                              notes: _notes,
+                            );
 
-                          ref.read(drugEntriesProvider.notifier).add(item);
+                            ref
+                                .read(asyncDrugEntriesProvider.notifier)
+                                .addDrugEntry(drug);
 
-                          Navigator.pop(context);
-                        }
-                      },
-                      child: const Text('Submit'),
+                            Navigator.pop(context);
+                          }
+                        },
+                        child: const Text('Submit'),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
