@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
             MaterialPageRoute(builder: (_) => const AddDrugForm()),
           );
         },
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add_outlined),
       ),
     );
   }

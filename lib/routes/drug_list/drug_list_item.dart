@@ -41,7 +41,7 @@ class DrugListItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Icon(
-              Icons.delete,
+              Icons.delete_outlined,
               color: Colors.white,
             ),
           ],
