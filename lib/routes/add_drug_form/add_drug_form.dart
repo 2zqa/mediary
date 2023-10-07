@@ -3,6 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mediary/models/drug_entry.dart';
 import 'package:mediary/providers/drug_entries_provider.dart';
+import 'package:mediary/util/date_time_picker.dart';
+
+import '../../formatting/date_formatter.dart';
 
 class AddDrugForm extends ConsumerStatefulWidget {
   const AddDrugForm({super.key});
@@ -15,9 +18,10 @@ class AddDrugForm extends ConsumerStatefulWidget {
 
 class AddDrugFormState extends ConsumerState<AddDrugForm> {
   final _formKey = GlobalKey<FormState>();
+  final _dateController = TextEditingController();
   String? _name;
   String? _amount;
-  DateTime? _date;
+  DateTime? _timestamp;
   String? _notes;
 
   Iterable<DrugEntry> _getAutocompleteSuggestions(
@@ -74,13 +78,26 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
   }
 
   Widget _buildDateField() {
-    return InputDatePickerFormField(
-      fieldLabelText: 'Datum gebruik',
-      lastDate: DateTime.now().add(const Duration(days: 1)),
-      firstDate: DateTime(2000),
-      acceptEmptyDate: false,
-      onDateSaved: (value) => _date = value,
-      initialDate: DateTime.now(),
+    return TextFormField(
+      controller: _dateController,
+      readOnly: true,
+      validator: (value) => notEmptyValidator(value, 'Tijdstip'),
+      decoration: const InputDecoration(
+        labelText: 'Tijdstip',
+        border: OutlineInputBorder(),
+      ),
+      onTap: () async {
+        final now = DateTime.now();
+        final dateTime = await showDateTimePicker(
+          context: context,
+          initialDate: _timestamp ?? now,
+          firstDate: DateTime(2000),
+          lastDate: now,
+        );
+        if (dateTime == null) return;
+        _timestamp = dateTime;
+        _dateController.text = timeDateFormatter.format(dateTime);
+      },
     );
   }
 
@@ -136,7 +153,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
                             DrugEntry drug = DrugEntry(
                               name: _name!,
                               amount: _amount!,
-                              date: _date!,
+                              date: _timestamp!,
                               notes: _notes,
                             );
 
