@@ -62,7 +62,8 @@ class DrugEntry implements Comparable<DrugEntry> {
 class AsyncDrugEntriesNotifier extends AsyncNotifier<List<DrugEntry>> {
   late final Database _database;
   static const _tableName = 'drug_entries';
-  Future<List<DrugEntry>> _fetchDrugEntry() async {
+
+  Future<List<DrugEntry>> _getAll() async {
     List<Map<String, Object?>> drugMaps = await _database.query(_tableName);
     return drugMaps.map(DrugEntry.fromMap).toList();
   }
@@ -78,10 +79,10 @@ class AsyncDrugEntriesNotifier extends AsyncNotifier<List<DrugEntry>> {
         );
       },
     );
-    return _fetchDrugEntry();
+    return _getAll();
   }
 
-  Future<void> addDrugEntry(DrugEntry drugEntry) async {
+  Future<void> add(DrugEntry drugEntry) async {
     // Set the state to loading
     state = const AsyncValue.loading();
     // Add the new drugEntry and reload the drugEntry list from the remote repository
@@ -91,11 +92,11 @@ class AsyncDrugEntriesNotifier extends AsyncNotifier<List<DrugEntry>> {
         drugEntry.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
-      return _fetchDrugEntry();
+      return _getAll();
     });
   }
 
-  Future<void> removeDrugEntry(DrugEntry drugEntry) async {
+  Future<void> delete(DrugEntry drugEntry) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       await _database.delete(
@@ -103,7 +104,7 @@ class AsyncDrugEntriesNotifier extends AsyncNotifier<List<DrugEntry>> {
         where: 'id = ?',
         whereArgs: [drugEntry.id],
       );
-      return _fetchDrugEntry();
+      return _getAll();
     });
   }
 }

@@ -105,7 +105,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
 
   @override
   Widget build(BuildContext context) {
-    final asyncDrugsValue = ref.watch(asyncDrugEntriesProvider);
+    final asyncDrugsValue = ref.watch(drugEntriesProvider);
     return asyncDrugsValue.when(
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stack) => Center(child: Text('Error: $error')),
@@ -140,9 +140,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
                               notes: _notes,
                             );
 
-                            ref
-                                .read(asyncDrugEntriesProvider.notifier)
-                                .addDrugEntry(drug);
+                            ref.read(drugEntriesProvider.notifier).add(drug);
 
                             Navigator.pop(context);
                           }

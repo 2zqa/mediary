@@ -17,7 +17,7 @@ class DrugList extends ConsumerStatefulWidget {
 
 class DrugListState extends ConsumerState<DrugList> {
   Widget _buildList(List<DrugEntry> drugs) {
-    final drugStateNotifier = ref.read(asyncDrugEntriesProvider.notifier);
+    final drugStateNotifier = ref.read(drugEntriesProvider.notifier);
     return GroupedListView<DrugEntry, DateTime>(
       elements: drugs,
       groupBy: (drug) => DateUtils.dateOnly(drug.date),
@@ -27,8 +27,8 @@ class DrugListState extends ConsumerState<DrugList> {
       indexedItemBuilder: (context, drug, index) {
         return DrugListItem(
           drug: drug,
-          onDelete: drugStateNotifier.removeDrugEntry,
-          onUndo: drugStateNotifier.addDrugEntry,
+          onDelete: drugStateNotifier.delete,
+          onUndo: drugStateNotifier.add,
         );
       },
     );
@@ -56,7 +56,7 @@ class DrugListState extends ConsumerState<DrugList> {
 
   @override
   Widget build(BuildContext context) {
-    final asyncDrugsValue = ref.watch(asyncDrugEntriesProvider);
+    final asyncDrugsValue = ref.watch(drugEntriesProvider);
     return asyncDrugsValue.when(
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stack) => Center(child: Text('Error: $error')),
