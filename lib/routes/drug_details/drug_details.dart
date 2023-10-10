@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mediary/formatting/date_formatter.dart';
 import 'package:mediary/models/drug_entry.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DrugDetails extends StatelessWidget {
   final DrugEntry drug;
@@ -8,6 +9,7 @@ class DrugDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String locale = AppLocalizations.of(context)!.localeName;
     return Scaffold(
       appBar: AppBar(
         title: Text(drug.name),
@@ -30,7 +32,7 @@ class DrugDetails extends StatelessWidget {
             Text(drug.amount),
             const SizedBox(height: 8),
             const Text('Datum:', style: TextStyle(fontWeight: FontWeight.bold)),
-            Text(formatter.format(drug.date)),
+            Text(formatDateTime(drug.date, locale)),
             const SizedBox(height: 8),
             const Text('Notities:',
                 style: TextStyle(fontWeight: FontWeight.bold)),

@@ -1,7 +1,9 @@
 import 'package:intl/intl.dart';
 
-final formatter = DateFormat.yMEd();
+formatDate(DateTime dateTime, String localeName) {
+  return DateFormat.yMMMMEEEEd(localeName).format(dateTime);
+}
 
 formatDateTime(DateTime dateTime, String localeName) {
-  return DateFormat.yMEd(localeName).add_jm().format(dateTime);
+  return DateFormat.yMMMEd(localeName).add_jm().format(dateTime);
 }

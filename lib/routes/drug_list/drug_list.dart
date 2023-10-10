@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:mediary/formatting/date_formatter.dart';
 import 'package:mediary/models/drug_entry.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../providers/drug_entries_provider.dart';
 import 'drug_list_item.dart';
@@ -17,13 +18,14 @@ class DrugList extends ConsumerStatefulWidget {
 
 class DrugListState extends ConsumerState<DrugList> {
   Widget _buildList(List<DrugEntry> drugs) {
+    String locale = AppLocalizations.of(context)!.localeName;
     final drugStateNotifier = ref.read(drugEntriesProvider.notifier);
     return GroupedListView<DrugEntry, DateTime>(
       elements: drugs,
       groupBy: (drug) => DateUtils.dateOnly(drug.date),
       sort: true,
       groupSeparatorBuilder: (date) =>
-          GroupHeader(heading: formatter.format(date)),
+          GroupHeader(heading: formatDate(date, locale)),
       indexedItemBuilder: (context, drug, index) {
         return DrugListItem(
           drug: drug,
