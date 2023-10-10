@@ -93,7 +93,6 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
         border: const OutlineInputBorder(),
       ),
       onTap: () async {
-        final localeString = AppLocalizations.of(context)!.localeName;
         final now = DateTime.now();
         final dateTime = await showDateTimePicker(
           context: context,
@@ -102,8 +101,11 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
           lastDate: now,
         );
         if (dateTime == null) return;
+        if (!context.mounted) return;
         _timestamp = dateTime;
-        _dateController.text = formatDateTime(dateTime, localeString);
+        final formattedDateTime = AppLocalizations.of(context)!
+            .drugDateAndTimeFieldText(dateTime, dateTime);
+        _dateController.text = formattedDateTime;
       },
     );
   }
@@ -114,7 +116,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
         decoration: InputDecoration(
           labelText: AppLocalizations.of(context)!.drugNotesFieldTitle,
           counterText: '',
-          helperText: 'Optioneel',
+          helperText: AppLocalizations.of(context)!.optionalField,
           border: const OutlineInputBorder(),
         ),
         minLines: 2,
@@ -135,7 +137,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
       error: (error, stack) => Center(child: Text('Error: $error')),
       data: (drugs) => Scaffold(
         appBar: AppBar(
-          title: const Text('Drug toevoegen'),
+          title: Text(AppLocalizations.of(context)!.addDrugFormTitle),
         ),
         body: Scrollbar(
           child: SingleChildScrollView(

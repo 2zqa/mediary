@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mediary/formatting/date_formatter.dart';
 import 'package:mediary/models/drug_entry.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../drug_details/drug_details.dart';
 
@@ -25,9 +26,10 @@ class DrugListItem extends StatelessWidget {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             dismissDirection: DismissDirection.none,
-            content: Text('${drug.name} verwijderd'),
+            content: Text(AppLocalizations.of(context)!
+                .drugRemovedSnackbarText(drug.name)),
             action: SnackBarAction(
-              label: 'Annuleer',
+              label: AppLocalizations.of(context)!.undoText,
               onPressed: () => onUndo?.call(drug),
             ),
           ),
@@ -59,7 +61,8 @@ class DrugListItem extends StatelessWidget {
         },
         title: Text(drug.name),
         subtitle: Text(
-          '${drug.amount.toString()} gebruikt om ${dayFormatter.format(drug.date)}',
+          AppLocalizations.of(context)!
+              .drugUsedSubtitle(drug.amount, drug.date),
         ),
       ),
     );
