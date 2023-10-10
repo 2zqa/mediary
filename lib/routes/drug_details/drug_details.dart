@@ -17,6 +17,11 @@ class DrugDetails extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            const Text(
+              "N.B. Ontwerp van dit scherm is nog niet af!",
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),
+            const SizedBox(height: 32),
             const Text('Naam:', style: TextStyle(fontWeight: FontWeight.bold)),
             Text(drug.name),
             const SizedBox(height: 8),
