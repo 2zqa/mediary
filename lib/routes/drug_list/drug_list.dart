@@ -24,6 +24,7 @@ class DrugListState extends ConsumerState<DrugList> {
       elements: drugs,
       groupBy: (drug) => DateUtils.dateOnly(drug.date),
       sort: true,
+      order: GroupedListOrder.DESC,
       groupSeparatorBuilder: (date) =>
           GroupHeader(heading: formatDate(date, locale)),
       indexedItemBuilder: (context, drug, index) {
