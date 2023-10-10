@@ -8,6 +8,6 @@
   "drugAmountFieldHint": "e.g. 1 pil",
   "drugDateAndTimeFieldTitle": "Datum en tijd",
   "drugNotesFieldTitle": "Notities",
-  "optionalField": "optioneel",
+  "optionalField": "Optioneel",
   "submitButtonText": "Opslaan"
 }
