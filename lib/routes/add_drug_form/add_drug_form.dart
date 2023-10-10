@@ -93,6 +93,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
         border: const OutlineInputBorder(),
       ),
       onTap: () async {
+        final localeString = AppLocalizations.of(context)!.localeName;
         final now = DateTime.now();
         final dateTime = await showDateTimePicker(
           context: context,
@@ -102,7 +103,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
         );
         if (dateTime == null) return;
         _timestamp = dateTime;
-        _dateController.text = timeDateFormatter.format(dateTime);
+        _dateController.text = formatDateTime(dateTime, localeString);
       },
     );
   }
