@@ -1,0 +1,45 @@
+{
+  "@@locale": "en",
+  "emptyPage": "Nothing to see here…",
+  "@emptyPage": {
+    "description": "Shown when there are no drugs in the list"
+  },
+  "drugNameFieldTitle": "Name",
+  "@drugNameFieldTitle": {
+    "description": "Shown above the field where the name of the used drug is entered"
+  },
+  "drugNameFieldHint": "e.g. {drugName}",
+  "@drugNameFieldHint": {
+    "description": "Shown as a hint in the field where the name of the used drug is entered",
+    "placeholders": {
+      "drugName": {
+        "description": "An example drug name",
+        "example": "Aspirin"
+      }
+    }
+  },
+  "drugExampleName": "Aspirin",
+  "@drugExampleName": {
+    "description": "Used as the default placeholder for drugNameFieldHint"
+  },
+  "drugAmountFieldTitle": "Amount",
+  "@drugAmountFieldTitle": {
+    "description": "Shown above the field where the amount of the drug usage is entered"
+  },
+  "drugAmountFieldHint": "e.g. 1 pill",
+  "@drugAmountFieldHint": {
+    "description": "Shown as a hint in the field where the amount of the drug usage is entered"
+  },
+  "drugDateAndTimeFieldTitle": "Date and time",
+  "@drugDateAndTimeFieldTitle": {
+    "description": "Shown above the field where the date and time of the drug usage is entered"
+  },
+  "drugNotesFieldTitle": "Notes",
+  "@drugNotesFieldTitle": {
+    "description": "Shown above the field where the notes about the drug usage are entered"
+  },
+  "optionalField": "Optional",
+  "@optionalField": {
+    "description": "Shown below optional fields in a form"
+  }
+}

@@ -2,18 +2,18 @@ name: mediary
 description: Track drug usage without judgement.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 version: 0.0.1
 
 environment:
-  sdk: '>=3.1.2 <4.0.0'
+  sdk: ">=3.1.2 <4.0.0"
 
 # To upgrade, run `flutter pub upgrade --major-versions`.
 dependencies:
   flutter:
     sdk: flutter
-  intl: ^0.18.1
+  intl: any
   grouped_list: ^5.1.2
   sticky_headers: ^0.3.0+2
   flutter_launcher_icons: ^0.13.1
@@ -21,6 +21,8 @@ dependencies:
   uuid: ^4.1.0
   sqflite: ^2.3.0
   path: ^1.8.3
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
@@ -29,6 +31,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true
 
   # To add assets to your application, add an assets section, like this:
   # assets:

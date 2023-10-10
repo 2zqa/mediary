@@ -1,0 +1,12 @@
+{
+  "@@locale": "nl",
+  "emptyPage": "Niets te zien hier…",
+  "drugNameFieldTitle": "Naam",
+  "drugNameFieldHint": "e.g. {drugName}",
+  "drugExampleName": "Aspirine",
+  "drugAmountFieldTitle": "Hoeveelheid",
+  "drugAmountFieldHint": "e.g. 1 pil",
+  "drugDateAndTimeFieldTitle": "Datum en tijd",
+  "drugNotesFieldTitle": "Notities",
+  "optionalField": "optioneel"
+}

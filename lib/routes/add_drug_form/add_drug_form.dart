@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mediary/models/drug_entry.dart';
 import 'package:mediary/providers/drug_entries_provider.dart';
 import 'package:mediary/util/date_time_picker.dart';
-
 import '../../formatting/date_formatter.dart';
 
 class AddDrugForm extends ConsumerStatefulWidget {
@@ -43,6 +43,9 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
   }
 
   Widget _buildNameField(Iterable<DrugEntry> drugs) {
+    final title = AppLocalizations.of(context)!.drugNameFieldTitle;
+    final nameSuggestion =
+        drugs.lastOrNull?.name ?? AppLocalizations.of(context)!.drugExampleName;
     return Autocomplete<DrugEntry>(
       optionsBuilder: ((textEditingValue) =>
           _getAutocompleteSuggestions(textEditingValue.text, drugs)),
@@ -53,38 +56,41 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
         focusNode: focusNode,
         onFieldSubmitted: (_) => onFieldSubmitted(),
         decoration: InputDecoration(
-          labelText: 'Naam',
+          labelText: title,
           border: const OutlineInputBorder(),
-          hintText: 'e.g. ${drugs.lastOrNull?.name ?? 'Alcohol'}',
+          hintText:
+              AppLocalizations.of(context)!.drugNameFieldHint(nameSuggestion),
         ),
         maxLength: 25,
-        validator: (value) => notEmptyValidator(value, 'Naam'),
+        validator: (value) => notEmptyValidator(value, title),
         onSaved: (value) => _name = value!,
       ),
     );
   }
 
   Widget _buildAmountField() {
+    final title = AppLocalizations.of(context)!.drugAmountFieldTitle;
     return TextFormField(
-      decoration: const InputDecoration(
-        labelText: 'Hoeveelheid',
-        hintText: 'e.g. 1 glas',
-        border: OutlineInputBorder(),
+      decoration: InputDecoration(
+        labelText: title,
+        hintText: AppLocalizations.of(context)!.drugAmountFieldHint,
+        border: const OutlineInputBorder(),
       ),
       maxLength: 25,
-      validator: (value) => notEmptyValidator(value, 'Hoeveelheid'),
+      validator: (value) => notEmptyValidator(value, title),
       onSaved: (value) => _amount = value!,
     );
   }
 
   Widget _buildDateField() {
+    final title = AppLocalizations.of(context)!.drugDateAndTimeFieldTitle;
     return TextFormField(
       controller: _dateController,
       readOnly: true,
-      validator: (value) => notEmptyValidator(value, 'Tijdstip'),
-      decoration: const InputDecoration(
-        labelText: 'Tijdstip',
-        border: OutlineInputBorder(),
+      validator: (value) => notEmptyValidator(value, title),
+      decoration: InputDecoration(
+        labelText: title,
+        border: const OutlineInputBorder(),
       ),
       onTap: () async {
         final now = DateTime.now();
@@ -104,11 +110,11 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
   Widget _buildNotesField() {
     return SizedBox(
       child: TextFormField(
-        decoration: const InputDecoration(
-          labelText: 'Notities',
+        decoration: InputDecoration(
+          labelText: AppLocalizations.of(context)!.drugNotesFieldTitle,
           counterText: '',
           helperText: 'Optioneel',
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
         ),
         minLines: 2,
         maxLines: 5,
