@@ -3,11 +3,16 @@
   "emptyPage": "Niets te zien hier…",
   "drugNameFieldTitle": "Naam",
   "drugNameFieldHint": "e.g. {drugName}",
-  "drugExampleName": "Aspirine",
+  "drugExampleName": "Wiet",
   "drugAmountFieldTitle": "Hoeveelheid",
-  "drugAmountFieldHint": "e.g. 1 pil",
+  "drugAmountFieldHint": "e.g. 1 joint",
   "drugDateAndTimeFieldTitle": "Datum en tijd",
+  "drugDateAndTimeFieldText": "{date}, {time}",
   "drugNotesFieldTitle": "Notities",
   "optionalField": "Optioneel",
-  "submitButtonText": "Opslaan"
+  "submitButtonText": "Opslaan",
+  "addDrugFormTitle": "Drug toevoegen",
+  "drugRemovedSnackbarText": "{drugName} verwijderd",
+  "undoText": "Annuleer",
+  "drugUsedSubtitle": "{drugName} gebruikt om {time}"
 }
