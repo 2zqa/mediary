@@ -41,5 +41,9 @@
   "optionalField": "Optional",
   "@optionalField": {
     "description": "Shown below optional fields in a form"
+  },
+  "submitButtonText": "Submit",
+  "@submitButtonText": {
+    "description": "Shown on the button that submits the form"
   }
 }

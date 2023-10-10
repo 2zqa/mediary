@@ -168,7 +168,8 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
                             Navigator.pop(context);
                           }
                         },
-                        child: const Text('Submit'),
+                        child: Text(
+                            AppLocalizations.of(context)!.submitButtonText),
                       ),
                     ),
                   ],
