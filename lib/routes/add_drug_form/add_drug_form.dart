@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mediary/models/drug_entry.dart';
 import 'package:mediary/providers/drug_entries_provider.dart';
 import 'package:mediary/util/date_time_picker.dart';
-import '../../formatting/date_formatter.dart';
 
 class AddDrugForm extends ConsumerStatefulWidget {
   const AddDrugForm({super.key});
@@ -93,6 +92,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
         border: const OutlineInputBorder(),
       ),
       onTap: () async {
+        final localizations = AppLocalizations.of(context)!;
         final now = DateTime.now();
         final dateTime = await showDateTimePicker(
           context: context,
@@ -101,11 +101,9 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
           lastDate: now,
         );
         if (dateTime == null) return;
-        if (!context.mounted) return;
         _timestamp = dateTime;
-        final formattedDateTime = AppLocalizations.of(context)!
-            .drugDateAndTimeFieldText(dateTime, dateTime);
-        _dateController.text = formattedDateTime;
+        _dateController.text =
+            localizations.drugDateAndTimeFieldText(dateTime, dateTime);
       },
     );
   }
