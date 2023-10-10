@@ -24,6 +24,7 @@ class DrugListItem extends StatelessWidget {
         if (onUndo == null) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
+            dismissDirection: DismissDirection.none,
             content: Text('${drug.name} verwijderd'),
             action: SnackBarAction(
               label: 'Annuleer',
