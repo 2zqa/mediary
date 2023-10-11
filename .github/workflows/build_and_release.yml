@@ -3,7 +3,6 @@ name: Build and release APKs
 on:
   push:
     tags: 'v*.*.*'
-  workflow_dispatch:
 
 jobs:
   build:
