@@ -1,4 +1,4 @@
-name: Build APKs
+name: Build and release APKs
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Configure Keystore
         run: |
@@ -46,3 +46,20 @@ jobs:
           path: |
             build/app/outputs/flutter-apk/*.apk
             build/app/outputs/flutter-apk/*.apk.sha1
+
+  release:
+    name: "Release"
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # For creating a release
+    steps:
+      - uses: actions/download-artifact@v3
+        id: download
+        with:
+          name: build
+      - name: "Create Release"
+        uses: softprops/action-gh-release@v1
+        with:
+          fail_on_unmatched_files: true
+          files: ${{ steps.download.outputs.download-path }}/* # Upload all files from the artifact
