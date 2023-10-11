@@ -7,7 +7,6 @@
   "drugAmountFieldTitle": "Hoeveelheid",
   "drugAmountFieldHint": "e.g. 1 joint",
   "drugDateAndTimeFieldTitle": "Datum en tijd",
-  "drugDateAndTimeFieldText": "{date}, {time}",
   "drugNotesFieldTitle": "Notities",
   "optionalField": "Optioneel",
   "submitButtonText": "Opslaan",

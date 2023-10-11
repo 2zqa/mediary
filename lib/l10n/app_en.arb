@@ -34,22 +34,6 @@
   "@drugDateAndTimeFieldTitle": {
     "description": "Shown above the field where the date and time of the drug usage is entered"
   },
-  "drugDateAndTimeFieldText": "{date}, {time}",
-  "@drugDateAndTimeFieldText": {
-    "description": "Shown in the field where the date and time of the drug usage is entered",
-    "placeholders": {
-      "date": {
-        "description": "The date of the drug usage",
-        "type": "DateTime",
-        "format": "yMMMEd"
-      },
-      "time": {
-        "description": "The time of the drug usage",
-        "type": "DateTime",
-        "format": "jm"
-      }
-    }
-  },
   "drugNotesFieldTitle": "Notes",
   "@drugNotesFieldTitle": {
     "description": "Shown above the field where the notes about the drug usage are entered"
