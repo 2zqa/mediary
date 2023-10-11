@@ -1,4 +1,4 @@
-package com.example.mediary
+package nl.marijnk.mediary
 
 import io.flutter.embedding.android.FlutterActivity
 

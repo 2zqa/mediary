@@ -8,7 +8,7 @@
 PRODUCT_NAME = mediary
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.mediary
+PRODUCT_BUNDLE_IDENTIFIER = nl.marijnk.mediary
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2023 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2023 nl.marijnk. All rights reserved.
