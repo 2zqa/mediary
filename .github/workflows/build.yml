@@ -1,4 +1,4 @@
-name: Flutter_Android
+name: Build APKs
 
 on:
   push:
@@ -30,7 +30,7 @@ jobs:
           echo "keyPassword=$KEYSTORE_KEY_PASSWORD" >> key.properties
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
+          KEYSTORE_KEY_ALIAS: ${{ vars.KEYSTORE_KEY_ALIAS }}
           KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
           KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
         working-directory: android
