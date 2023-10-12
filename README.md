@@ -1,4 +1,4 @@
-# Mediary
+# <img src="/android/app/src/main/res/mipmap-mdpi/ic_launcher.webp" height="32px" width="32px" alt="App icon"></img> Mediary
 
 [![Build and release APKs](https://github.com/2zqa/mediary/actions/workflows/build_and_release.yml/badge.svg)](https://github.com/2zqa/mediary/actions/workflows/build_and_release.yml)
 
