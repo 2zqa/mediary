@@ -10,6 +10,15 @@ Track drug usage without judgement.
 
 Mediary (pronounced med-diary, or just mediary) is an app that allows users to track their drug usage. You can log the name, the amount, and the time and date of use. It is also possible to attach a note to a log entry. You can view logs in a list view. A calendar view is planned for a future release.
 
+## Screenshots
+
+<div>
+    <img width="20%" src="/screenshots/1.png" alt="Overview" title="Overview"></img>
+    <img width="20%" src="/screenshots/2.png" alt="Add drug form" title="Add drug form"></img>
+    <img width="20%" src="/screenshots/3.png" alt="Deleting an entry" title="Deleting an entry"></img>
+    <img width="20%" src="/screenshots/4.png" alt="Drug details page" title="Drug details page"></img>
+</div>
+
 ## Installing
 
 * Download the appropiate APK for your device from the [releases page](https://github.com/2zqa/mediary/releases). If you don't know which to choose, you'll probably want to pick **app-arm64-v8a-release.apk**.
