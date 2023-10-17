@@ -21,6 +21,7 @@ class DrugCalendarView extends ConsumerWidget {
       error: (error, stack) => Center(child: Text('Error: $error')),
       data: (controller) => MonthView(
         controller: controller,
+        useAvailableVerticalSpace: true,
         headerStringBuilder: (date, {secondaryDate}) =>
             formatMonthYear(date, locale),
         onEventTap: (eventData, _) {
