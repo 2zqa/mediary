@@ -13,5 +13,8 @@
   "addDrugFormTitle": "Drug toevoegen",
   "drugRemovedSnackbarText": "{drugName} verwijderd",
   "undoText": "Annuleer",
-  "drugUsedSubtitle": "{drugName} gebruikt om {time}"
+  "drugUsedSubtitle": "{drugName} gebruikt om {time}",
+  "homeViewTitle": "Thuis",
+  "calendarViewTitle": "Agenda",
+  "settingsViewTitle": "Instellingen"
 }

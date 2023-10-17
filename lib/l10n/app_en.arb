@@ -76,5 +76,17 @@
         "format": "jm"
       }
     }
+  },
+  "homeViewTitle": "Home",
+  "@homeViewTitle": {
+    "description": "Shown as the title in the navigation bar"
+  },
+  "calendarViewTitle": "Calendar",
+  "@calendarViewTitle": {
+    "description": "Shown as the title in the navigation bar"
+  },
+  "settingsViewTitle": "Settings",
+  "@settingsViewTitle": {
+    "description": "Shown as the title in the navigation bar"
   }
 }

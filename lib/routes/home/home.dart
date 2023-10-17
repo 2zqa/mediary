@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mediary/routes/add_drug_form/add_drug_form.dart';
 import 'package:mediary/routes/drug_list/drug_list.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../drug_calendar_view/drug_calendar_view.dart';
 
@@ -33,21 +34,21 @@ class _HomePageState extends State<HomePage> {
             currentPageIndex = index;
           });
         },
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home),
-            label: 'Home',
+            icon: const Icon(Icons.home_outlined),
+            selectedIcon: const Icon(Icons.home),
+            label: AppLocalizations.of(context)!.homeViewTitle,
           ),
           NavigationDestination(
-            icon: Icon(Icons.calendar_today_outlined),
-            selectedIcon: Icon(Icons.calendar_today),
-            label: 'Calendar',
+            icon: const Icon(Icons.calendar_today_outlined),
+            selectedIcon: const Icon(Icons.calendar_today),
+            label: AppLocalizations.of(context)!.calendarViewTitle,
           ),
           NavigationDestination(
-            icon: Icon(Icons.settings_outlined),
-            selectedIcon: Icon(Icons.settings),
-            label: 'Settings',
+            icon: const Icon(Icons.settings_outlined),
+            selectedIcon: const Icon(Icons.settings),
+            label: AppLocalizations.of(context)!.settingsViewTitle,
           ),
         ],
         selectedIndex: currentPageIndex,
