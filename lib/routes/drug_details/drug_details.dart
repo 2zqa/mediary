@@ -9,7 +9,7 @@ class DrugDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String locale = AppLocalizations.of(context)!.localeName;
+    final locale = AppLocalizations.of(context)!.localeName;
     return Scaffold(
       appBar: AppBar(
         title: Text(drug.name),

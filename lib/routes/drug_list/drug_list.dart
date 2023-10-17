@@ -18,7 +18,7 @@ class DrugList extends ConsumerStatefulWidget {
 
 class DrugListState extends ConsumerState<DrugList> {
   Widget _buildList(List<DrugEntry> drugs) {
-    String locale = AppLocalizations.of(context)!.localeName;
+    final locale = AppLocalizations.of(context)!.localeName;
     final drugStateNotifier = ref.read(drugEntriesProvider.notifier);
     return Scrollbar(
       child: GroupedListView<DrugEntry, DateTime>(
