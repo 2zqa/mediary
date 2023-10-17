@@ -9,7 +9,10 @@ import 'package:mediary/util/date_time_picker.dart';
 import '../../formatting/date_formatter.dart';
 
 class AddDrugForm extends ConsumerStatefulWidget {
-  const AddDrugForm({super.key});
+  final DateTime initialDate;
+
+  AddDrugForm({DateTime? initialDate, super.key})
+      : initialDate = initialDate ?? DateTime.now();
 
   @override
   AddDrugFormState createState() {
@@ -98,7 +101,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
         final now = DateTime.now();
         final dateTime = await showDateTimePicker(
           context: context,
-          initialDate: _timestamp ?? now,
+          initialDate: _timestamp ?? widget.initialDate,
           firstDate: DateTime(2000),
           lastDate: now,
         );
