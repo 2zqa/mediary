@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mediary/routes/add_drug_form/add_drug_form.dart';
 import 'package:mediary/routes/drug_list/drug_list.dart';
 
+import '../drug_calendar_view/drug_calendar_view.dart';
+
 class HomePage extends StatefulWidget {
   final String title;
   const HomePage(this.title, {super.key});
@@ -22,7 +24,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: <Widget>[
         const DrugList(),
-        Container(),
+        const DrugCalendarView(),
         Container()
       ][currentPageIndex],
       bottomNavigationBar: NavigationBar(
