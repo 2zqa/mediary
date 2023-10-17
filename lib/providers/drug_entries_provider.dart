@@ -15,6 +15,9 @@ final drugCalendarEntriesProvider =
       .map((drug) => CalendarEventData<DrugEntry>(
             title: drug.name,
             date: drug.date,
+            startTime: drug.date,
+            endDate: drug.date,
+            endTime: drug.date.add(const Duration(hours: 1)),
             description: drug.notes ?? '',
             event: drug,
           ))
