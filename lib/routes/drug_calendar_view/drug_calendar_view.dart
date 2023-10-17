@@ -6,6 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../models/drug_entry.dart';
 import '../../providers/drug_entries_provider.dart';
+import '../add_drug_form/add_drug_form.dart';
 import '../drug_details/drug_details.dart';
 
 class DrugCalendarView extends ConsumerWidget {
@@ -24,6 +25,14 @@ class DrugCalendarView extends ConsumerWidget {
         useAvailableVerticalSpace: true,
         headerStringBuilder: (date, {secondaryDate}) =>
             formatMonthYear(date, locale),
+        onCellTap: (_, date) {
+          if (date.isAfter(DateTime.now())) return;
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => AddDrugForm(initialDate: date)),
+          );
+        },
         onEventTap: (eventData, _) {
           final drug = eventData.event;
           if (drug == null) return;

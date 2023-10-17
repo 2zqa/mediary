@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => const AddDrugForm()),
+            MaterialPageRoute(builder: (_) => AddDrugForm()),
           );
         },
         child: const Icon(Icons.add_outlined),
