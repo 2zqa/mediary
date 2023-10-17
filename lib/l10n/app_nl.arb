@@ -15,6 +15,6 @@
   "undoText": "Annuleer",
   "drugUsedSubtitle": "{drugName} gebruikt om {time}",
   "homeViewTitle": "Thuis",
-  "calendarViewTitle": "Agenda",
+  "calendarViewTitle": "Kalender",
   "settingsViewTitle": "Instellingen"
 }
