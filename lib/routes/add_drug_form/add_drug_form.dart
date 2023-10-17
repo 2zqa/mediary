@@ -25,14 +25,15 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
   DateTime? _timestamp;
   String? _notes;
 
-  Iterable<DrugEntry> _getAutocompleteSuggestions(
+  Set<String> _getAutocompleteSuggestions(
       String text, Iterable<DrugEntry> drugs) {
     if (text.trim().isEmpty) {
-      return const Iterable.empty();
+      return {};
     }
-    return drugs.where((drug) {
-      return drug.name.toLowerCase().contains(text.toLowerCase());
-    });
+    return drugs
+        .where((drug) => drug.name.toLowerCase().contains(text.toLowerCase()))
+        .map((drug) => drug.name)
+        .toSet();
   }
 
   String? notEmptyValidator(String? value, String fieldName) {
@@ -47,10 +48,9 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
     final title = AppLocalizations.of(context)!.drugNameFieldTitle;
     final nameSuggestion =
         drugs.lastOrNull?.name ?? AppLocalizations.of(context)!.drugExampleName;
-    return Autocomplete<DrugEntry>(
+    return Autocomplete<String>(
       optionsBuilder: ((textEditingValue) =>
           _getAutocompleteSuggestions(textEditingValue.text, drugs)),
-      displayStringForOption: (drug) => drug.name,
       fieldViewBuilder: (_, controller, focusNode, onFieldSubmitted) =>
           TextFormField(
         controller: controller,
