@@ -16,14 +16,14 @@ class DrugCalendarView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    final AsyncValue<EventController<DrugEntry>> controller =
+    final AsyncValue<EventController<DrugEntry>> eventControllerAsyncValue =
         ref.watch(drugCalendarEntriesProvider);
     final locale = AppLocalizations.of(context)!.localeName;
-    return controller.when(
+    return eventControllerAsyncValue.when(
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stack) => Center(child: Text('Error: $error')),
-      data: (controller) => MonthView(
-        controller: controller,
+      data: (eventController) => MonthView(
+        controller: eventController,
         borderColor: colorScheme.outlineVariant,
         borderSize: 0.5,
         useAvailableVerticalSpace: true,
