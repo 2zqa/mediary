@@ -29,8 +29,6 @@ class DrugCalendarView extends ConsumerWidget {
         borderColor: colorScheme.outlineVariant,
         borderSize: 0.5,
         useAvailableVerticalSpace: true,
-        headerStringBuilder: (date, {secondaryDate}) =>
-            formatMonthYear(date, locale),
         onCellTap: (_, date) {
           if (date.isAfter(DateTime.now())) return;
 
@@ -41,6 +39,8 @@ class DrugCalendarView extends ConsumerWidget {
         },
         headerBuilder: (date) => MonthPageHeader(
           date: date,
+          dateStringBuilder: (date, {secondaryDate}) =>
+              formatMonthYear(date, locale),
           backgroundColor: colorScheme.primaryContainer,
           iconColor: colorScheme.onPrimaryContainer,
           onPreviousMonth: monthViewKey.currentState?.previousPage,
