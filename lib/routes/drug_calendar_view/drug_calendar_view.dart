@@ -42,13 +42,13 @@ class DrugCalendarView extends ConsumerWidget {
           iconColor: colorScheme.onPrimaryContainer,
         ),
         weekDayBuilder: (day) => WeekDayTile(
-          dayIndex: day,
-          backgroundColor: colorScheme.background,
-          textStyle: Theme.of(context).textTheme.bodyMedium,
-          // It is currently not supported to specify custom colors for the
-          // weekday borders, so disable it for now.
-          displayBorder: false,
-        ),
+            dayIndex: day,
+            backgroundColor: colorScheme.background,
+            textStyle: Theme.of(context).textTheme.bodyMedium,
+            // It is currently not supported to specify custom colors for the
+            // weekday borders, so disable it for now.
+            displayBorder: false,
+            weekDayStringBuilder: (day) => getWeekDay(day, locale)),
         cellBuilder: (date, events, isToday, isInMonth) =>
             FilledCell<DrugEntry>(
           date: date,
