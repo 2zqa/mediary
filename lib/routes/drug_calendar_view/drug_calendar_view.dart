@@ -25,6 +25,7 @@ class DrugCalendarView extends ConsumerWidget {
       data: (controller) => MonthView(
         controller: controller,
         borderColor: colorScheme.outlineVariant,
+        borderSize: 0.5,
         useAvailableVerticalSpace: true,
         headerStringBuilder: (date, {secondaryDate}) =>
             formatMonthYear(date, locale),
@@ -43,7 +44,7 @@ class DrugCalendarView extends ConsumerWidget {
         ),
         weekDayBuilder: (day) => WeekDayTile(
             dayIndex: day,
-            backgroundColor: colorScheme.background,
+            backgroundColor: colorScheme.surface,
             textStyle: Theme.of(context).textTheme.bodyMedium,
             // It is currently not supported to specify custom colors for the
             // weekday borders, so disable it for now.
@@ -52,10 +53,12 @@ class DrugCalendarView extends ConsumerWidget {
         cellBuilder: (date, events, isToday, isInMonth) =>
             FilledCell<DrugEntry>(
           date: date,
-          shouldHighlight: isToday,
-          titleColor: colorScheme.onBackground,
-          backgroundColor: colorScheme.background,
           events: events,
+          shouldHighlight: isToday,
+          titleColor:
+              isInMonth ? colorScheme.onSurface : colorScheme.onSurfaceVariant,
+          backgroundColor:
+              isInMonth ? colorScheme.surface : colorScheme.surfaceVariant,
           onTileTap: (eventData, _) {
             final drug = eventData.event;
             if (drug == null) return;
