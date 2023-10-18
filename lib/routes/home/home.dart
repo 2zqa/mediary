@@ -3,6 +3,7 @@ import 'package:mediary/routes/add_drug_form/add_drug_form.dart';
 import 'package:mediary/routes/drug_list/drug_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../util/half_curve.dart';
 import '../drug_calendar_view/drug_calendar_view.dart';
 
 class HomePage extends StatefulWidget {
@@ -53,15 +54,47 @@ class _HomePageState extends State<HomePage> {
         ],
         selectedIndex: currentPageIndex,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => AddDrugForm()),
-          );
-        },
-        child: const Icon(Icons.add_outlined),
+      floatingActionButton: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 200),
+        switchInCurve: const HalfCurve(Curves.easeInOut),
+        switchOutCurve: const HalfCurve(Curves.easeInOut),
+        transitionBuilder: (child, animation) => ScaleTransition(
+          scale: animation,
+          child: child,
+        ),
+        child: _buildFAB(currentPageIndex),
       ),
+    );
+  }
+
+  FloatingActionButton? _buildFAB(int pageIndex) {
+    return switch (pageIndex) {
+      0 => _buildNewDrugFormFAB(),
+      1 => _buildCalendarFAB(),
+      _ => null,
+    };
+  }
+
+  FloatingActionButton _buildNewDrugFormFAB() {
+    return FloatingActionButton(
+      key: const ValueKey(1),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => AddDrugForm()),
+        );
+      },
+      child: const Icon(Icons.add_outlined),
+    );
+  }
+
+  FloatingActionButton _buildCalendarFAB() {
+    return FloatingActionButton(
+      key: const ValueKey(2),
+      onPressed: () {
+        print('Navigating to today...');
+      },
+      child: const Icon(Icons.today_outlined),
     );
   }
 }
