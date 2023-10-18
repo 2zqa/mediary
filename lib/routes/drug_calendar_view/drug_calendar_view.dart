@@ -15,6 +15,7 @@ class DrugCalendarView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
+    final monthViewKey = GlobalKey<MonthViewState>();
 
     final AsyncValue<EventController<DrugEntry>> eventControllerAsyncValue =
         ref.watch(drugCalendarEntriesProvider);
@@ -23,6 +24,7 @@ class DrugCalendarView extends ConsumerWidget {
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stack) => Center(child: Text('Error: $error')),
       data: (eventController) => MonthView(
+        key: monthViewKey,
         controller: eventController,
         borderColor: colorScheme.outlineVariant,
         borderSize: 0.5,
@@ -41,6 +43,8 @@ class DrugCalendarView extends ConsumerWidget {
           date: date,
           backgroundColor: colorScheme.primaryContainer,
           iconColor: colorScheme.onPrimaryContainer,
+          onPreviousMonth: monthViewKey.currentState?.previousPage,
+          onNextMonth: monthViewKey.currentState?.nextPage,
         ),
         weekDayBuilder: (day) => WeekDayTile(
             dayIndex: day,
