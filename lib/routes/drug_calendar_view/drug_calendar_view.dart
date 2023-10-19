@@ -10,12 +10,16 @@ import '../add_drug_form/add_drug_form.dart';
 import '../drug_details/drug_details.dart';
 
 class DrugCalendarView extends ConsumerWidget {
-  const DrugCalendarView({super.key});
+  const DrugCalendarView({
+    required this.monthKey,
+    super.key,
+  });
+
+  final GlobalKey<MonthViewState> monthKey;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
-    final monthViewKey = GlobalKey<MonthViewState>();
 
     final AsyncValue<EventController<DrugEntry>> eventControllerAsyncValue =
         ref.watch(drugCalendarEntriesProvider);
@@ -24,7 +28,7 @@ class DrugCalendarView extends ConsumerWidget {
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stack) => Center(child: Text('Error: $error')),
       data: (eventController) => MonthView(
-        key: monthViewKey,
+        key: monthKey,
         controller: eventController,
         borderColor: colorScheme.outlineVariant,
         borderSize: 0.5,
@@ -43,8 +47,8 @@ class DrugCalendarView extends ConsumerWidget {
               formatMonthYear(date, locale),
           backgroundColor: colorScheme.primaryContainer,
           iconColor: colorScheme.onPrimaryContainer,
-          onPreviousMonth: monthViewKey.currentState?.previousPage,
-          onNextMonth: monthViewKey.currentState?.nextPage,
+          onPreviousMonth: monthKey.currentState?.previousPage,
+          onNextMonth: monthKey.currentState?.nextPage,
         ),
         weekDayBuilder: (day) => WeekDayTile(
             dayIndex: day,

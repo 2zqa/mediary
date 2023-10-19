@@ -1,3 +1,4 @@
+import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:mediary/routes/add_drug_form/add_drug_form.dart';
 import 'package:mediary/routes/drug_list/drug_list.dart';
@@ -15,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
+  final monthKey = GlobalKey<MonthViewState>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class _HomePageState extends State<HomePage> {
         index: currentPageIndex,
         children: <Widget>[
           const DrugList(),
-          const DrugCalendarView(),
+          DrugCalendarView(monthKey: monthKey),
           Container()
         ],
       ),
@@ -94,7 +96,7 @@ class _HomePageState extends State<HomePage> {
     return FloatingActionButton(
       key: const ValueKey(2),
       onPressed: () {
-        print('Navigating to today...');
+        monthKey.currentState?.animateToMonth(DateTime.now());
       },
       child: const Icon(Icons.today_outlined),
     );
