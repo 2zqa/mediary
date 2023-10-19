@@ -23,11 +23,14 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: <Widget>[
-        const DrugList(),
-        const DrugCalendarView(),
-        Container()
-      ][currentPageIndex],
+      body: IndexedStack(
+        index: currentPageIndex,
+        children: <Widget>[
+          const DrugList(),
+          const DrugCalendarView(),
+          Container()
+        ],
+      ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
