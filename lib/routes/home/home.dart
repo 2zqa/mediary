@@ -3,7 +3,6 @@ import 'package:mediary/routes/add_drug_form/add_drug_form.dart';
 import 'package:mediary/routes/drug_list/drug_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../util/half_curve.dart';
 import '../drug_calendar_view/drug_calendar_view.dart';
 
 class HomePage extends StatefulWidget {
@@ -55,9 +54,9 @@ class _HomePageState extends State<HomePage> {
         selectedIndex: currentPageIndex,
       ),
       floatingActionButton: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 200),
-        switchInCurve: const HalfCurve(Curves.easeInOut),
-        switchOutCurve: const HalfCurve(Curves.easeInOut),
+        duration: const Duration(milliseconds: 300),
+        switchInCurve: const Interval(0.5, 1, curve: Curves.easeOut),
+        switchOutCurve: const Interval(0.5, 1, curve: Curves.easeOut),
         transitionBuilder: (child, animation) => ScaleTransition(
           scale: animation,
           child: child,
