@@ -21,7 +21,7 @@ final drugCalendarEntriesProvider =
             description: drug.notes ?? '',
             event: drug,
           ))
-      .toList();
+      .toList(growable: false);
 
   return EventController()..addAll(events);
 });
