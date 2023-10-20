@@ -59,7 +59,7 @@ class DrugEntry implements Comparable<DrugEntry> {
   }
 }
 
-class AsyncDrugEntriesNotifier extends AsyncNotifier<List<DrugEntry>> {
+class DrugEntriesNotifier extends AsyncNotifier<List<DrugEntry>> {
   late final Database _database;
   static const _tableName = 'drug_entries';
 
