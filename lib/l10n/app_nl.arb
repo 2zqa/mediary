@@ -17,10 +17,14 @@
   "homeViewTitle": "Thuis",
   "calendarViewTitle": "Kalender",
   "settingsViewTitle": "Instellingen",
+  "settingsViewDataSectionTitle": "Gegevens",
+  "settingsViewCommonSectionTitle": "Algemeen",
   "settingsViewLanguageFieldTitle": "Taal",
   "settingsViewThemeFieldTitle": "Thema",
   "systemLanguageText": "Systeemstandaard",
   "systemThemeText": "Systeemstandaard",
   "lightThemeText": "Licht",
-  "darkThemeText": "Donker"
+  "darkThemeText": "Donker",
+  "settingsViewImportDrugsFieldTitle": "Importeren",
+  "settingsViewExportDrugsFieldTitle": "Exporteren"
 }

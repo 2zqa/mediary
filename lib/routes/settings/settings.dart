@@ -42,11 +42,18 @@ class _SettingsViewState extends State<SettingsView> {
         sections: [
           SettingsSection(
             title: Text(
-                AppLocalizations.of(context)!.settingsViewLanguageFieldTitle),
+                AppLocalizations.of(context)!.settingsViewCommonSectionTitle),
             tiles: <SettingsTile>[
               _buildLanguageTile(locales),
               _buildThemeTile(),
-              // _buildExportDrugsTile(),
+            ],
+          ),
+          SettingsSection(
+            title: Text(
+                AppLocalizations.of(context)!.settingsViewDataSectionTitle),
+            tiles: <SettingsTile>[
+              _buildImportDrugsTile(),
+              _buildExportDrugsTile(),
             ],
           ),
         ],
@@ -94,6 +101,22 @@ class _SettingsViewState extends State<SettingsView> {
         dropdownMenuEntries: getDropdownMenuEntries(context, supportedLocales),
         initialSelection: null, // null means System language
       ),
+    );
+  }
+
+  SettingsTile _buildImportDrugsTile() {
+    return SettingsTile(
+      leading: const Icon(Icons.file_download_outlined),
+      title:
+          Text(AppLocalizations.of(context)!.settingsViewImportDrugsFieldTitle),
+    );
+  }
+
+  SettingsTile _buildExportDrugsTile() {
+    return SettingsTile(
+      leading: const Icon(Icons.file_upload_outlined),
+      title:
+          Text(AppLocalizations.of(context)!.settingsViewExportDrugsFieldTitle),
     );
   }
 }

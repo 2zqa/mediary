@@ -93,6 +93,14 @@
   "@settingsViewLanguageFieldTitle": {
     "description": "Label for the language selection dropdown"
   },
+  "settingsViewCommonSectionTitle": "Common",
+  "@settingsViewCommonSectionTitle": {
+    "description": "Label for the common settings section"
+  },
+  "settingsViewDataSectionTitle": "Data",
+  "@settingsViewDataSectionTitle": {
+    "description": "Label for the data settings section"
+  },
   "settingsViewThemeFieldTitle": "Theme",
   "@settingsViewThemeFieldTitle": {
     "description": "Label for the theme selection dropdown"
@@ -112,5 +120,13 @@
   "darkThemeText": "Dark",
   "@darkThemeText": {
     "description": "Label for the dark theme option in the theme selection dropdown"
+  },
+  "settingsViewImportDrugsFieldTitle": "Import drugs",
+  "@settingsViewImportDrugsFieldTitle": {
+    "description": "Label for the import drugs button"
+  },
+  "settingsViewExportDrugsFieldTitle": "Export drugs",
+  "@settingsViewExportDrugsFieldTitle": {
+    "description": "Label for the export drugs button"
   }
 }
