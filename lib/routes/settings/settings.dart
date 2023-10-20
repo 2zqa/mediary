@@ -63,7 +63,7 @@ class _SettingsViewState extends State<SettingsView> {
 
   SettingsTile _buildThemeTile() {
     return SettingsTile(
-      leading: const Icon(Icons.format_paint_outlined),
+      leading: const Icon(Icons.brightness_6_outlined),
       title: Text(AppLocalizations.of(context)!.settingsViewThemeFieldTitle),
       trailing: DropdownMenu<ThemeMode>(
         width: optionWidth,
