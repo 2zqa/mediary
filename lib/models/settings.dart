@@ -21,6 +21,11 @@ class Settings {
         locale: locale ?? this.locale,
         themeMode: themeMode ?? this.themeMode,
       );
+
+  @override
+  String toString() {
+    return 'Settings(locale: $locale, themeMode: $themeMode)';
+  }
 }
 
 class SettingsNotifier extends AsyncNotifier<Settings> {
