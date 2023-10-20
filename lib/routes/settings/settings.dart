@@ -44,8 +44,8 @@ class _SettingsViewState extends State<SettingsView> {
             title: Text(
                 AppLocalizations.of(context)!.settingsViewCommonSectionTitle),
             tiles: <SettingsTile>[
-              _buildLanguageTile(locales),
               _buildThemeTile(),
+              _buildLanguageTile(locales),
             ],
           ),
           SettingsSection(
