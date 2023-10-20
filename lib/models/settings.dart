@@ -41,7 +41,7 @@ class SettingsNotifier extends AsyncNotifier<Settings> {
     final String? localeString = _prefs.getString('locale');
     final String? themeModeString = _prefs.getString('themeMode');
 
-    final Locale? locale = localeString != null ? Locale(localeString) : null;
+    final Locale? locale = _parseLocale(localeString);
     final ThemeMode themeMode = switch (themeModeString) {
       'dark' => ThemeMode.dark,
       'light' => ThemeMode.light,
@@ -74,5 +74,17 @@ class SettingsNotifier extends AsyncNotifier<Settings> {
 
       return _loadSettings();
     });
+  }
+
+  /// Parses the given [localeString] and returns a [Locale] object.
+  /// Returns null if the [localeString] is null, empty or unsupported.
+  Locale? _parseLocale(String? localeString) {
+    if (localeString == null) return null;
+    if (localeString.isEmpty) return null;
+
+    Locale locale = Locale(localeString);
+    if (!AppLocalizations.supportedLocales.contains(locale)) return null;
+
+    return locale;
   }
 }
