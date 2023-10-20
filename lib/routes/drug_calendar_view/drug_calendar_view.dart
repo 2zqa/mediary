@@ -49,6 +49,15 @@ class DrugCalendarView extends ConsumerWidget {
           iconColor: colorScheme.onPrimaryContainer,
           onPreviousMonth: monthKey.currentState?.previousPage,
           onNextMonth: monthKey.currentState?.nextPage,
+          onTitleTapped: () => showDatePicker(
+            context: context,
+            initialDate: date,
+            firstDate: DateTime(2000),
+            lastDate: DateTime(2100),
+          ).then((newDate) {
+            if (newDate == null) return;
+            monthKey.currentState?.jumpToMonth(newDate);
+          }),
         ),
         weekDayBuilder: (day) => WeekDayTile(
             dayIndex: day,
