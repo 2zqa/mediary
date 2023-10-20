@@ -114,13 +114,11 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
       trailing: DropdownMenu<String>(
         width: optionWidth,
         onSelected: (localeString) async {
-          print(localeString);
           if (localeString == null) return;
           Settings settings = await ref.read(settingsProvider.future);
           Settings updatedSettings = settings.nullableCopyWith(
             locale: localeString.isNotEmpty ? Locale(localeString) : null,
           );
-          print(updatedSettings.locale);
           return ref
               .read(settingsProvider.notifier)
               .updateSettings(updatedSettings);
