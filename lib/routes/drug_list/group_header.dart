@@ -9,7 +9,7 @@ class GroupHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 48,
-      padding: const EdgeInsets.only(left: 20.0),
+      padding: const EdgeInsets.only(left: 24),
       child: Align(
         alignment: AlignmentDirectional.centerStart,
         child: Text(heading),
