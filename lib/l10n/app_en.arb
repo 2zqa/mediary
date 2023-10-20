@@ -105,11 +105,11 @@
   "@settingsViewThemeFieldTitle": {
     "description": "Label for the theme selection dropdown"
   },
-  "systemLanguageText": "System standard",
+  "systemLanguageText": "System default",
   "@systemLanguageText": {
     "description": "Label for the system language option in the language selection dropdown"
   },
-  "systemThemeText": "System standard",
+  "systemThemeText": "System default",
   "@systemThemeText": {
     "description": "Label for the system theme option in the theme selection dropdown"
   },
