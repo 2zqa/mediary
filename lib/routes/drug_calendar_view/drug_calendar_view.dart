@@ -53,7 +53,7 @@ class DrugCalendarView extends ConsumerWidget {
             context: context,
             initialDate: date,
             firstDate: DateTime(2000),
-            lastDate: DateTime(2100),
+            lastDate: DateTime.now().add(const Duration(days: 365)),
           ).then((newDate) {
             if (newDate == null) return;
             monthKey.currentState?.jumpToMonth(newDate);
