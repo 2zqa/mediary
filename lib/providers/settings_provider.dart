@@ -7,12 +7,8 @@ final settingsProvider = AsyncNotifierProvider<SettingsNotifier, Settings>(() {
   return SettingsNotifier();
 });
 
-final themeModeProvider = FutureProvider<ThemeMode>((ref) async {
+final themeModeAndLocaleProvider =
+    FutureProvider<(ThemeMode, Locale?)>((ref) async {
   final settings = await ref.watch(settingsProvider.future);
-  return settings.themeMode;
-});
-
-final localeProvider = FutureProvider<Locale?>((ref) async {
-  final settings = await ref.watch(settingsProvider.future);
-  return settings.locale;
+  return (settings.themeMode, settings.locale);
 });

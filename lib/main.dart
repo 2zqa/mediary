@@ -21,16 +21,18 @@ class MediaryApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeAsyncValue = ref.watch(themeModeProvider);
+    final themeAsyncValue = ref.watch(themeModeAndLocaleProvider);
     return themeAsyncValue.when(
       skipLoadingOnRefresh: true,
       skipLoadingOnReload: true,
-      data: (themeMode) {
+      data: (themeModeAndLocale) {
+        final (themeMode, locale) = themeModeAndLocale;
         return MaterialApp(
           title: 'Mediary',
           themeMode: themeMode,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
+          locale: locale,
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
