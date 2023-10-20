@@ -106,6 +106,13 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
       title: Text(AppLocalizations.of(context)!.settingsViewLanguageFieldTitle),
       trailing: DropdownMenu<Locale?>(
         width: optionWidth,
+        onSelected: (locale) async {
+          Settings settings = await ref.read(settingsProvider.future);
+          Settings updatedSettings = settings.copy(locale: locale);
+          return ref
+              .read(settingsProvider.notifier)
+              .updateSettings(updatedSettings);
+        },
         inputDecorationTheme: const InputDecorationTheme(
           border: InputBorder.none,
         ),
