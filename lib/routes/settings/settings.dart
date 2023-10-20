@@ -20,19 +20,25 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
   /// Returns a list of [DropdownMenuEntry]s for the given [locales], with the
   /// first entry being the system language. Each language is displayed in its
   /// native language.
-  List<DropdownMenuEntry<Locale?>> getDropdownMenuEntries(
-      BuildContext context, List<Locale> locales) {
-    var localeEntries = locales
-        .map((locale) => DropdownMenuEntry<Locale?>(
-            value: locale,
-            label: LocaleNamesLocalizationsDelegate
-                    .nativeLocaleNames[locale.languageCode] ??
-                locale.toLanguageTag()))
+  List<DropdownMenuEntry<String>> getDropdownMenuEntries(
+    BuildContext context,
+    List<Locale> locales,
+  ) {
+    // Create a DropdownMenuEntry for each locale string
+    final List<DropdownMenuEntry<String>> localeEntries = locales
+        .map((locale) => DropdownMenuEntry<String>(
+              value: locale.toLanguageTag(),
+              label: LocaleNamesLocalizationsDelegate
+                      .nativeLocaleNames[locale.languageCode] ??
+                  locale.toLanguageTag(),
+            ))
         .toList();
+
+    // Add the system language as the first entry
     localeEntries.insert(
         0,
-        DropdownMenuEntry<Locale?>(
-          value: null,
+        DropdownMenuEntry(
+          value: '',
           label: AppLocalizations.of(context)!.systemLanguageText,
         ));
     return localeEntries;
@@ -73,7 +79,8 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
         width: optionWidth,
         onSelected: (themeMode) async {
           Settings settings = await ref.read(settingsProvider.future);
-          Settings updatedSettings = settings.copy(themeMode: themeMode);
+          Settings updatedSettings = settings.nullableCopyWith(
+              themeMode: themeMode, locale: settings.locale);
           return ref
               .read(settingsProvider.notifier)
               .updateSettings(updatedSettings);
@@ -104,11 +111,16 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
     return SettingsTile(
       leading: const Icon(Icons.language_outlined),
       title: Text(AppLocalizations.of(context)!.settingsViewLanguageFieldTitle),
-      trailing: DropdownMenu<Locale?>(
+      trailing: DropdownMenu<String>(
         width: optionWidth,
-        onSelected: (locale) async {
+        onSelected: (localeString) async {
+          print(localeString);
+          if (localeString == null) return;
           Settings settings = await ref.read(settingsProvider.future);
-          Settings updatedSettings = settings.copy(locale: locale);
+          Settings updatedSettings = settings.nullableCopyWith(
+            locale: localeString.isNotEmpty ? Locale(localeString) : null,
+          );
+          print(updatedSettings.locale);
           return ref
               .read(settingsProvider.notifier)
               .updateSettings(updatedSettings);

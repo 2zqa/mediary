@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @immutable
 class Settings {
@@ -13,12 +14,14 @@ class Settings {
     this.themeMode = ThemeMode.system,
   });
 
-  Settings copy({
+  /// Returns a copy of this [Settings] with the given fields replaced with the
+  /// new values. If [locale] is omitted, it will be set to null.
+  Settings nullableCopyWith({
     Locale? locale,
     ThemeMode? themeMode,
   }) =>
       Settings(
-        locale: locale ?? this.locale,
+        locale: locale,
         themeMode: themeMode ?? this.themeMode,
       );
 
