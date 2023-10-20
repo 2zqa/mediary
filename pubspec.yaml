@@ -25,6 +25,7 @@ dependencies:
   calendar_view: ^1.0.4
   settings_ui: ^2.0.2
   flutter_localized_locales: ^2.0.5
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:
