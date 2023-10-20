@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mediary/providers/settings_provider.dart';
 
 import 'routes/home/home.dart';
 
@@ -15,24 +16,33 @@ void main() {
   );
 }
 
-class MediaryApp extends StatelessWidget {
+class MediaryApp extends ConsumerWidget {
   const MediaryApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Mediary',
-      themeMode: ThemeMode.system,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      darkTheme: ThemeData.dark(
-        useMaterial3: true,
-      ),
-      home: const HomePage('Mediary'),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeAsyncValue = ref.watch(themeModeProvider);
+    return themeAsyncValue.when(
+      skipLoadingOnRefresh: true,
+      skipLoadingOnReload: true,
+      data: (themeMode) {
+        return MaterialApp(
+          title: 'Mediary',
+          themeMode: themeMode,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          darkTheme: ThemeData.dark(
+            useMaterial3: true,
+          ),
+          home: const HomePage('Mediary'),
+        );
+      },
+      loading: () => const CircularProgressIndicator(),
+      error: (error, stackTrace) => Text('Error: $error'),
     );
   }
 }

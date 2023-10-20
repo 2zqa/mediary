@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mediary/models/settings.dart';
 import 'package:settings_ui/settings_ui.dart';
+
+import '../../providers/settings_provider.dart';
 
 const double optionWidth = 175.0;
 
-class SettingsView extends StatefulWidget {
+class SettingsView extends ConsumerStatefulWidget {
   const SettingsView({Key? key}) : super(key: key);
 
   @override
-  State<SettingsView> createState() => _SettingsViewState();
+  ConsumerState<SettingsView> createState() => _SettingsViewState();
 }
 
-class _SettingsViewState extends State<SettingsView> {
+class _SettingsViewState extends ConsumerState<SettingsView> {
   /// Returns a list of [DropdownMenuEntry]s for the given [locales], with the
   /// first entry being the system language. Each language is displayed in its
   /// native language.
@@ -67,6 +71,13 @@ class _SettingsViewState extends State<SettingsView> {
       title: Text(AppLocalizations.of(context)!.settingsViewThemeFieldTitle),
       trailing: DropdownMenu<ThemeMode>(
         width: optionWidth,
+        onSelected: (themeMode) async {
+          Settings settings = await ref.read(settingsProvider.future);
+          Settings updatedSettings = settings.copy(themeMode: themeMode);
+          return ref
+              .read(settingsProvider.notifier)
+              .updateSettings(updatedSettings);
+        },
         inputDecorationTheme: const InputDecorationTheme(
           border: InputBorder.none,
         ),
