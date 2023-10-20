@@ -16,5 +16,11 @@
   "drugUsedSubtitle": "{drugName} gebruikt om {time}",
   "homeViewTitle": "Thuis",
   "calendarViewTitle": "Kalender",
-  "settingsViewTitle": "Instellingen"
+  "settingsViewTitle": "Instellingen",
+  "settingsViewLanguageFieldTitle": "Taal",
+  "settingsViewThemeFieldTitle": "Thema",
+  "systemLanguageText": "Systeemstandaard",
+  "systemThemeText": "Systeemstandaard",
+  "lightThemeText": "Licht",
+  "darkThemeText": "Donker"
 }

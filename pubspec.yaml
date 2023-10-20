@@ -23,6 +23,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   calendar_view: ^1.0.4
+  settings_ui: ^2.0.2
+  flutter_localized_locales: ^2.0.5
 
 dev_dependencies:
   flutter_test:

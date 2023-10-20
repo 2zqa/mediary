@@ -88,5 +88,29 @@
   "settingsViewTitle": "Settings",
   "@settingsViewTitle": {
     "description": "Shown as the title in the navigation bar"
+  },
+  "settingsViewLanguageFieldTitle": "Language",
+  "@settingsViewLanguageFieldTitle": {
+    "description": "Label for the language selection dropdown"
+  },
+  "settingsViewThemeFieldTitle": "Theme",
+  "@settingsViewThemeFieldTitle": {
+    "description": "Label for the theme selection dropdown"
+  },
+  "systemLanguageText": "System standard",
+  "@systemLanguageText": {
+    "description": "Label for the system language option in the language selection dropdown"
+  },
+  "systemThemeText": "System standard",
+  "@systemThemeText": {
+    "description": "Label for the system theme option in the theme selection dropdown"
+  },
+  "lightThemeText": "Light",
+  "@lightThemeText": {
+    "description": "Label for the light theme option in the theme selection dropdown"
+  },
+  "darkThemeText": "Dark",
+  "@darkThemeText": {
+    "description": "Label for the dark theme option in the theme selection dropdown"
   }
 }

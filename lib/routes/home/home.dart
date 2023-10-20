@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mediary/routes/add_drug_form/add_drug_form.dart';
 import 'package:mediary/routes/drug_list/drug_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mediary/routes/settings/settings.dart';
 
 import '../drug_calendar_view/drug_calendar_view.dart';
 
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           const DrugList(),
           DrugCalendarView(monthKey: monthKey),
-          Container()
+          const SettingsView(),
         ],
       ),
       bottomNavigationBar: NavigationBar(
