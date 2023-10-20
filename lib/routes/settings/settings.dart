@@ -127,7 +127,7 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
           border: InputBorder.none,
         ),
         dropdownMenuEntries: getDropdownMenuEntries(context, supportedLocales),
-        initialSelection: null, // null means System language
+        initialSelection: '', // empty string means system default
       ),
     );
   }
