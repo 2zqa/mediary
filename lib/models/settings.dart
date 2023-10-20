@@ -65,11 +65,10 @@ class SettingsNotifier extends AsyncNotifier<Settings> {
     };
     state = await AsyncValue.guard(() async {
       // Store all settings in parallel
-      final List<Future<void>> futures = [];
-      futures.add(_prefs.setString('themeMode', themeModeString));
-      if (localeString != null) {
-        futures.add(_prefs.setString('locale', localeString));
-      }
+      final List<Future<void>> futures = [
+        _prefs.setString('themeMode', themeModeString),
+        _prefs.setString('locale', localeString ?? ''),
+      ];
       await Future.wait(futures);
 
       return _loadSettings();
