@@ -21,7 +21,7 @@ Mediary (pronounced med-diary, or just mediary) is an app that allows users to t
 
 ## Installing
 
-* Download the appropiate APK for your device from the [releases page](https://github.com/2zqa/mediary/releases). If you don't know which to choose, you'll probably want to pick **app-arm64-v8a-release.apk**.
+* Download the appropiate APK for your device from the [releases page](https://github.com/2zqa/mediary/releases). If you're unsure, pick **app-arm64-v8a-release.apk**.
 * If prompted, give permission to install from unknown sources
 * Google Play Protect will warn you that the author of the app is not verified. You can ignore this warning by clicking **Details** and then **Install Anyway**.
 
