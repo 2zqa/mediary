@@ -49,35 +49,30 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
     return SettingsTile(
       leading: const Icon(Icons.brightness_6_outlined),
       title: Text(AppLocalizations.of(context)!.settingsViewThemeFieldTitle),
-      trailing: DropdownMenu<ThemeMode>(
-        width: optionWidth,
-        onSelected: (themeMode) async {
-          Settings settings = await ref.read(settingsProvider.future);
-          Settings updatedSettings = settings.nullableCopyWith(
-              themeMode: themeMode, locale: settings.locale);
-          return ref
-              .read(settingsProvider.notifier)
-              .updateSettings(updatedSettings);
-        },
-        inputDecorationTheme: const InputDecorationTheme(
-          border: InputBorder.none,
-        ),
-        dropdownMenuEntries: [
-          DropdownMenuEntry<ThemeMode>(
-            value: ThemeMode.system,
-            label: AppLocalizations.of(context)!.systemThemeText,
-          ),
-          DropdownMenuEntry<ThemeMode>(
-            value: ThemeMode.light,
-            label: AppLocalizations.of(context)!.lightThemeText,
-          ),
-          DropdownMenuEntry<ThemeMode>(
-            value: ThemeMode.dark,
-            label: AppLocalizations.of(context)!.darkThemeText,
-          ),
-        ],
-        initialSelection: ThemeMode.system,
-      ),
+      onPressed: (context) async {
+        final ThemeMode? themeMode = await showRadioDialog<ThemeMode>(
+          context: context,
+          values: ThemeMode.values,
+          labelBuilder: (themeMode) {
+            var localizations = AppLocalizations.of(context)!;
+            return switch (themeMode) {
+              ThemeMode.light => localizations.lightThemeText,
+              ThemeMode.dark => localizations.darkThemeText,
+              ThemeMode.system => localizations.systemThemeText,
+            };
+          },
+          title:
+              Text(AppLocalizations.of(context)!.settingsViewThemeFieldTitle),
+        );
+
+        if (themeMode == null) return;
+        Settings settings = await ref.read(settingsProvider.future);
+        Settings updatedSettings =
+            settings.nullableCopyWith(themeMode: themeMode);
+        return ref
+            .read(settingsProvider.notifier)
+            .updateSettings(updatedSettings);
+      },
     );
   }
 
