@@ -5,7 +5,7 @@ Future<T?> showRadioDialog<T>({
   required BuildContext context,
   Widget? title,
   required List<T> values,
-  String Function(T? value)? labelBuilder,
+  String Function(T value)? labelBuilder,
   int? selected,
 }) {
   return showDialog<T>(
