@@ -42,6 +42,10 @@
   "@optionalField": {
     "description": "Shown below optional fields in a form"
   },
+  "requiredFieldError": "This field is required",
+  "@requiredFieldError": {
+    "description": "Shown when a required field is empty"
+  },
   "submitButtonText": "Submit",
   "@submitButtonText": {
     "description": "Shown on the button that submits the form"

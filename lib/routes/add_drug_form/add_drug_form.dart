@@ -39,9 +39,9 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
         .toSet();
   }
 
-  String? notEmptyValidator(String? value, String fieldName) {
+  String? requiredFieldValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return '$fieldName is vereist.';
+      return AppLocalizations.of(context)!.requiredFieldError;
     }
 
     return null;
@@ -66,7 +66,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
               AppLocalizations.of(context)!.drugNameFieldHint(nameSuggestion),
         ),
         maxLength: 25,
-        validator: (value) => notEmptyValidator(value, title),
+        validator: requiredFieldValidator,
         onSaved: (value) => _name = value!,
       ),
     );
@@ -81,7 +81,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
         border: const OutlineInputBorder(),
       ),
       maxLength: 25,
-      validator: (value) => notEmptyValidator(value, title),
+      validator: requiredFieldValidator,
       onSaved: (value) => _amount = value!,
     );
   }
@@ -91,7 +91,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
     return TextFormField(
       controller: _dateController,
       readOnly: true,
-      validator: (value) => notEmptyValidator(value, title),
+      validator: requiredFieldValidator,
       decoration: InputDecoration(
         labelText: title,
         border: const OutlineInputBorder(),

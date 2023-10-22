@@ -9,6 +9,7 @@
   "drugDateAndTimeFieldTitle": "Datum en tijd",
   "drugNotesFieldTitle": "Notities",
   "optionalField": "Optioneel",
+  "requiredFieldError": "Dit veld is verplicht",
   "submitButtonText": "Opslaan",
   "addDrugFormTitle": "Drug toevoegen",
   "drugRemovedSnackbarText": "{drugName} verwijderd",
