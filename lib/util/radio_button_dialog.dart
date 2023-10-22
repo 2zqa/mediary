@@ -21,9 +21,7 @@ Future<T?> showRadioDialog<T>({
             child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
           ),
           TextButton(
-            onPressed: () {
-              Navigator.pop(context, selectedValue);
-            },
+            onPressed: () => Navigator.pop(context, selectedValue),
             child: Text(MaterialLocalizations.of(context).okButtonLabel),
           ),
         ],
