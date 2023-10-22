@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mediary/formatting/date_formatter.dart';
-import 'package:mediary/models/drug_entry.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../formatting/date_formatter.dart';
+import '../../models/drug_entry.dart';
 
 class DrugDetails extends StatelessWidget {
   final DrugEntry drug;

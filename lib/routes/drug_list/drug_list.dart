@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:grouped_list/grouped_list.dart';
-import 'package:mediary/formatting/date_formatter.dart';
-import 'package:mediary/models/drug_entry.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../formatting/date_formatter.dart';
+import '../../models/drug_entry.dart';
 
 import '../../providers/drug_entries_provider.dart';
 import 'drug_list_item.dart';

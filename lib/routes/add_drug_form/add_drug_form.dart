@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mediary/models/drug_entry.dart';
-import 'package:mediary/providers/drug_entries_provider.dart';
-import 'package:mediary/util/date_time_picker.dart';
 
 import '../../formatting/date_formatter.dart';
+import '../../models/drug_entry.dart';
+import '../../providers/drug_entries_provider.dart';
+import '../../util/date_time_picker.dart';
 
 class AddDrugForm extends ConsumerStatefulWidget {
   final DateTime initialDate;

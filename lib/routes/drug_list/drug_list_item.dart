@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mediary/models/drug_entry.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../models/drug_entry.dart';
 
 import '../drug_details/drug_details.dart';
 

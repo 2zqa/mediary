@@ -1,6 +1,6 @@
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mediary/models/drug_entry.dart';
+import '../models/drug_entry.dart';
 
 final drugEntriesProvider =
     AsyncNotifierProvider<DrugEntriesNotifier, List<DrugEntry>>(() {

@@ -1,11 +1,11 @@
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
-import 'package:mediary/routes/add_drug_form/add_drug_form.dart';
-import 'package:mediary/routes/drug_list/drug_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:mediary/routes/settings/settings.dart';
 
+import '../add_drug_form/add_drug_form.dart';
 import '../drug_calendar_view/drug_calendar_view.dart';
+import '../drug_list/drug_list.dart';
+import '../settings/settings.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
