@@ -54,7 +54,7 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
           context: context,
           values: ThemeMode.values,
           labelBuilder: (themeMode) {
-            var localizations = AppLocalizations.of(context)!;
+            final localizations = AppLocalizations.of(context)!;
             return switch (themeMode) {
               ThemeMode.light => localizations.lightThemeText,
               ThemeMode.dark => localizations.darkThemeText,
@@ -66,8 +66,8 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
         );
 
         if (themeMode == null) return;
-        Settings settings = ref.read(settingsProvider);
-        Settings updatedSettings =
+        final Settings settings = ref.read(settingsProvider);
+        final Settings updatedSettings =
             settings.nullableCopyWith(themeMode: themeMode);
         return ref
             .read(settingsProvider.notifier)
@@ -96,9 +96,9 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
         );
 
         if (localeString == null) return;
-        Locale? locale = localeString.isNotEmpty ? Locale(localeString) : null;
-        Settings settings = ref.read(settingsProvider);
-        Settings updatedSettings = settings.nullableCopyWith(locale: locale);
+        final Locale? locale = localeString.isNotEmpty ? Locale(localeString) : null;
+        final Settings settings = ref.read(settingsProvider);
+        final Settings updatedSettings = settings.nullableCopyWith(locale: locale);
         return ref
             .read(settingsProvider.notifier)
             .updateSettings(updatedSettings);

@@ -161,7 +161,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
                         onPressed: () {
                           _formKey.currentState!.save();
                           if (_formKey.currentState!.validate()) {
-                            DrugEntry drug = DrugEntry(
+                            final DrugEntry drug = DrugEntry(
                               name: _name!,
                               amount: _amount!,
                               date: _timestamp!,

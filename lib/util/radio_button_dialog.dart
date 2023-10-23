@@ -32,7 +32,7 @@ Future<T?> showRadioDialog<T>({
               children: List<Widget>.generate(
                 values.length,
                 (int index) {
-                  T value = values[index];
+                  final T value = values[index];
                   return RadioListTile<T>(
                     title: Text(labelBuilder?.call(value) ?? value.toString()),
                     value: value,

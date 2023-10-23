@@ -71,7 +71,7 @@ class SettingsNotifier extends Notifier<Settings> {
     if (localeString == null) return null;
     if (localeString.isEmpty) return null;
 
-    Locale locale = Locale(localeString);
+    final Locale locale = Locale(localeString);
     if (!AppLocalizations.supportedLocales.contains(locale)) return null;
 
     return locale;

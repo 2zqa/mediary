@@ -64,7 +64,7 @@ class DrugEntriesNotifier extends AsyncNotifier<List<DrugEntry>> {
   static const _tableName = 'drug_entries';
 
   Future<List<DrugEntry>> _getAll() async {
-    List<Map<String, Object?>> drugMaps = await _database.query(_tableName);
+    final List<Map<String, Object?>> drugMaps = await _database.query(_tableName);
     return drugMaps.map(DrugEntry.fromMap).toList();
   }
 
