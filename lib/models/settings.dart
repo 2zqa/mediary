@@ -19,7 +19,7 @@ class Settings {
   /// Returns a copy of this [Settings] with the given fields replaced with the
   /// new values. If [locale] is omitted, it will be set to null.
   Settings nullableCopyWith({
-    Locale? locale,
+    required Locale? locale,
     ThemeMode? themeMode,
   }) =>
       Settings(
