@@ -10,16 +10,11 @@ import '../../util/radio_button_dialog.dart';
 
 const double optionWidth = 175.0;
 
-class SettingsView extends ConsumerStatefulWidget {
+class SettingsView extends ConsumerWidget {
   const SettingsView({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<SettingsView> createState() => _SettingsViewState();
-}
-
-class _SettingsViewState extends ConsumerState<SettingsView> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     const locales = AppLocalizations.supportedLocales;
     return Scrollbar(
       child: SettingsList(
@@ -28,16 +23,16 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
             title: Text(
                 AppLocalizations.of(context)!.settingsViewCommonSectionTitle),
             tiles: <SettingsTile>[
-              _buildThemeTile(),
-              _buildLanguageTile(locales),
+              _buildThemeTile(context, ref),
+              _buildLanguageTile(locales, context, ref),
             ],
           ),
           SettingsSection(
             title: Text(
                 AppLocalizations.of(context)!.settingsViewDataSectionTitle),
             tiles: <SettingsTile>[
-              _buildImportDrugsTile(),
-              _buildExportDrugsTile(),
+              _buildImportDrugsTile(context),
+              _buildExportDrugsTile(context),
             ],
           ),
         ],
@@ -45,7 +40,7 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
     );
   }
 
-  SettingsTile _buildThemeTile() {
+  SettingsTile _buildThemeTile(BuildContext context, WidgetRef ref) {
     return SettingsTile(
       leading: const Icon(Icons.brightness_6_outlined),
       title: Text(AppLocalizations.of(context)!.settingsViewThemeFieldTitle),
@@ -78,7 +73,8 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
     );
   }
 
-  SettingsTile _buildLanguageTile(List<Locale> supportedLocales) {
+  SettingsTile _buildLanguageTile(
+      List<Locale> supportedLocales, BuildContext context, WidgetRef ref) {
     return SettingsTile(
       leading: const Icon(Icons.language_outlined),
       title: Text(AppLocalizations.of(context)!.settingsViewLanguageFieldTitle),
@@ -110,7 +106,7 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
     );
   }
 
-  SettingsTile _buildImportDrugsTile() {
+  SettingsTile _buildImportDrugsTile(BuildContext context) {
     return SettingsTile(
       leading: const Icon(Icons.file_download_outlined),
       title:
@@ -118,7 +114,7 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
     );
   }
 
-  SettingsTile _buildExportDrugsTile() {
+  SettingsTile _buildExportDrugsTile(BuildContext context) {
     return SettingsTile(
       leading: const Icon(Icons.file_upload_outlined),
       title:

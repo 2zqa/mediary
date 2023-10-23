@@ -11,3 +11,11 @@ final themeModeAndLocaleProvider = Provider<(ThemeMode, Locale?)>((ref) {
   final settings = ref.watch(settingsProvider);
   return (settings.themeMode, settings.locale);
 });
+
+final themeModeProvider = Provider<ThemeMode>((ref) {
+  return ref.watch(settingsProvider).themeMode;
+});
+
+final localeProvider = Provider<Locale?>((ref) {
+  return ref.watch(settingsProvider).locale;
+});
