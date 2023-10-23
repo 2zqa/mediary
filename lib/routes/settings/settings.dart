@@ -40,22 +40,28 @@ class SettingsView extends ConsumerWidget {
     );
   }
 
+  String _themeModeToString(
+      ThemeMode themeMode, AppLocalizations localizations) {
+    return switch (themeMode) {
+      ThemeMode.light => localizations.lightThemeText,
+      ThemeMode.dark => localizations.darkThemeText,
+      ThemeMode.system => localizations.systemThemeText,
+    };
+  }
+
   SettingsTile _buildThemeTile(BuildContext context, WidgetRef ref) {
+    final String themeModeLabel = _themeModeToString(
+        ref.watch(themeModeProvider), AppLocalizations.of(context)!);
     return SettingsTile(
       leading: const Icon(Icons.brightness_6_outlined),
       title: Text(AppLocalizations.of(context)!.settingsViewThemeFieldTitle),
+      value: Text(themeModeLabel),
       onPressed: (context) async {
         final ThemeMode? themeMode = await showRadioDialog<ThemeMode>(
           context: context,
           values: ThemeMode.values,
-          labelBuilder: (themeMode) {
-            final localizations = AppLocalizations.of(context)!;
-            return switch (themeMode) {
-              ThemeMode.light => localizations.lightThemeText,
-              ThemeMode.dark => localizations.darkThemeText,
-              ThemeMode.system => localizations.systemThemeText,
-            };
-          },
+          labelBuilder: (themeMode) =>
+              _themeModeToString(themeMode, AppLocalizations.of(context)!),
           title:
               Text(AppLocalizations.of(context)!.settingsViewThemeFieldTitle),
         );
@@ -73,11 +79,21 @@ class SettingsView extends ConsumerWidget {
     );
   }
 
+  String _localeToNativeName(Locale? locale, AppLocalizations localizations) {
+    if (locale == null) return localizations.systemLanguageText;
+    return LocaleNamesLocalizationsDelegate
+            .nativeLocaleNames[locale.toLanguageTag()] ??
+        locale.toLanguageTag();
+  }
+
   SettingsTile _buildLanguageTile(
       List<Locale> supportedLocales, BuildContext context, WidgetRef ref) {
+    final String localeLabel = _localeToNativeName(
+        ref.watch(settingsProvider).locale, AppLocalizations.of(context)!);
     return SettingsTile(
       leading: const Icon(Icons.language_outlined),
       title: Text(AppLocalizations.of(context)!.settingsViewLanguageFieldTitle),
+      value: Text(localeLabel),
       onPressed: (context) async {
         final String? localeString = await showRadioDialog<String>(
           title: Text(
