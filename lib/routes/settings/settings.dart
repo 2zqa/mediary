@@ -66,7 +66,7 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
         );
 
         if (themeMode == null) return;
-        Settings settings = await ref.read(settingsProvider.future);
+        Settings settings = ref.read(settingsProvider);
         Settings updatedSettings =
             settings.nullableCopyWith(themeMode: themeMode);
         return ref
@@ -97,7 +97,7 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
 
         if (localeString == null) return;
         Locale? locale = localeString.isNotEmpty ? Locale(localeString) : null;
-        Settings settings = await ref.read(settingsProvider.future);
+        Settings settings = ref.read(settingsProvider);
         Settings updatedSettings = settings.nullableCopyWith(locale: locale);
         return ref
             .read(settingsProvider.notifier)

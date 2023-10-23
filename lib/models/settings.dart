@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+import '../globals/shared_preferences.dart';
 
 @immutable
 class Settings {
@@ -32,18 +33,11 @@ class Settings {
   }
 }
 
-class SettingsNotifier extends AsyncNotifier<Settings> {
-  late final SharedPreferences _prefs;
-
+class SettingsNotifier extends Notifier<Settings> {
   @override
-  Future<Settings> build() async {
-    _prefs = await SharedPreferences.getInstance();
-    return _loadSettings();
-  }
-
-  Future<Settings> _loadSettings() async {
-    final String? localeString = _prefs.getString('locale');
-    final String? themeModeString = _prefs.getString('themeMode');
+  Settings build() {
+    final String? localeString = prefs.getString('locale');
+    final String? themeModeString = prefs.getString('themeMode');
 
     final Locale? locale = _parseLocale(localeString);
     final ThemeMode themeMode = switch (themeModeString) {
@@ -58,25 +52,17 @@ class SettingsNotifier extends AsyncNotifier<Settings> {
     );
   }
 
-  Future<void> updateSettings(Settings settings) async {
-    state = const AsyncValue.loading();
-
+  void updateSettings(Settings settings) async {
     final String? localeString = settings.locale?.languageCode;
     final String themeModeString = switch (settings.themeMode) {
       ThemeMode.dark => 'dark',
       ThemeMode.light => 'light',
       ThemeMode.system => 'system',
     };
-    state = await AsyncValue.guard(() async {
-      // Store all settings in parallel
-      final List<Future<void>> futures = [
-        _prefs.setString('themeMode', themeModeString),
-        _prefs.setString('locale', localeString ?? ''),
-      ];
-      await Future.wait(futures);
 
-      return _loadSettings();
-    });
+    unawaited(prefs.setString('themeMode', themeModeString));
+    unawaited(prefs.setString('locale', localeString ?? ''));
+    state = settings;
   }
 
   /// Parses the given [localeString] and returns a [Locale] object.

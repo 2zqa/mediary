@@ -3,12 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/settings.dart';
 
-final settingsProvider = AsyncNotifierProvider<SettingsNotifier, Settings>(() {
+final settingsProvider = NotifierProvider<SettingsNotifier, Settings>(() {
   return SettingsNotifier();
 });
 
-final themeModeAndLocaleProvider =
-    FutureProvider<(ThemeMode, Locale?)>((ref) async {
-  final settings = await ref.watch(settingsProvider.future);
+final themeModeAndLocaleProvider = Provider<(ThemeMode, Locale?)>((ref) {
+  final settings = ref.watch(settingsProvider);
   return (settings.themeMode, settings.locale);
 });
