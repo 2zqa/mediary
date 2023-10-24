@@ -105,6 +105,10 @@
   "@settingsViewDataSectionTitle": {
     "description": "Label for the data settings section"
   },
+  "settingsViewSupportSectionTitle": "Support",
+  "@settingsViewSupportSectionTitle": {
+    "description": "Label for the support section"
+  },
   "settingsViewThemeFieldTitle": "Theme",
   "@settingsViewThemeFieldTitle": {
     "description": "Label for the theme selection dropdown"
@@ -132,5 +136,39 @@
   "settingsViewExportDrugsFieldTitle": "Export",
   "@settingsViewExportDrugsFieldTitle": {
     "description": "Label for the drug export button"
+  },
+  "appDescription": "Track drug usage without judgement",
+  "@appDescription": {
+    "description": "Description of the app, shown in the about dialog"
+  },
+  "appVersion": "Version {version}",
+  "@appVersion": {
+    "description": "Version of the app, shown in the about dialog",
+    "placeholders": {
+      "version": {
+        "description": "The version number of the app"
+      }
+    }
+  },
+  "aboutViewTitle": "About the app",
+  "@aboutViewTitle": {
+    "description": "Label for button that shows the about dialog"
+  },
+  "settingsViewReportBugFieldTitle": "Report a bug",
+  "@settingsViewSourceCodeFieldTitle": {
+    "description": "Label for the report button link tile"
+  },
+  "reportBugDialogDescription": "Oh no, you encountered a bug? Let me know and I will try to fix it. Press {send} below to write an email.\n\nPlease include a description of the problem and how to reproduce it. Thank you!",
+  "@reportBugDialogDescription": {
+    "description": "Description of how to report a bug, shown in the report bug dialog",
+    "placeholders": {
+      "send": {
+        "description": "Label for the send button in the report bug dialog"
+      }
+    }
+  },
+  "sendButtonLabel": "Send",
+  "@sendButtonLabel": {
+    "description": "Label for the send button in the report bug dialog"
   }
 }
