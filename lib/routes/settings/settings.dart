@@ -21,9 +21,9 @@ class SettingsView extends ConsumerWidget {
           SettingsSection(
             title: Text(
                 AppLocalizations.of(context)!.settingsViewCommonSectionTitle),
-            tiles: <AbstractSettingsTile>[
-              _buildThemeTile(context, ref),
-              const LanguageTile(),
+            tiles: const <AbstractSettingsTile>[
+              ThemeTile(),
+              LanguageTile(),
             ],
           ),
           SettingsSection(
@@ -36,45 +36,6 @@ class SettingsView extends ConsumerWidget {
           ),
         ],
       ),
-    );
-  }
-
-  String _themeModeToString(
-      ThemeMode themeMode, AppLocalizations localizations) {
-    return switch (themeMode) {
-      ThemeMode.light => localizations.lightThemeText,
-      ThemeMode.dark => localizations.darkThemeText,
-      ThemeMode.system => localizations.systemThemeText,
-    };
-  }
-
-  SettingsTile _buildThemeTile(BuildContext context, WidgetRef ref) {
-    final String themeModeLabel = _themeModeToString(
-        ref.watch(themeModeProvider), AppLocalizations.of(context)!);
-    return SettingsTile(
-      leading: const Icon(Icons.brightness_6_outlined),
-      title: Text(AppLocalizations.of(context)!.settingsViewThemeFieldTitle),
-      value: Text(themeModeLabel),
-      onPressed: (context) async {
-        final ThemeMode? themeMode = await showRadioDialog<ThemeMode>(
-          context: context,
-          values: ThemeMode.values,
-          labelBuilder: (themeMode) =>
-              _themeModeToString(themeMode, AppLocalizations.of(context)!),
-          title:
-              Text(AppLocalizations.of(context)!.settingsViewThemeFieldTitle),
-        );
-
-        if (themeMode == null) return;
-        final Settings settings = ref.read(settingsProvider);
-        final Settings updatedSettings = settings.nullableCopyWith(
-          themeMode: themeMode,
-          locale: settings.locale,
-        );
-        return ref
-            .read(settingsProvider.notifier)
-            .updateSettings(updatedSettings);
-      },
     );
   }
 
@@ -91,6 +52,57 @@ class SettingsView extends ConsumerWidget {
       leading: const Icon(Icons.file_upload_outlined),
       title:
           Text(AppLocalizations.of(context)!.settingsViewExportDrugsFieldTitle),
+    );
+  }
+}
+
+class ThemeTile extends AbstractSettingsTile {
+  const ThemeTile({
+    super.key,
+  });
+
+  String _themeModeToString(
+      ThemeMode themeMode, AppLocalizations localizations) {
+    return switch (themeMode) {
+      ThemeMode.light => localizations.lightThemeText,
+      ThemeMode.dark => localizations.darkThemeText,
+      ThemeMode.system => localizations.systemThemeText,
+    };
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(
+      builder: (context, ref, child) {
+        final String themeModeLabel = _themeModeToString(
+            ref.watch(themeModeProvider), AppLocalizations.of(context)!);
+        return SettingsTile(
+          leading: const Icon(Icons.brightness_6_outlined),
+          title:
+              Text(AppLocalizations.of(context)!.settingsViewThemeFieldTitle),
+          value: Text(themeModeLabel),
+          onPressed: (context) async {
+            final ThemeMode? themeMode = await showRadioDialog<ThemeMode>(
+              context: context,
+              values: ThemeMode.values,
+              labelBuilder: (themeMode) =>
+                  _themeModeToString(themeMode, AppLocalizations.of(context)!),
+              title: Text(
+                  AppLocalizations.of(context)!.settingsViewThemeFieldTitle),
+            );
+
+            if (themeMode == null) return;
+            final Settings settings = ref.read(settingsProvider);
+            final Settings updatedSettings = settings.nullableCopyWith(
+              themeMode: themeMode,
+              locale: settings.locale,
+            );
+            return ref
+                .read(settingsProvider.notifier)
+                .updateSettings(updatedSettings);
+          },
+        );
+      },
     );
   }
 }
