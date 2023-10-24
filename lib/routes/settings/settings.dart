@@ -15,16 +15,15 @@ class SettingsView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const locales = AppLocalizations.supportedLocales;
     return Scrollbar(
       child: SettingsList(
         sections: [
           SettingsSection(
             title: Text(
                 AppLocalizations.of(context)!.settingsViewCommonSectionTitle),
-            tiles: <SettingsTile>[
+            tiles: <AbstractSettingsTile>[
               _buildThemeTile(context, ref),
-              _buildLanguageTile(locales, context, ref),
+              const LanguageTile(),
             ],
           ),
           SettingsSection(
@@ -79,49 +78,6 @@ class SettingsView extends ConsumerWidget {
     );
   }
 
-  String _localeToNativeName(Locale? locale, AppLocalizations localizations) {
-    if (locale == null) return localizations.systemLanguageText;
-    return LocaleNamesLocalizationsDelegate
-            .nativeLocaleNames[locale.toLanguageTag()] ??
-        locale.toLanguageTag();
-  }
-
-  SettingsTile _buildLanguageTile(
-      List<Locale> supportedLocales, BuildContext context, WidgetRef ref) {
-    final String localeLabel = _localeToNativeName(
-        ref.watch(settingsProvider).locale, AppLocalizations.of(context)!);
-    return SettingsTile(
-      leading: const Icon(Icons.language_outlined),
-      title: Text(AppLocalizations.of(context)!.settingsViewLanguageFieldTitle),
-      value: Text(localeLabel),
-      onPressed: (context) async {
-        final String? localeString = await showRadioDialog<String>(
-          title: Text(
-              AppLocalizations.of(context)!.settingsViewLanguageFieldTitle),
-          context: context,
-          values: ['', ...supportedLocales.map((l) => l.toLanguageTag())],
-          labelBuilder: (value) {
-            if (value.isEmpty) {
-              return AppLocalizations.of(context)!.systemLanguageText;
-            }
-            return LocaleNamesLocalizationsDelegate.nativeLocaleNames[value] ??
-                value;
-          },
-        );
-
-        if (localeString == null) return;
-        final Locale? locale =
-            localeString.isNotEmpty ? Locale(localeString) : null;
-        final Settings settings = ref.read(settingsProvider);
-        final Settings updatedSettings =
-            settings.nullableCopyWith(locale: locale);
-        return ref
-            .read(settingsProvider.notifier)
-            .updateSettings(updatedSettings);
-      },
-    );
-  }
-
   SettingsTile _buildImportDrugsTile(BuildContext context) {
     return SettingsTile(
       leading: const Icon(Icons.file_download_outlined),
@@ -135,6 +91,62 @@ class SettingsView extends ConsumerWidget {
       leading: const Icon(Icons.file_upload_outlined),
       title:
           Text(AppLocalizations.of(context)!.settingsViewExportDrugsFieldTitle),
+    );
+  }
+}
+
+class LanguageTile extends AbstractSettingsTile {
+  const LanguageTile({
+    super.key,
+  });
+
+  String _localeToNativeName(Locale? locale, AppLocalizations localizations) {
+    if (locale == null) return localizations.systemLanguageText;
+    return LocaleNamesLocalizationsDelegate
+            .nativeLocaleNames[locale.toLanguageTag()] ??
+        locale.toLanguageTag();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(
+      builder: (context, ref, child) {
+        final String localeLabel = _localeToNativeName(
+            ref.watch(localeProvider), AppLocalizations.of(context)!);
+        const locales = AppLocalizations.supportedLocales;
+        return SettingsTile(
+          leading: const Icon(Icons.language_outlined),
+          title: Text(
+              AppLocalizations.of(context)!.settingsViewLanguageFieldTitle),
+          value: Text(localeLabel),
+          onPressed: (context) async {
+            final String? localeString = await showRadioDialog<String>(
+              title: Text(
+                  AppLocalizations.of(context)!.settingsViewLanguageFieldTitle),
+              context: context,
+              values: ['', ...locales.map((l) => l.toLanguageTag())],
+              labelBuilder: (value) {
+                if (value.isEmpty) {
+                  return AppLocalizations.of(context)!.systemLanguageText;
+                }
+                return LocaleNamesLocalizationsDelegate
+                        .nativeLocaleNames[value] ??
+                    value;
+              },
+            );
+
+            if (localeString == null) return;
+            final Locale? locale =
+                localeString.isNotEmpty ? Locale(localeString) : null;
+            final Settings settings = ref.read(settingsProvider);
+            final Settings updatedSettings =
+                settings.nullableCopyWith(locale: locale);
+            return ref
+                .read(settingsProvider.notifier)
+                .updateSettings(updatedSettings);
+          },
+        );
+      },
     );
   }
 }
