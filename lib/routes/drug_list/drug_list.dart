@@ -10,7 +10,7 @@ import 'drug_list_item.dart';
 import 'group_header.dart';
 
 class DrugList extends ConsumerStatefulWidget {
-  const DrugList({Key? key}) : super(key: key);
+  const DrugList({super.key});
 
   @override
   DrugListState createState() => DrugListState();

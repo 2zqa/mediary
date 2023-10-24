@@ -13,8 +13,8 @@ class DrugListItem extends StatelessWidget {
     required this.drug,
     this.onDelete,
     this.onUndo,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

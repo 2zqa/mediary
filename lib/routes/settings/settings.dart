@@ -11,7 +11,7 @@ import '../../util/radio_button_dialog.dart';
 const double optionWidth = 175.0;
 
 class SettingsView extends ConsumerWidget {
-  const SettingsView({Key? key}) : super(key: key);
+  const SettingsView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

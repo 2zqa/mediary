@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GroupHeader extends StatelessWidget {
-  const GroupHeader({Key? key, required this.heading}) : super(key: key);
+  const GroupHeader({super.key, required this.heading});
 
   final String heading;
 
