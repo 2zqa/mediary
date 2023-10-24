@@ -17,6 +17,12 @@ class SettingsView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scrollbar(
       child: SettingsList(
+        lightTheme: SettingsThemeData(
+          settingsListBackground: Theme.of(context).colorScheme.background,
+        ),
+        darkTheme: SettingsThemeData(
+          settingsListBackground: Theme.of(context).colorScheme.background,
+        ),
         sections: [
           SettingsSection(
             title: Text(
