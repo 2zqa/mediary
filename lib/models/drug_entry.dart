@@ -64,7 +64,8 @@ class DrugEntriesNotifier extends AsyncNotifier<List<DrugEntry>> {
   static const _tableName = 'drug_entries';
 
   Future<List<DrugEntry>> _getAll() async {
-    final List<Map<String, Object?>> drugMaps = await _database.query(_tableName);
+    final List<Map<String, Object?>> drugMaps =
+        await _database.query(_tableName);
     return drugMaps.map(DrugEntry.fromMap).toList();
   }
 
@@ -104,6 +105,24 @@ class DrugEntriesNotifier extends AsyncNotifier<List<DrugEntry>> {
         where: 'id = ?',
         whereArgs: [drugEntry.id],
       );
+      return _getAll();
+    });
+  }
+
+  /// Wipes the database and inserts all [drugEntries] into the database.
+  Future<void> import(List<DrugEntry> drugEntries) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      await _database.transaction((txn) async {
+        await txn.delete(_tableName);
+        for (final drugEntry in drugEntries) {
+          await txn.insert(
+            _tableName,
+            drugEntry.toMap(),
+            conflictAlgorithm: ConflictAlgorithm.replace,
+          );
+        }
+      });
       return _getAll();
     });
   }
