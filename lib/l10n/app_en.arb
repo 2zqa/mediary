@@ -137,7 +137,7 @@
   "@settingsViewExportDrugsFieldTitle": {
     "description": "Label for the drug export button"
   },
-  "appDescription": "Track drug usage without judgement",
+  "appDescription": "Track drug usage without being judged.",
   "@appDescription": {
     "description": "Description of the app, shown in the about dialog"
   },
