@@ -1,10 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- <queries>
+    <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
             <data android:scheme="https" />
         </intent>
-    </queries> -->
+    </queries>
     <application
         android:label="Mediary"
         android:name="${applicationName}"

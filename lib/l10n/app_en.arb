@@ -141,14 +141,9 @@
   "@appDescription": {
     "description": "Description of the app, shown in the about dialog"
   },
-  "appVersion": "Version {version}",
-  "@appVersion": {
-    "description": "Version of the app, shown in the about dialog",
-    "placeholders": {
-      "version": {
-        "description": "The version number of the app"
-      }
-    }
+  "sourceCodeInfo": "The source code of this app is available on GitHub.",
+  "@sourceCodeInfo": {
+    "description": "Version of the app, shown in the about dialog. Must contain the word \"GitHub\", case sensitive, as it will be replaced with a link to the GitHub repository"
   },
   "aboutViewTitle": "About the app",
   "@aboutViewTitle": {

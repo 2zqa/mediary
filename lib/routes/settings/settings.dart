@@ -12,6 +12,7 @@ import '../../models/settings.dart';
 import '../../providers/package_info_provider.dart';
 import '../../providers/settings_provider.dart';
 import '../../util/radio_button_dialog.dart';
+import '../../widgets/link_text.dart';
 
 const double optionWidth = 175.0;
 
@@ -68,7 +69,7 @@ class SettingsView extends ConsumerWidget {
         showAboutDialog(
           context: context,
           applicationName: packageInfo.appName,
-          applicationVersion: localizations.appVersion(packageInfo.version),
+          applicationVersion: packageInfo.version,
           applicationIcon: Image.asset(
             'android/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp',
             width: 48,
@@ -78,8 +79,13 @@ class SettingsView extends ConsumerWidget {
           applicationLegalese: "© ${DateTime.now().year} Marijn Kok",
 
           children: [
-            const SizedBox(height: 24),
-            Text(localizations.appDescription),
+            Text("${localizations.appDescription}\n",
+                style: const TextStyle(fontStyle: FontStyle.italic)),
+            LinkText(
+              localizations.sourceCodeInfo,
+              uriText: "GitHub",
+              uri: Constants.sourceCodeUrl,
+            ),
           ],
         );
       },
