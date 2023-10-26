@@ -7,6 +7,7 @@ class LinkText extends StatelessWidget {
   final String? uriText;
   final Uri uri;
   final TextStyle? style;
+  final TextStyle? urlStyle;
   final void Function()? onFailLaunchUri;
 
   const LinkText(
@@ -16,6 +17,7 @@ class LinkText extends StatelessWidget {
     required this.uri,
     this.onFailLaunchUri,
     this.style,
+    this.urlStyle,
   });
 
   @override
@@ -35,9 +37,11 @@ class LinkText extends StatelessWidget {
           TextSpan(text: beforeUriText),
           TextSpan(
             text: realUriText,
-            style: effectiveTextStyle.copyWith(
-              color: Theme.of(context).colorScheme.secondary,
-            ),
+            style: urlStyle ??
+                effectiveTextStyle.copyWith(
+                  color: Theme.of(context).colorScheme.secondary,
+                  decoration: TextDecoration.underline,
+                ),
             recognizer: TapGestureRecognizer()
               ..onTap = () async {
                 final canLaunch = await canLaunchUrl(uri);
