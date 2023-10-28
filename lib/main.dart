@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -27,26 +28,40 @@ Future<void> main() async {
   );
 }
 
+final _defaultLightColorScheme = ColorScheme.fromSeed(
+  seedColor: Colors.deepPurple,
+);
+
+final _defaultDarkColorScheme = ColorScheme.fromSeed(
+  brightness: Brightness.dark,
+  seedColor: Colors.deepPurple,
+);
+
 class MediaryApp extends ConsumerWidget {
   const MediaryApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final (themeMode, locale) = ref.watch(themeModeAndLocaleProvider);
-    return MaterialApp(
-      title: 'Mediary',
-      themeMode: themeMode,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      locale: locale,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      darkTheme: ThemeData.dark(
-        useMaterial3: true,
-      ),
-      home: const HomePage('Mediary'),
+    return DynamicColorBuilder(
+      builder: (lightColorScheme, darkColorScheme) {
+        return MaterialApp(
+          title: 'Mediary',
+          themeMode: themeMode,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: locale,
+          theme: ThemeData(
+            colorScheme: lightColorScheme ?? _defaultLightColorScheme,
+            useMaterial3: true,
+          ),
+          darkTheme: ThemeData(
+            colorScheme: darkColorScheme ?? _defaultDarkColorScheme,
+            useMaterial3: true,
+          ),
+          home: const HomePage('Mediary'),
+        );
+      },
     );
   }
 }
