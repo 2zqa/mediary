@@ -17,11 +17,15 @@ class DrugList extends ConsumerStatefulWidget {
 }
 
 class DrugListState extends ConsumerState<DrugList> {
+  final ScrollController _scrollbarFix = ScrollController();
+
   Widget _buildList(List<DrugEntry> drugs) {
     final locale = AppLocalizations.of(context)!.localeName;
     final drugStateNotifier = ref.read(drugEntriesProvider.notifier);
     return Scrollbar(
+      controller: _scrollbarFix,
       child: GroupedListView<DrugEntry, DateTime>(
+        controller: _scrollbarFix,
         elements: drugs,
         groupBy: (drug) => DateUtils.dateOnly(drug.date),
         sort: true,
