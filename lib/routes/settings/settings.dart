@@ -113,6 +113,7 @@ class SettingsView extends ConsumerWidget {
             context: context,
             builder: (context) {
               return AlertDialog(
+                icon: const Icon(Icons.bug_report_outlined),
                 title: Text(localizations.settingsViewReportBugFieldTitle),
                 content: Text(localizations
                     .reportBugDialogDescription(localizations.sendButtonLabel)),
