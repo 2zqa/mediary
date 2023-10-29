@@ -165,5 +165,13 @@
   "sendButtonLabel": "Send",
   "@sendButtonLabel": {
     "description": "Label for the send button in the report bug dialog"
+  },
+  "addDrugButtonTooltip": "Add drug",
+  "@addDrugButtonTooltip": {
+    "description": "Tooltip for the add drug floating action button"
+  },
+  "calendarTodayButtonTooltip": "Navigate to today",
+  "@calendarTodayButtonTooltip": {
+    "description": "Tooltip for the floating action button that navigates to the current month"
   }
 }

@@ -34,5 +34,7 @@
   "aboutViewTitle": "Over de app",
   "settingsViewReportBugFieldTitle": "Meld een fout",
   "reportBugDialogDescription": "Oh nee, ben je een fout tegengekomen? Laat het met weten en ik zal het proberen op te lossen. Druk op de {send}-knop om een e-mail te schrijven.\n\nVoeg alsjeblieft een beschrijving toe van de fout, en de stappen om deze te reproduceren. Dankjewel!",
-  "sendButtonLabel": "Verstuur"
+  "sendButtonLabel": "Verstuur",
+  "addDrugButtonTooltip": "Drug toevoegen",
+  "calendarTodayButtonTooltip": "Ga naar vandaag"
 }

@@ -83,6 +83,7 @@ class _HomePageState extends State<HomePage> {
   FloatingActionButton _buildNewDrugFormFAB() {
     return FloatingActionButton(
       key: const ValueKey(1),
+      tooltip: AppLocalizations.of(context)!.addDrugButtonTooltip,
       onPressed: () {
         Navigator.push(
           context,
@@ -96,6 +97,7 @@ class _HomePageState extends State<HomePage> {
   FloatingActionButton _buildCalendarFAB() {
     return FloatingActionButton(
       key: const ValueKey(2),
+      tooltip: AppLocalizations.of(context)!.calendarTodayButtonTooltip,
       onPressed: () {
         monthKey.currentState?.animateToMonth(DateTime.now());
       },
