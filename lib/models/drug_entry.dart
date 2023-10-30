@@ -28,15 +28,12 @@ class DrugEntry implements Comparable<DrugEntry> {
         notes = notes?.trim(),
         id = id ?? _uuid.v4();
 
-  factory DrugEntry.fromMap(Map<String, dynamic> map) {
-    return DrugEntry(
-      id: map['id'],
-      name: map['name'],
-      amount: map['amount'],
-      date: DateTime.parse(map['date']),
-      notes: map['notes'],
-    );
-  }
+  DrugEntry.fromMap(Map<String, dynamic> map)
+      : id = map['id'] as String,
+        name = map['name'] as String,
+        amount = map['amount'] as String,
+        date = DateTime.parse(map['date'] as String),
+        notes = map['notes'] as String?;
 
   Map<String, dynamic> toMap() {
     return {
