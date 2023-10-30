@@ -16,7 +16,7 @@ dependencies:
   intl: any
   grouped_list: ^5.1.2
   sticky_headers: ^0.3.0+2
-  flutter_riverpod: ^2.4.4
+  flutter_riverpod: ^2.4.5
   uuid: ^4.1.0
   sqflite: ^2.3.0
   path: ^1.8.3
