@@ -8,9 +8,7 @@ import '../../providers/settings_provider.dart';
 import '../../util/radio_button_dialog.dart';
 
 class ThemeTile extends AbstractSettingsTile {
-  const ThemeTile({
-    super.key,
-  });
+  const ThemeTile({super.key});
 
   String _themeModeToString(
       ThemeMode themeMode, AppLocalizations localizations) {

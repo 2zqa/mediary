@@ -9,9 +9,7 @@ import '../../providers/settings_provider.dart';
 import '../../util/radio_button_dialog.dart';
 
 class LanguageTile extends AbstractSettingsTile {
-  const LanguageTile({
-    super.key,
-  });
+  const LanguageTile({super.key});
 
   String _localeToNativeName(Locale? locale, AppLocalizations localizations) {
     if (locale == null) return localizations.systemLanguageText;
