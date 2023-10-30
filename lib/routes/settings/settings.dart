@@ -9,6 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../globals/constants.dart';
 import '../../providers/package_info_provider.dart';
 import '../../widgets/link_text.dart';
+import 'backup_and_restore_tiles.dart';
 import 'language_tile.dart';
 import 'theme_tile.dart';
 
@@ -38,9 +39,9 @@ class SettingsView extends ConsumerWidget {
           ),
           SettingsSection(
             title: Text(localizations.settingsViewDataSectionTitle),
-            tiles: <SettingsTile>[
-              _buildImportDrugsTile(localizations),
-              _buildExportDrugsTile(localizations),
+            tiles: const <AbstractSettingsTile>[
+              ImportDrugsTile(),
+              ExportDrugsTile(),
             ],
           ),
           SettingsSection(
@@ -87,20 +88,6 @@ class SettingsView extends ConsumerWidget {
           ],
         );
       },
-    );
-  }
-
-  SettingsTile _buildImportDrugsTile(AppLocalizations localizations) {
-    return SettingsTile(
-      leading: const Icon(Icons.file_download_outlined),
-      title: Text(localizations.settingsViewImportDrugsFieldTitle),
-    );
-  }
-
-  SettingsTile _buildExportDrugsTile(AppLocalizations localizations) {
-    return SettingsTile(
-      leading: const Icon(Icons.file_upload_outlined),
-      title: Text(localizations.settingsViewExportDrugsFieldTitle),
     );
   }
 
