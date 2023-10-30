@@ -5,6 +5,8 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 
+import '../migrations/drug_entry_migrations.dart';
+
 const _uuid = Uuid();
 
 class DrugEntry implements Comparable<DrugEntry> {
@@ -73,11 +75,11 @@ class DrugEntriesNotifier extends AsyncNotifier<List<DrugEntry>> {
   FutureOr<List<DrugEntry>> build() async {
     _database = await openDatabase(
       join(await getDatabasesPath(), 'mediary.db'),
-      version: 1,
-      onCreate: (db, version) {
-        return db.execute(
-          'CREATE TABLE $_tableName(id TEXT PRIMARY KEY, name TEXT NOT NULL, amount TEXT NOT NULL, date TEXT NOT NULL, notes TEXT)',
-        );
+      version: DrugEntriesDatabase.version,
+      onUpgrade: (Database db, int oldVersion, int newVersion) async {
+        for (var i = oldVersion; i <= newVersion - 1; i++) {
+          await db.execute(DrugEntriesDatabase.migrations[i]);
+        }
       },
     );
     return _getAll();
