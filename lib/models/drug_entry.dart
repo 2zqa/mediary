@@ -36,13 +36,16 @@ class DrugEntry implements Comparable<DrugEntry> {
         notes = map['notes'] as String?;
 
   Map<String, dynamic> toMap() {
-    return {
+    final map = {
       'id': id,
       'name': name,
       'amount': amount,
       'date': date.toIso8601String(),
-      'notes': notes,
     };
+    if (notes != null) {
+      map['notes'] = notes!;
+    }
+    return map;
   }
 
   /// Sorts by date, then by name, then by id.

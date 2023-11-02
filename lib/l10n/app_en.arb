@@ -173,5 +173,33 @@
   "calendarTodayButtonTooltip": "Navigate to today",
   "@calendarTodayButtonTooltip": {
     "description": "Tooltip for the floating action button that navigates to the current month"
+  },
+  "importDrugsError": "An error occurred while importing",
+  "@importDrugsError": {
+    "description": "Shown in snackbar when importing drugs fails"
+  },
+  "importDrugsSuccess": "Imported {drugCount} drugs",
+  "@importDrugsSuccess": {
+    "description": "Shown in snackbar when importing drugs succeeds",
+    "placeholders": {
+      "drugCount": {
+        "description": "The number of drugs that were imported",
+        "example": "5"
+      }
+    }
+  },
+  "exportDrugsError": "An error occurred while exporting",
+  "@exportDrugsError": {
+    "description": "Shown in snackbar when exporting drugs fails"
+  },
+  "exportDrugsSuccess": "Successfully exported {drugCount} drugs",
+  "@exportDrugsSuccess": {
+    "description": "Shown in snackbar when exporting drugs succeeds",
+    "placeholders": {
+      "drugCount": {
+        "description": "The number of drugs that were exported",
+        "example": "5"
+      }
+    }
   }
 }
