@@ -201,5 +201,9 @@
         "example": "5"
       }
     }
+  },
+  "exportDrugsNoEntries": "No drugs to export",
+  "@exportDrugsNoEntries": {
+    "description": "Shown when there are no drugs to export"
   }
 }

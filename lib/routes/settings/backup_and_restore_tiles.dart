@@ -89,6 +89,11 @@ class ExportDrugsTile extends AbstractSettingsTile {
           title: Text(localizations.settingsViewExportDrugsFieldTitle),
           onPressed: (context) async {
             final drugs = await ref.read(drugEntriesProvider.future);
+            if (drugs.isEmpty) {
+              if (!context.mounted) return;
+              showSnackbarText(context, localizations.exportDrugsNoEntries);
+              return;
+            }
 
             bool success = false;
             try {

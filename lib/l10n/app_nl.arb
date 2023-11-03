@@ -40,5 +40,6 @@
   "importDrugsError": "Er is iets misgegaan tijdens het importeren",
   "importDrugsSuccess": "{drugCount} drugs geïmporteerd",
   "exportDrugsError": "Er is iets misgegaan tijdens het exporteren",
-  "exportDrugsSuccess": "{drugCount} drugs geëxporteerd"
+  "exportDrugsSuccess": "{drugCount} drugs geëxporteerd",
+  "exportDrugsNoEntries": "Geen drugs om te exporteren"
 }
