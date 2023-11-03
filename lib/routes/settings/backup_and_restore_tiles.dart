@@ -22,7 +22,14 @@ class ImportVersionMismatchException extends ImportException {
   ImportVersionMismatchException() : super('Version mismatch');
 }
 
-Future<String?> saveBackupToFile(List<DrugEntry> drugs) async {
+class ExportException implements Exception {
+  String cause;
+  ExportException(this.cause);
+}
+
+/// Saves a backup to a file. Silently fails if the user cancels the file picker.
+/// Returns whether the backup was successful.
+Future<bool> saveBackupToFile(List<DrugEntry> drugs) async {
   final export = {
     'version': DrugEntriesDatabase.version,
     'data': drugs.map((drug) => drug.toMap()).toList(),
@@ -31,22 +38,21 @@ Future<String?> saveBackupToFile(List<DrugEntry> drugs) async {
   final Uint8List data = Uint8List.fromList(utf8.encode(jsonString));
 
   if (!await FlutterFileDialog.isPickDirectorySupported()) {
-    debugPrint("Picking directory not supported");
-    return null;
+    throw ExportException('Pick directory not supported');
   }
 
   final pickedDirectory = await FlutterFileDialog.pickDirectory();
   if (pickedDirectory == null) {
-    return null;
+    return false;
   }
 
-  return FlutterFileDialog.saveFileToDirectory(
+  await FlutterFileDialog.saveFileToDirectory(
     directory: pickedDirectory,
     data: data,
     mimeType: "application/json",
     fileName: "mediary_export.json",
-    replace: true,
   );
+  return true;
 }
 
 /// Tries to import a backup from a file. Throws an exception if the file is
@@ -83,18 +89,19 @@ class ExportDrugsTile extends AbstractSettingsTile {
           title: Text(localizations.settingsViewExportDrugsFieldTitle),
           onPressed: (context) async {
             final drugs = await ref.read(drugEntriesProvider.future);
-            final filePath = await saveBackupToFile(drugs);
 
+            bool success = false;
+            try {
+              success = await saveBackupToFile(drugs);
+            } catch (_) {
+              if (!context.mounted) return;
+              showSnackbarText(context, localizations.exportDrugsError);
+              return;
+            }
+            if (!success) return;
             if (!context.mounted) return;
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  filePath == null
-                      ? localizations.exportDrugsError
-                      : localizations.exportDrugsSuccess(drugs.length),
-                ),
-              ),
-            );
+            showSnackbarText(
+                context, localizations.exportDrugsSuccess(drugs.length));
           },
         );
       },
