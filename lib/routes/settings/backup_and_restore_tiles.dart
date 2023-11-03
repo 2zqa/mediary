@@ -43,8 +43,8 @@ Future<String?> saveBackupToFile(List<DrugEntry> drugs) async {
   return FlutterFileDialog.saveFileToDirectory(
     directory: pickedDirectory,
     data: data,
-    mimeType: "application/text",
-    fileName: "mediary_export",
+    mimeType: "application/json",
+    fileName: "mediary_export.json",
     replace: true,
   );
 }
