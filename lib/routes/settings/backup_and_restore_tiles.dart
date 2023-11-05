@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
@@ -19,7 +20,9 @@ class ImportException implements Exception {
 }
 
 class ImportVersionMismatchException extends ImportException {
-  ImportVersionMismatchException() : super('Version mismatch');
+  final int actualVersion;
+  ImportVersionMismatchException(this.actualVersion)
+      : super('Version mismatch');
 }
 
 class ExportException implements Exception {
@@ -27,8 +30,7 @@ class ExportException implements Exception {
   ExportException(this.cause);
 }
 
-/// Saves a backup to a file. Silently fails if the user cancels the file picker.
-/// Returns whether the backup was successful.
+/// Saves a backup to a file. Returns whether the backup was successful.
 Future<bool> saveBackupToFile(List<DrugEntry> drugs) async {
   final export = {
     'version': DrugEntriesDatabase.version,
@@ -67,7 +69,7 @@ Future<List<DrugEntry>?> importBackupFromFile() async {
   final decoded = jsonDecode(utf8.decode(fileData));
   final version = decoded['version'] as int;
   if (version != DrugEntriesDatabase.version) {
-    return Future.error(ImportVersionMismatchException());
+    return Future.error(ImportVersionMismatchException(version));
   }
   final data = decoded['data'] as List<dynamic>;
 
@@ -122,13 +124,25 @@ class ImportDrugsTile extends AbstractSettingsTile {
     List<DrugEntry>? drugs;
     try {
       drugs = await importBackupFromFile();
-    } on ImportVersionMismatchException {
+    } on ImportVersionMismatchException catch (e) {
       if (!context.mounted) return;
-      showSnackbarText(context, 'Version mismatch');
+      unawaited(
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(localizations.importDrugsVersionMismatchDialogTitle),
+            content: Text(localizations.importDrugsVersionTooNew(
+                DrugEntriesDatabase.version, e.actualVersion)),
+          ),
+        ),
+      );
+      return;
     } catch (_) {
       if (!context.mounted) return;
       showSnackbarText(context, localizations.importDrugsError);
     }
+
+    // At this point, the loading of drugs was successful
     if (drugs == null) return;
     await ref.read(drugEntriesProvider.notifier).import(drugs);
 

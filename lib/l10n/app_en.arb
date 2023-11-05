@@ -205,5 +205,27 @@
   "exportDrugsNoEntries": "No drugs to export",
   "@exportDrugsNoEntries": {
     "description": "Shown when there are no drugs to export"
+  },
+  "importDrugsWarning": "Importing this backup will wipe all your saved drugs. Proceed?",
+  "@importDrugsWarning": {
+    "description": "Warning shown when clicking the import setting tile"
+  },
+  "importDrugsVersionMismatchDialogTitle": "Version mismatch",
+  "@importDrugsVersionMismatchDialogTitle": {
+    "description": "Title of the dialog which shows information about the version mismatch"
+  },
+  "importDrugsVersionTooNew": "It looks like the backup file you are trying to import is too new. This version of the app supports backup versions up to version {supportedVersionLevel}, but a backup file with version {actualVersionLevel} was provided. Are you running the latest version of this app?",
+  "@importDrugsVersionTooNew": {
+    "description": "Message shown when trying to import a backup whose version is higher than supported",
+    "placeholders": {
+      "supportedVersionLevel":{
+        "description": "The version the app currently supports at most",
+        "example": "2"
+      },
+      "actualVersionLevel": {
+        "description": "The version of the backup",
+        "example": "3"
+      }
+    }
   }
 }
