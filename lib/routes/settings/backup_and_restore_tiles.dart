@@ -127,14 +127,7 @@ class ImportDrugsTile extends AbstractSettingsTile {
     } on ImportVersionMismatchException catch (e) {
       if (!context.mounted) return;
       unawaited(
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text(localizations.importDrugsVersionMismatchDialogTitle),
-            content: Text(localizations.importDrugsVersionTooNew(
-                DrugEntriesDatabase.version, e.actualVersion)),
-          ),
-        ),
+        showVersionMismatchDialog(context, localizations, e.actualVersion),
       );
       return;
     } catch (_) {
@@ -148,6 +141,27 @@ class ImportDrugsTile extends AbstractSettingsTile {
 
     if (!context.mounted) return;
     showSnackbarText(context, localizations.importDrugsSuccess(drugs.length));
+  }
+
+  Future<void> showVersionMismatchDialog(
+      BuildContext context, AppLocalizations localizations, int actualVersion) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        icon: const Icon(Icons.error_outline),
+        title: Text(localizations.importDrugsVersionMismatchDialogTitle),
+        content: Text(
+          localizations.importDrugsVersionTooNew(
+              DrugEntriesDatabase.version, actualVersion),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(MaterialLocalizations.of(context).closeButtonLabel),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
