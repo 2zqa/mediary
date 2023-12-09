@@ -27,22 +27,27 @@ Future<T?> showRadioDialog<T>({
         ],
         content: StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              children: List<Widget>.generate(
-                values.length,
-                (int index) {
-                  final T value = values[index];
-                  return RadioListTile<T>(
-                    title: Text(labelBuilder?.call(value) ?? value.toString()),
-                    value: value,
-                    groupValue: selectedValue,
-                    onChanged: (T? selected) {
-                      if (selected == null) return;
-                      setState(() => selectedValue = selected);
+            return Scrollbar(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: List<Widget>.generate(
+                    values.length,
+                    (int index) {
+                      final T value = values[index];
+                      return RadioListTile<T>(
+                        title:
+                            Text(labelBuilder?.call(value) ?? value.toString()),
+                        value: value,
+                        groupValue: selectedValue,
+                        onChanged: (T? selected) {
+                          if (selected == null) return;
+                          setState(() => selectedValue = selected);
+                        },
+                      );
                     },
-                  );
-                },
+                  ),
+                ),
               ),
             );
           },
