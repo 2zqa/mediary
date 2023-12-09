@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 import '../../formatting/date_formatter.dart';
 import '../../models/drug_entry.dart';
@@ -130,14 +131,14 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
           title: Text(title),
           context: context,
           values: DrugColor.values,
-          labelBuilder: (value) =>
-              AppLocalizations.of(context)!.drugColor(value.name),
+          labelBuilder: (value) => toBeginningOfSentenceCase(
+              AppLocalizations.of(context)!.drugColor(value.name))!,
         );
         if (drugColor == null) return;
         _color = drugColor;
         if (!context.mounted) return;
-        _colorController.text =
-            AppLocalizations.of(context)!.drugColor(drugColor.name);
+        _colorController.text = toBeginningOfSentenceCase(
+            AppLocalizations.of(context)!.drugColor(drugColor.name))!;
       },
     );
   }
