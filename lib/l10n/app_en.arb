@@ -227,5 +227,19 @@
         "example": "3"
       }
     }
+  },
+  "drugColorFieldTitle": "Color",
+  "@drugColorFieldTitle": {
+    "description": "Shown above the field where the color of the drug is entered"
+  },
+  "drugColor": "{color, select, blue{blue} orange{orange} red{red} yellow{yellow} green{green} purple{purple} other{}}",
+  "@drugColor": {
+    "description": "The color shown for a drug in the calendar view",
+    "placeholders": {
+      "color": {
+        "type": "String",
+        "example": "red"
+      }
+    }
   }
 }

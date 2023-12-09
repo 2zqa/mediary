@@ -7,6 +7,7 @@ import '../../formatting/date_formatter.dart';
 import '../../models/drug_entry.dart';
 import '../../providers/drug_entries_provider.dart';
 import '../../util/date_time_picker.dart';
+import '../../util/radio_button_dialog.dart';
 
 class AddDrugForm extends ConsumerStatefulWidget {
   final DateTime initialDate;
@@ -23,10 +24,12 @@ class AddDrugForm extends ConsumerStatefulWidget {
 class AddDrugFormState extends ConsumerState<AddDrugForm> {
   final _formKey = GlobalKey<FormState>();
   final _dateController = TextEditingController();
+  final _colorController = TextEditingController();
   String? _name;
   String? _amount;
   DateTime? _timestamp;
   String? _notes;
+  DrugColor? _color;
 
   Set<String> _getAutocompleteSuggestions(
       String text, Iterable<DrugEntry> drugs) {
@@ -112,6 +115,33 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
     );
   }
 
+  Widget _buildColorField() {
+    final title = AppLocalizations.of(context)!.drugColorFieldTitle;
+    return TextFormField(
+      controller: _colorController,
+      readOnly: true,
+      validator: requiredFieldValidator,
+      decoration: InputDecoration(
+        labelText: title,
+        border: const OutlineInputBorder(),
+      ),
+      onTap: () async {
+        final drugColor = await showRadioDialog<DrugColor>(
+          title: Text(title),
+          context: context,
+          values: DrugColor.values,
+          labelBuilder: (value) =>
+              AppLocalizations.of(context)!.drugColor(value.name),
+        );
+        if (drugColor == null) return;
+        _color = drugColor;
+        if (!context.mounted) return;
+        _colorController.text =
+            AppLocalizations.of(context)!.drugColor(drugColor.name);
+      },
+    );
+  }
+
   Widget _buildNotesField() {
     return SizedBox(
       child: TextFormField(
@@ -154,6 +184,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
                     _buildNameField(drugs),
                     _buildAmountField(),
                     _buildDateField(),
+                    _buildColorField(),
                     _buildNotesField(),
                     Align(
                       alignment: Alignment.centerRight,
@@ -166,6 +197,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
                               amount: _amount!,
                               date: _timestamp!,
                               notes: _notes,
+                              color: _color!,
                             );
 
                             ref.read(drugEntriesProvider.notifier).add(drug);

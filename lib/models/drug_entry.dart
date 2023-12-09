@@ -9,12 +9,15 @@ import '../migrations/drug_entry_migrations.dart';
 
 const _uuid = Uuid();
 
+enum DrugColor { blue, orange, red, yellow, green, purple }
+
 class DrugEntry implements Comparable<DrugEntry> {
   final String id;
   final String name;
   final String amount;
   final DateTime date;
   final String? notes;
+  final DrugColor color;
 
   DrugEntry({
     String? id,
@@ -22,6 +25,7 @@ class DrugEntry implements Comparable<DrugEntry> {
     required String amount,
     required this.date,
     String? notes,
+    required this.color,
   })  : assert(id == null || Uuid.isValidUUID(fromString: id)),
         name = name.trim(),
         amount = amount.trim(),
@@ -33,7 +37,8 @@ class DrugEntry implements Comparable<DrugEntry> {
         name = map['name'] as String,
         amount = map['amount'] as String,
         date = DateTime.parse(map['date'] as String),
-        notes = map['notes'] as String?;
+        notes = map['notes'] as String?,
+        color = DrugColor.values[map['color_index'] as int];
 
   Map<String, dynamic> toMap() {
     final map = {
@@ -41,6 +46,7 @@ class DrugEntry implements Comparable<DrugEntry> {
       'name': name,
       'amount': amount,
       'date': date.toIso8601String(),
+      'color_index': color.index,
     };
     if (notes != null) {
       map['notes'] = notes!;
