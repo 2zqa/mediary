@@ -72,6 +72,7 @@ class DrugCalendarView extends ConsumerWidget {
           date: date,
           events: events,
           shouldHighlight: isToday,
+          highlightColor: colorScheme.surfaceTint,
           titleColor:
               isInMonth ? colorScheme.onSurface : colorScheme.onSurfaceVariant,
           backgroundColor:
