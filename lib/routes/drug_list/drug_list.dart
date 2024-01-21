@@ -32,7 +32,7 @@ class DrugListState extends ConsumerState<DrugList> {
         order: GroupedListOrder.DESC,
         groupSeparatorBuilder: (date) =>
             GroupHeader(heading: formatDate(date, locale)),
-        indexedItemBuilder: (context, drug, index) {
+        indexedItemBuilder: (context, drug, _) {
           return DrugListItem(
             drug: drug,
             onDelete: drugStateNotifier.delete,
