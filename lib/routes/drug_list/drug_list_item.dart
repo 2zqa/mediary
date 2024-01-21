@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../models/drug_entry.dart';
 
+import '../../util/colors.dart';
 import '../drug_details/drug_details.dart';
 
 class DrugListItem extends StatelessWidget {
@@ -18,6 +19,7 @@ class DrugListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final color = getDrugColor(drug.color, Theme.of(context).colorScheme);
     return Dismissible(
       onDismissed: (_) {
         onDelete?.call(drug);
@@ -58,6 +60,11 @@ class DrugListItem extends StatelessWidget {
             ),
           );
         },
+        leading: CircleAvatar(
+          backgroundColor: color,
+          foregroundColor: getTextColor(color),
+          child: Text(drug.name[0].toUpperCase()),
+        ),
         title: Text(drug.name),
         subtitle: Text(
           AppLocalizations.of(context)!
