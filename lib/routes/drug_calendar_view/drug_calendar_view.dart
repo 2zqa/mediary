@@ -6,8 +6,10 @@ import '../../formatting/date_formatter.dart';
 
 import '../../models/drug_entry.dart';
 import '../../providers/drug_entries_provider.dart';
+import '../../util/colors.dart';
 import '../add_drug_form/add_drug_form.dart';
 import '../drug_details/drug_details.dart';
+import 'drug_filled_cell.dart';
 
 class DrugCalendarView extends ConsumerWidget {
   const DrugCalendarView({
@@ -68,11 +70,12 @@ class DrugCalendarView extends ConsumerWidget {
             displayBorder: false,
             weekDayStringBuilder: (day) => getWeekDay(day, locale)),
         cellBuilder: (date, events, isToday, isInMonth) =>
-            FilledCell<DrugEntry>(
+            DrugsFilledCell<DrugEntry>(
           date: date,
           events: events,
           shouldHighlight: isToday,
           highlightColor: colorScheme.surfaceTint,
+          highlightedTitleColor: getTextColor(colorScheme.surfaceTint),
           titleColor:
               isInMonth ? colorScheme.onSurface : colorScheme.onSurfaceVariant,
           backgroundColor:
