@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../formatting/date_formatter.dart';
 import '../../models/drug_entry.dart';
+import '../../util/colors.dart';
 
 class DrugDetails extends StatelessWidget {
   final DrugEntry drug;
@@ -10,9 +11,23 @@ class DrugDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!.localeName;
+    final titleFontSize = Theme.of(context).textTheme.titleMedium!.fontSize;
     return Scaffold(
       appBar: AppBar(
-        title: Text(drug.name),
+        title: Row(
+          children: [
+            Container(
+              width: titleFontSize,
+              height: titleFontSize,
+              decoration: BoxDecoration(
+                color: getDrugColor(drug.color, Theme.of(context).colorScheme),
+                shape: BoxShape.circle,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Text(drug.name),
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -37,6 +52,7 @@ class DrugDetails extends StatelessWidget {
             const Text('Notities:',
                 style: TextStyle(fontWeight: FontWeight.bold)),
             Text(drug.notes ?? ''),
+            const SizedBox(height: 8),
           ],
         ),
       ),
