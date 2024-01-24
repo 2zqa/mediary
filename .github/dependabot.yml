@@ -1,16 +1,19 @@
 version: 2
 enable-beta-ecosystems: true
 updates:
-  - package-ecosystem: github-actions
-    directory: /
+  - package-ecosystem: "github-actions"
+    directory: "/"
     labels:
-      - dependabot
-      - actions
+      - "dependabot"
+      - "actions"
     schedule:
-      interval: weekly
+      interval: "weekly"
 
   - package-ecosystem: "pub"
     directory: "/"
+    labels:
+      - "dependabot"
+      - "pub"
     schedule:
       interval: "weekly"
     ignore:
