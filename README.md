@@ -43,7 +43,7 @@ A full tutorial on how to get started with Flutter is available at https://docs.
 
 * Clone and open this repository: `git clone https://github.com/2zqa/mediary.git && cd mediary`
 * Run `flutter pub get`
-* Setup a keystore for signing the app. You can follow [this guide](https://docs.flutter.dev/deployment/android#signing-the-app) to do so.
+* (Optional) Setup a keystore for signing the app. You can follow [this guide](https://docs.flutter.dev/deployment/android#signing-the-app) to do so.
 * Run `flutter build apk --split-per-abi`
 
 ## Contributing
