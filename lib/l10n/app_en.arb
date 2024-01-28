@@ -158,7 +158,7 @@
     "description": "Description of how to report a bug, shown in the report bug dialog",
     "placeholders": {
       "send": {
-        "description": "Label for the send button in the report bug dialog"
+        "description": "Label for the send button in the report bug dialog. Will be converted to lowercase."
       }
     }
   },

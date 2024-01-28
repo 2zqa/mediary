@@ -102,8 +102,8 @@ class SettingsView extends ConsumerWidget {
               return AlertDialog(
                 icon: const Icon(Icons.bug_report_outlined),
                 title: Text(localizations.settingsViewReportBugFieldTitle),
-                content: Text(localizations
-                    .reportBugDialogDescription(localizations.sendButtonLabel)),
+                content: Text(localizations.reportBugDialogDescription(
+                    localizations.sendButtonLabel.toLowerCase())),
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(),
