@@ -91,6 +91,19 @@ class DrugEntriesNotifier extends AsyncNotifier<List<DrugEntry>> {
     return _getAll();
   }
 
+  /// If you want to update of a drug, use [replace] instead. This method is
+  /// only for updating the state of the notifier.
+  ///
+  /// See [AsyncNotifier.update]
+  @override
+  Future<List<DrugEntry>> update(
+    FutureOr<List<DrugEntry>> Function(List<DrugEntry>) cb, {
+    FutureOr<List<DrugEntry>> Function(Object err, StackTrace stackTrace)?
+        onError,
+  }) async {
+    return super.update(cb, onError: onError);
+  }
+
   Future<void> add(DrugEntry drugEntry) async {
     // Set the state to loading
     state = const AsyncValue.loading();
@@ -100,6 +113,19 @@ class DrugEntriesNotifier extends AsyncNotifier<List<DrugEntry>> {
         _tableName,
         drugEntry.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+      return _getAll();
+    });
+  }
+
+  Future<void> replace(DrugEntry drugEntry) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      await _database.update(
+        _tableName,
+        drugEntry.toMap(),
+        where: 'id = ?',
+        whereArgs: [drugEntry.id],
       );
       return _getAll();
     });
