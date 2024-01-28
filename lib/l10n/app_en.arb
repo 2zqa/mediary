@@ -218,7 +218,7 @@
   "@importDrugsVersionTooNew": {
     "description": "Message shown when trying to import a backup whose version is higher than supported",
     "placeholders": {
-      "supportedVersionLevel":{
+      "supportedVersionLevel": {
         "description": "The version the app currently supports at most",
         "example": "2"
       },
