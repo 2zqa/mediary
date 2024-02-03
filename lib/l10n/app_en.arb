@@ -241,5 +241,28 @@
         "example": "red"
       }
     }
+  },
+  "delete": "Delete",
+  "@delete": {
+    "description": "Generic translation for deleting something."
+  },
+  "drugDeleteConfirmTitle": "Confirm deletion",
+  "@drugDeleteConfirmTitle": {
+    "description": "Title of dialog for confirming deletion of a drug"
+  },
+  "drugDeleteConfirmDescription": "Are you sure you want to delete \"{drugName}\"? You can still undo this for a few seconds after pressing {deleteLabel}.",
+  "@drugDeleteConfirmDescription": {
+    "description": "Extra description warning the user before deleting.",
+    "placeholders": {
+      "drugName": {
+        "description": "An example drug name",
+        "example": "Weed"
+      },
+      "deleteLabel": {
+        "type": "String",
+        "example": "Delete",
+        "description": "Label for the delete button. Will be converted to lowercase."
+      }
+    }
   }
 }

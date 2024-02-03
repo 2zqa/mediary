@@ -46,5 +46,8 @@
   "importDrugsVersionMismatchDialogTitle": "Versie komt niet overeen",
   "importDrugsVersionTooNew": "Het lijkt erop dat het backupbestand dat je probeert te importeren te nieuw is. Deze versie van de app ondersteunt backups tot en met versie {supportedVersionLevel}, maar een backupbestand met versie {actualVersionLevel} was gekozen. Gebruik je de laatste versie van deze app?",
   "drugColorFieldTitle": "Kleur",
-  "drugColor": "{color, select, blue{blauw} orange{oranje} red{rood} yellow{geel} green{groen} purple{paars} other{}}"
+  "drugColor": "{color, select, blue{blauw} orange{oranje} red{rood} yellow{geel} green{groen} purple{paars} other{}}",
+  "delete": "Verwijderen",
+  "drugDeleteConfirmTitle": "Bevestig verwijderen",
+  "drugDeleteConfirmDescription": "Weet je zeker dat je \"{drugName}\" wil verwijderen? Je kan dit nog steeds ongedaan maken voor een paar seconden nadat je op {deleteLabel} gedrukt hebt."
 }
