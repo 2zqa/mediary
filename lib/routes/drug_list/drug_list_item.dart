@@ -3,37 +3,33 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../models/drug_entry.dart';
 
 import '../../util/colors.dart';
+import '../../util/confirm_action.dart';
 import '../drug_details/drug_details.dart';
 
 class DrugListItem extends StatelessWidget {
   final DrugEntry drug;
-  final void Function(DrugEntry drug)? onDelete;
-  final void Function(DrugEntry drug)? onUndo;
+  final void Function(DrugEntry drug) onDelete;
+  final void Function(DrugEntry drug) onUndo;
 
   const DrugListItem({
     required this.drug,
-    this.onDelete,
-    this.onUndo,
+    required this.onDelete,
+    required this.onUndo,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     final color = getDrugColor(drug.color, Theme.of(context).colorScheme);
+    final localizations = AppLocalizations.of(context)!;
     return Dismissible(
       onDismissed: (_) {
-        onDelete?.call(drug);
-        if (onUndo == null) return;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            dismissDirection: DismissDirection.none,
-            content: Text(AppLocalizations.of(context)!
-                .drugRemovedSnackbarText(drug.name)),
-            action: SnackBarAction(
-              label: AppLocalizations.of(context)!.undoText,
-              onPressed: () => onUndo?.call(drug),
-            ),
-          ),
+        onDelete(drug);
+        showDrugDeleteUndoSnackbar(
+          context: context,
+          drug: drug,
+          onUndo: () => onUndo(drug),
+          localizations: localizations,
         );
       },
       key: super.key ?? ValueKey(drug.id),

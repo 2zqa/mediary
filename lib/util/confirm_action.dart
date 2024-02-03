@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../models/drug_entry.dart';
 
 /// Shows a dialog allowing people to confirm executing [onAction].
 Future<T?> showConfirmAction<T>(
@@ -30,6 +33,25 @@ Future<T?> showConfirmAction<T>(
               Text(MaterialLocalizations.of(context).okButtonLabel),
         ),
       ],
+    ),
+  );
+}
+
+void showDrugDeleteUndoSnackbar({
+  required BuildContext context,
+  required AppLocalizations localizations,
+  required DrugEntry drug,
+  required void Function() onUndo,
+}) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      dismissDirection: DismissDirection.none,
+      content: Text(
+          AppLocalizations.of(context)!.drugRemovedSnackbarText(drug.name)),
+      action: SnackBarAction(
+        label: localizations.undoText,
+        onPressed: onUndo,
+      ),
     ),
   );
 }
