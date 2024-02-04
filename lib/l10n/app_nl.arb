@@ -12,6 +12,7 @@
   "requiredFieldError": "Dit veld is verplicht",
   "submitButtonText": "Opslaan",
   "addDrugFormTitle": "Drug toevoegen",
+  "editDrugFormTitle": "Drug bewerken",
   "drugRemovedSnackbarText": "{drugName} verwijderd",
   "undoText": "Annuleer",
   "drugUsedSubtitle": "{drugName} gebruikt om {time}",

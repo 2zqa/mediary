@@ -7,7 +7,7 @@ import '../../formatting/date_formatter.dart';
 import '../../models/drug_entry.dart';
 import '../../providers/drug_entries_provider.dart';
 import '../../util/colors.dart';
-import '../add_drug_form/add_drug_form.dart';
+import '../add_drug_form/drug_form.dart';
 import '../drug_details/drug_details.dart';
 import 'drug_filled_cell.dart';
 
@@ -40,7 +40,7 @@ class DrugCalendarView extends ConsumerWidget {
 
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => AddDrugForm(initialDate: date)),
+            MaterialPageRoute(builder: (_) => DrugForm(initialDate: date)),
           );
         },
         headerBuilder: (date) => MonthPageHeader(

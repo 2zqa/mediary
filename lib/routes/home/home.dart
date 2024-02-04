@@ -2,7 +2,7 @@ import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../add_drug_form/add_drug_form.dart';
+import '../add_drug_form/drug_form.dart';
 import '../drug_calendar_view/drug_calendar_view.dart';
 import '../drug_list/drug_list.dart';
 import '../settings/settings.dart';
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (_) => AddDrugForm()),
+          MaterialPageRoute(builder: (_) => DrugForm()),
         );
       },
       child: const Icon(Icons.add_outlined),

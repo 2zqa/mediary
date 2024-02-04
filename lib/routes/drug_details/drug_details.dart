@@ -6,6 +6,7 @@ import '../../models/drug_entry.dart';
 import '../../providers/drug_entries_provider.dart';
 import '../../util/colors.dart';
 import '../../util/confirm_action.dart';
+import '../add_drug_form/drug_form.dart';
 
 class DrugDetails extends ConsumerWidget {
   final DrugEntry drug;
@@ -40,6 +41,13 @@ class DrugDetails extends ConsumerWidget {
               },
             ),
           ),
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => DrugForm(initialDrug: drug)),
+            ),
+          )
         ],
         title: Row(
           children: [

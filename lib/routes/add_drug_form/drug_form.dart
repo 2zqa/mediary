@@ -10,19 +10,23 @@ import '../../providers/drug_entries_provider.dart';
 import '../../util/date_time_picker.dart';
 import '../../util/radio_button_dialog.dart';
 
-class AddDrugForm extends ConsumerStatefulWidget {
+class DrugForm extends ConsumerStatefulWidget {
   final DateTime initialDate;
+  final DrugEntry? initialDrug;
 
-  AddDrugForm({DateTime? initialDate, super.key})
-      : initialDate = initialDate ?? DateTime.now();
+  DrugForm({
+    DateTime? initialDate,
+    this.initialDrug,
+    super.key,
+  }) : initialDate = initialDate ?? DateTime.now();
 
   @override
-  AddDrugFormState createState() {
-    return AddDrugFormState();
+  DrugFormState createState() {
+    return DrugFormState();
   }
 }
 
-class AddDrugFormState extends ConsumerState<AddDrugForm> {
+class DrugFormState extends ConsumerState<DrugForm> {
   final _formKey = GlobalKey<FormState>();
   final _dateController = TextEditingController();
   final _colorController = TextEditingController();
@@ -58,21 +62,27 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
     return Autocomplete<String>(
       optionsBuilder: ((textEditingValue) =>
           _getAutocompleteSuggestions(textEditingValue.text, drugs)),
-      fieldViewBuilder: (_, controller, focusNode, onFieldSubmitted) =>
-          TextFormField(
-        controller: controller,
-        focusNode: focusNode,
-        onFieldSubmitted: (_) => onFieldSubmitted(),
-        decoration: InputDecoration(
-          labelText: title,
-          border: const OutlineInputBorder(),
-          hintText:
-              AppLocalizations.of(context)!.drugNameFieldHint(nameSuggestion),
-        ),
-        maxLength: 25,
-        validator: requiredFieldValidator,
-        onSaved: (value) => _name = value!,
-      ),
+      fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
+        final String? name = widget.initialDrug?.name;
+        if (name != null) {
+          controller.text = name;
+          _name = name;
+        }
+        return TextFormField(
+          controller: controller,
+          focusNode: focusNode,
+          onFieldSubmitted: (_) => onFieldSubmitted(),
+          decoration: InputDecoration(
+            labelText: title,
+            border: const OutlineInputBorder(),
+            hintText:
+                AppLocalizations.of(context)!.drugNameFieldHint(nameSuggestion),
+          ),
+          maxLength: 25,
+          validator: requiredFieldValidator,
+          onSaved: (value) => _name = value!,
+        );
+      },
     );
   }
 
@@ -87,11 +97,24 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
       maxLength: 25,
       validator: requiredFieldValidator,
       onSaved: (value) => _amount = value!,
+      initialValue: widget.initialDrug?.amount,
     );
+  }
+
+  void setDateTime(DateTime dateTime, String localeName) {
+    _timestamp = dateTime;
+    _dateController.text = formatDateTime(dateTime, localeName);
   }
 
   Widget _buildDateField() {
     final title = AppLocalizations.of(context)!.drugDateAndTimeFieldTitle;
+    final locale = AppLocalizations.of(context)!.localeName;
+
+    final drugDate = widget.initialDrug?.date;
+    if (drugDate != null) {
+      setDateTime(drugDate, locale);
+    }
+
     return TextFormField(
       controller: _dateController,
       readOnly: true,
@@ -101,7 +124,6 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
         border: const OutlineInputBorder(),
       ),
       onTap: () async {
-        final localeName = AppLocalizations.of(context)!.localeName;
         final now = DateTime.now();
         final dateTime = await showDateTimePicker(
           context: context,
@@ -110,14 +132,26 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
           lastDate: now,
         );
         if (dateTime == null) return;
-        _timestamp = dateTime;
-        _dateController.text = formatDateTime(dateTime, localeName);
+        setDateTime(dateTime, locale);
       },
     );
   }
 
+  void setColor(DrugColor color, AppLocalizations localizations) {
+    _color = color;
+    _colorController.text =
+        toBeginningOfSentenceCase(localizations.drugColor(color.name))!;
+  }
+
   Widget _buildColorField() {
     final title = AppLocalizations.of(context)!.drugColorFieldTitle;
+    final localizations = AppLocalizations.of(context)!;
+
+    final drugColor = widget.initialDrug?.color;
+    if (drugColor != null) {
+      setColor(drugColor, localizations);
+    }
+
     return TextFormField(
       controller: _colorController,
       readOnly: true,
@@ -131,14 +165,12 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
           title: Text(title),
           context: context,
           values: DrugColor.values,
-          labelBuilder: (value) => toBeginningOfSentenceCase(
-              AppLocalizations.of(context)!.drugColor(value.name))!,
+          labelBuilder: (value) =>
+              toBeginningOfSentenceCase(localizations.drugColor(value.name))!,
         );
         if (drugColor == null) return;
-        _color = drugColor;
         if (!context.mounted) return;
-        _colorController.text = toBeginningOfSentenceCase(
-            AppLocalizations.of(context)!.drugColor(drugColor.name))!;
+        setColor(drugColor, localizations);
       },
     );
   }
@@ -158,6 +190,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
         maxLength: 1000,
         maxLengthEnforcement: MaxLengthEnforcement.none,
         onSaved: (value) => _notes = value!,
+        initialValue: widget.initialDrug?.notes,
       ),
     );
   }
@@ -194,6 +227,7 @@ class AddDrugFormState extends ConsumerState<AddDrugForm> {
                           _formKey.currentState!.save();
                           if (_formKey.currentState!.validate()) {
                             final DrugEntry drug = DrugEntry(
+                              id: widget.initialDrug?.id,
                               name: _name!,
                               amount: _amount!,
                               date: _timestamp!,

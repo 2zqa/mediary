@@ -54,6 +54,10 @@
   "@addDrugFormTitle": {
     "description": "Shown as the title of the form for adding a drug"
   },
+  "editDrugFormTitle": "Edit drug",
+  "@editDrugFormTitle": {
+    "description": "Shown as the title of the form when editing a drug"
+  },
   "drugRemovedSnackbarText": "Removed {drugName}",
   "@drugRemovedSnackbarText": {
     "description": "Text shown in snackbar when a drug is removed",
