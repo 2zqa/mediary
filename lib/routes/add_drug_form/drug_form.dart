@@ -24,6 +24,8 @@ class DrugForm extends ConsumerStatefulWidget {
   DrugFormState createState() {
     return DrugFormState();
   }
+
+  bool get isEditMode => initialDrug != null;
 }
 
 class DrugFormState extends ConsumerState<DrugForm> {
@@ -203,7 +205,9 @@ class DrugFormState extends ConsumerState<DrugForm> {
       error: (error, stack) => Center(child: Text('Error: $error')),
       data: (drugs) => Scaffold(
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.addDrugFormTitle),
+          title: widget.isEditMode
+              ? Text(AppLocalizations.of(context)!.editDrugFormTitle)
+              : Text(AppLocalizations.of(context)!.addDrugFormTitle),
         ),
         body: Scrollbar(
           child: SingleChildScrollView(
