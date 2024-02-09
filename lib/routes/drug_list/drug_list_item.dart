@@ -52,7 +52,7 @@ class DrugListItem extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => DrugDetails(drug),
+              builder: (_) => DrugDetails(drug.id),
             ),
           );
         },
