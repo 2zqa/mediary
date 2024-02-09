@@ -18,27 +18,37 @@ class DrugDetails extends ConsumerWidget {
     final drugStateNotifier = ref.read(drugEntriesProvider.notifier);
     return drugEntriesAsyncValue.when(
       data: (drugList) {
-        final drug = drugList.firstWhere((e) => e.id == drugId);
-        return _buildDrugDetails(
-          context: context,
-          drug: drug,
-          ref: ref,
-          onDelete: drugStateNotifier.delete,
-          onUndo: drugStateNotifier.add,
-        );
+        final drug = drugList.where((e) => e.id == drugId).firstOrNull;
+        if (drug == null) {
+          // This should only happen for a short time when the drug is deleted
+          return const Scaffold();
+        }
+        return _Details(
+            drug: drug,
+            onDelete: drugStateNotifier.delete,
+            onUndo: drugStateNotifier.add);
       },
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stack) => Center(child: Text('Error: $error')),
+      loading: () =>
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
+      error: (error, stack) =>
+          Scaffold(body: Center(child: Text('Error: $error'))),
     );
   }
+}
 
-  Widget _buildDrugDetails({
-    required BuildContext context,
-    required DrugEntry drug,
-    required WidgetRef ref,
-    required void Function(DrugEntry e) onDelete,
-    required void Function(DrugEntry e) onUndo,
-  }) {
+class _Details extends StatelessWidget {
+  const _Details({
+    required this.drug,
+    required this.onDelete,
+    required this.onUndo,
+  });
+
+  final DrugEntry drug;
+  final void Function(DrugEntry drug) onDelete;
+  final void Function(DrugEntry drug) onUndo;
+
+  @override
+  Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
     final titleFontSize = Theme.of(context).textTheme.titleMedium!.fontSize;
     return Scaffold(
