@@ -8,7 +8,7 @@ Track drug usage without judgement.
 
 **Note that the author of this app does not condone the use of illicit drugs.** This app is intended to be used by people who are already using them, and want to track their usage and make informed decisions about their drug use.
 
-Mediary (pronounced med-diary, or just mediary) is an app that allows users to track their drug usage. You can log the name, the amount, and the time and date of use. It is also possible to attach a note to a log entry. You can view logs in a list view. A calendar view is planned for a future release.
+Mediary (pronounced med-diary, or just mediary) is an app that allows users to track their drug usage. You can log the name, the amount, and the time and date of use. It is also possible to attach a note to a log entry. You can view entries in a list and calendar view.
 
 ## Screenshots
 
