@@ -235,7 +235,7 @@ class DrugFormState extends ConsumerState<DrugForm> {
                               name: _name!,
                               amount: _amount!,
                               date: _timestamp!,
-                              notes: _notes,
+                              notes: _notes ?? '',
                               color: _color!,
                             );
 

@@ -18,7 +18,7 @@ final drugCalendarEntriesProvider =
             startTime: drug.date,
             endDate: drug.date,
             endTime: drug.date.add(const Duration(hours: 1)),
-            description: drug.notes ?? '',
+            description: drug.notes,
             event: drug,
           ))
       .toList(growable: false);

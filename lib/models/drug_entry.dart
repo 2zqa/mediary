@@ -16,7 +16,7 @@ class DrugEntry implements Comparable<DrugEntry> {
   final String name;
   final String amount;
   final DateTime date;
-  final String? notes;
+  final String notes;
   final DrugColor color;
 
   DrugEntry({
@@ -24,12 +24,12 @@ class DrugEntry implements Comparable<DrugEntry> {
     required String name,
     required String amount,
     required this.date,
-    String? notes,
+    required String notes,
     required this.color,
   })  : assert(id == null || Uuid.isValidUUID(fromString: id)),
         name = name.trim(),
         amount = amount.trim(),
-        notes = notes?.trim(),
+        notes = notes.trim(),
         id = id ?? _uuid.v4();
 
   DrugEntry.fromMap(Map<String, dynamic> map)
@@ -37,22 +37,17 @@ class DrugEntry implements Comparable<DrugEntry> {
         name = map['name'] as String,
         amount = map['amount'] as String,
         date = DateTime.parse(map['date'] as String),
-        notes = map['notes'] as String?,
+        notes = map['notes'] as String,
         color = DrugColor.values[map['color_index'] as int];
 
-  Map<String, dynamic> toMap() {
-    final map = {
-      'id': id,
-      'name': name,
-      'amount': amount,
-      'date': date.toIso8601String(),
-      'color_index': color.index,
-    };
-    if (notes != null) {
-      map['notes'] = notes!;
-    }
-    return map;
-  }
+  Map<String, dynamic> toMap() => {
+        'id': id,
+        'name': name,
+        'amount': amount,
+        'date': date.toIso8601String(),
+        'color_index': color.index,
+        'notes': notes,
+      };
 
   /// Sorts by date, then by name, then by id.
   ///
