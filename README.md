@@ -19,7 +19,11 @@ Mediary (pronounced med-diary, or just mediary) is an app that allows users to t
     <img width="20%" src="./screenshots/4.png" alt="Drug details page" title="Drug details page"></img>
 </div>
 
-## Installing
+## Download
+
+[<img src="https://github.com/2zqa/mediary/assets/25235249/07428c49-e28a-47a3-819a-2da6a8bbd0c4"
+     alt="Download from GitHub"
+     height="90">](https://github.com/2zqa/mediary/releases)
 
 * Download the appropiate APK for your device from the [releases page](https://github.com/2zqa/mediary/releases). If you're unsure, pick **app-arm64-v8a-release.apk**.
 * If prompted, give permission to install from unknown sources.
