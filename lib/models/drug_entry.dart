@@ -81,6 +81,15 @@ class DrugEntriesNotifier extends AsyncNotifier<List<DrugEntry>> {
     return DrugEntry.fromMap(drugMaps.single);
   }
 
+  Future<List<DrugEntry>> search(String query) async {
+    final List<Map<String, Object?>> drugMaps = await _database.query(
+      where: 'name LIKE ?',
+      _tableName,
+      whereArgs: ['%$query%'],
+    );
+    return drugMaps.map(DrugEntry.fromMap).toList();
+  }
+
   @override
   FutureOr<List<DrugEntry>> build() async {
     _database = await openDatabase(
