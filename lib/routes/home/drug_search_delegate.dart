@@ -26,17 +26,11 @@ class DrugSearchDelegate extends SearchDelegate<String> {
         future: notifier.search(query),
         initialData: const [],
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-
           if (snapshot.hasError) {
             return const SizedBox.shrink();
           }
 
-          final drugs = snapshot.data!;
+          final drugs = snapshot.requireData;
           final drugStrings = drugs.map((drug) => drug.name).toSet();
           return ListView(
             children: drugStrings
@@ -55,22 +49,17 @@ class DrugSearchDelegate extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
     final drugs = notifier.search(query);
-    return FutureBuilder(
+    return FutureBuilder<List<DrugEntry>>(
       future: drugs,
+      initialData: const [],
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-
         if (snapshot.hasError) {
           return Center(
             child: Text(snapshot.error.toString()),
           );
         }
 
-        final drugs = snapshot.data as List<DrugEntry>;
+        final drugs = snapshot.requireData;
         return ListView.builder(
           itemCount: drugs.length,
           itemBuilder: (context, index) => DrugListItem(drug: drugs[index]),
