@@ -13,10 +13,10 @@ Mediary (pronounced med-diary, or just mediary) is an app that allows users to t
 ## Screenshots
 
 <div>
-    <img width="20%" src="./screenshots/1.png" alt="Overview" title="Overview"></img>
-    <img width="20%" src="./screenshots/2.png" alt="Add drug form" title="Add drug form"></img>
-    <img width="20%" src="./screenshots/3.png" alt="Deleting an entry" title="Deleting an entry"></img>
-    <img width="20%" src="./screenshots/4.png" alt="Drug details page" title="Drug details page"></img>
+    <img width="20%" src="./screenshots/1.png" alt="Overview" title="Overview">
+    <img width="20%" src="./screenshots/2.png" alt="Add drug form" title="Add drug form">
+    <img width="20%" src="./screenshots/3.png" alt="Deleting an entry" title="Deleting an entry">
+    <img width="20%" src="./screenshots/4.png" alt="Drug details page" title="Drug details page">
 </div>
 
 ## Download
@@ -25,7 +25,7 @@ Mediary (pronounced med-diary, or just mediary) is an app that allows users to t
      alt="Download from GitHub"
      height="90">](https://github.com/2zqa/mediary/releases)
 
-* Download the appropiate APK for your device from the [releases page](https://github.com/2zqa/mediary/releases). If you're unsure, pick **app-arm64-v8a-release.apk**.
+* Download the appropriate APK for your device from the [releases page](https://github.com/2zqa/mediary/releases). If you're unsure, pick **app-arm64-v8a-release.apk**.
 * If prompted, give permission to install from unknown sources.
 * Google Play Protect will warn you that the author of the app is not verified. You can ignore this warning by clicking **Details** and then **Install Anyway**.
 
