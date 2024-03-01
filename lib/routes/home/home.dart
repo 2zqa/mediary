@@ -1,21 +1,23 @@
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../add_drug_form/drug_form.dart';
 import '../drug_calendar_view/drug_calendar_view.dart';
 import '../drug_list/drug_list.dart';
 import '../settings/settings.dart';
+import 'drug_search_delegate.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   final String title;
   const HomePage(this.title, {super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   int currentPageIndex = 0;
   final monthKey = GlobalKey<MonthViewState>();
 
@@ -25,6 +27,19 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        actions: [
+          Consumer(
+            builder: (context, ref, child) {
+              return IconButton(
+                icon: const Icon(Icons.search_outlined),
+                onPressed: () => showSearch(
+                  context: context,
+                  delegate: DrugSearchDelegate(hintText: "Search drugs", ref: ref),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: IndexedStack(
         index: currentPageIndex,
