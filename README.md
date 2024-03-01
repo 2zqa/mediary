@@ -13,10 +13,10 @@ Mediary (pronounced med-diary, or just mediary) is an app that allows users to t
 ## Screenshots
 
 <div>
-    <img width="20%" src="./screenshots/1.png" alt="Overview" title="Overview"></img>
-    <img width="20%" src="./screenshots/2.png" alt="Add drug form" title="Add drug form"></img>
-    <img width="20%" src="./screenshots/3.png" alt="Deleting an entry" title="Deleting an entry"></img>
-    <img width="20%" src="./screenshots/4.png" alt="Drug details page" title="Drug details page"></img>
+    <img width="20%" src="./screenshots/1.png" alt="Overview" title="Overview">
+    <img width="20%" src="./screenshots/2.png" alt="Add drug form" title="Add drug form">
+    <img width="20%" src="./screenshots/3.png" alt="Deleting an entry" title="Deleting an entry">
+    <img width="20%" src="./screenshots/4.png" alt="Drug details page" title="Drug details page">
 </div>
 
 ## Download
