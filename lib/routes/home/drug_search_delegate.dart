@@ -73,10 +73,7 @@ class DrugSearchDelegate extends SearchDelegate<String> {
         final drugs = snapshot.data as List<DrugEntry>;
         return ListView.builder(
           itemCount: drugs.length,
-          itemBuilder: (context, index) {
-            final drug = drugs[index];
-            return DrugListItem(drug: drug);
-          },
+          itemBuilder: (context, index) => DrugListItem(drug: drugs[index]),
         );
       },
     );
