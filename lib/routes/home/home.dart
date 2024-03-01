@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../providers/drug_entries_provider.dart';
 import '../add_drug_form/drug_form.dart';
 import '../drug_calendar_view/drug_calendar_view.dart';
 import '../drug_list/drug_list.dart';
@@ -37,7 +38,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   context: context,
                   delegate: DrugSearchDelegate(
                     hintText: AppLocalizations.of(context)!.drugSearchHint,
-                    ref: ref,
+                    notifier: ref.read(drugEntriesProvider.notifier),
                   ),
                 ),
               );

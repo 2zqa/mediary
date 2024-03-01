@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/drug_entry.dart';
-import '../../providers/drug_entries_provider.dart';
 import '../drug_list/drug_list_item.dart';
 
 class DrugSearchDelegate extends SearchDelegate<String> {
-  final WidgetRef ref;
+  final DrugEntriesNotifier notifier;
   DrugSearchDelegate({
     required String hintText,
-    required this.ref,
+    required this.notifier,
   }) : super(
           searchFieldLabel: hintText,
           keyboardType: TextInputType.text,
@@ -25,7 +23,7 @@ class DrugSearchDelegate extends SearchDelegate<String> {
   @override
   Widget buildSuggestions(BuildContext context) =>
       FutureBuilder<List<DrugEntry>>(
-        future: ref.read(drugEntriesProvider.notifier).search(query),
+        future: notifier.search(query),
         initialData: const [],
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -56,7 +54,7 @@ class DrugSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    final drugs = ref.read(drugEntriesProvider.notifier).search(query);
+    final drugs = notifier.search(query);
     return FutureBuilder(
       future: drugs,
       builder: (context, snapshot) {
