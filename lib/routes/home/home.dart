@@ -32,9 +32,13 @@ class _HomePageState extends ConsumerState<HomePage> {
             builder: (context, ref, child) {
               return IconButton(
                 icon: const Icon(Icons.search_outlined),
+                tooltip: AppLocalizations.of(context)!.searchButtonTooltip,
                 onPressed: () => showSearch(
                   context: context,
-                  delegate: DrugSearchDelegate(hintText: "Search drugs", ref: ref),
+                  delegate: DrugSearchDelegate(
+                    hintText: AppLocalizations.of(context)!.drugSearchHint,
+                    ref: ref,
+                  ),
                 ),
               );
             },

@@ -268,5 +268,13 @@
         "description": "Label for the delete button. Will be converted to lowercase."
       }
     }
+  },
+  "drugSearchHint": "Search by name",
+  "@drugSearchHint": {
+    "description": "Hint for the drug search field"
+  },
+  "searchButtonTooltip": "Search",
+  "@searchButtonTooltip": {
+    "description": "Label for the search button"
   }
 }
