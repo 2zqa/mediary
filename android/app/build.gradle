@@ -31,7 +31,6 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace "nl.marijnk.mediary"
     compileSdk flutter.compileSdkVersion
-    ndkVersion flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
