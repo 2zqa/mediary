@@ -53,11 +53,9 @@ class MediaryApp extends ConsumerWidget {
           locale: locale,
           theme: ThemeData(
             colorScheme: lightColorScheme ?? _defaultLightColorScheme,
-            useMaterial3: true,
           ),
           darkTheme: ThemeData(
             colorScheme: darkColorScheme ?? _defaultDarkColorScheme,
-            useMaterial3: true,
           ),
           home: const HomePage('Mediary'),
         );
