@@ -24,6 +24,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -33,11 +34,11 @@ class _HomePageState extends ConsumerState<HomePage> {
             builder: (context, ref, child) {
               return IconButton(
                 icon: const Icon(Icons.search_outlined),
-                tooltip: AppLocalizations.of(context)!.searchButtonTooltip,
+                tooltip: localizations.searchButtonTooltip,
                 onPressed: () => showSearch(
                   context: context,
                   delegate: DrugSearchDelegate(
-                    hintText: AppLocalizations.of(context)!.drugSearchHint,
+                    hintText: localizations.drugSearchHint,
                     notifier: ref.read(drugEntriesProvider.notifier),
                   ),
                 ),
@@ -64,17 +65,17 @@ class _HomePageState extends ConsumerState<HomePage> {
           NavigationDestination(
             icon: const Icon(Icons.home_outlined),
             selectedIcon: const Icon(Icons.home),
-            label: AppLocalizations.of(context)!.homeViewTitle,
+            label: localizations.homeViewTitle,
           ),
           NavigationDestination(
             icon: const Icon(Icons.calendar_today_outlined),
             selectedIcon: const Icon(Icons.calendar_today),
-            label: AppLocalizations.of(context)!.calendarViewTitle,
+            label: localizations.calendarViewTitle,
           ),
           NavigationDestination(
             icon: const Icon(Icons.settings_outlined),
             selectedIcon: const Icon(Icons.settings),
-            label: AppLocalizations.of(context)!.settingsViewTitle,
+            label: localizations.settingsViewTitle,
           ),
         ],
         selectedIndex: currentPageIndex,
