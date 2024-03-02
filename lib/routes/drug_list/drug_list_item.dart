@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../models/drug_entry.dart';
 
+import '../../models/drug_entry.dart';
 import '../../util/colors.dart';
 import '../../util/confirm_action.dart';
 import '../drug_details/drug_details.dart';
 
 class DrugListItem extends StatelessWidget {
   final DrugEntry drug;
-  final void Function(DrugEntry drug) onDelete;
-  final void Function(DrugEntry drug) onUndo;
+  final void Function(DrugEntry drug)? onDelete;
+  final void Function(DrugEntry drug)? onUndo;
 
   const DrugListItem({
     required this.drug,
-    required this.onDelete,
-    required this.onUndo,
+    this.onDelete,
+    this.onUndo,
     super.key,
-  });
+  }) : assert(
+            (onDelete == null && onUndo == null) ||
+                (onDelete != null && onUndo != null),
+            'onDelete and onUndo must both be null or non-null.');
 
   @override
   Widget build(BuildContext context) {
@@ -24,16 +27,18 @@ class DrugListItem extends StatelessWidget {
     final localizations = AppLocalizations.of(context)!;
     return Dismissible(
       onDismissed: (_) {
-        onDelete(drug);
+        onDelete?.call(drug);
         showDrugDeleteUndoSnackbar(
           context: context,
           drug: drug,
-          onUndo: () => onUndo(drug),
+          onUndo: () => onUndo?.call(drug),
           localizations: localizations,
         );
       },
       key: super.key ?? ValueKey(drug.id),
-      direction: DismissDirection.endToStart,
+      direction: onDelete != null
+          ? DismissDirection.endToStart
+          : DismissDirection.none,
       background: Container(
         color: Colors.red,
         padding: const EdgeInsets.only(right: 20.0),

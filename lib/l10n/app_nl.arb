@@ -50,5 +50,7 @@
   "drugColor": "{color, select, blue{blauw} orange{oranje} red{rood} yellow{geel} green{groen} purple{paars} other{}}",
   "delete": "Verwijderen",
   "drugDeleteConfirmTitle": "Bevestig verwijderen",
-  "drugDeleteConfirmDescription": "Weet je zeker dat je \"{drugName}\" wil verwijderen? Je kan dit nog steeds ongedaan maken voor een paar seconden nadat je op {deleteLabel} gedrukt hebt."
+  "drugDeleteConfirmDescription": "Weet je zeker dat je \"{drugName}\" wil verwijderen? Je kan dit nog steeds ongedaan maken voor een paar seconden nadat je op {deleteLabel} gedrukt hebt.",
+  "drugSearchHint": "Zoek op naam",
+  "searchButtonTooltip": "Zoeken"
 }

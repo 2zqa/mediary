@@ -1,30 +1,51 @@
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../providers/drug_entries_provider.dart';
 import '../add_drug_form/drug_form.dart';
 import '../drug_calendar_view/drug_calendar_view.dart';
 import '../drug_list/drug_list.dart';
 import '../settings/settings.dart';
+import 'drug_search_delegate.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   final String title;
   const HomePage(this.title, {super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   int currentPageIndex = 0;
   final monthKey = GlobalKey<MonthViewState>();
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        actions: [
+          Consumer(
+            builder: (context, ref, child) {
+              return IconButton(
+                icon: const Icon(Icons.search_outlined),
+                tooltip: localizations.searchButtonTooltip,
+                onPressed: () => showSearch(
+                  context: context,
+                  delegate: DrugSearchDelegate(
+                    hintText: localizations.drugSearchHint,
+                    notifier: ref.read(drugEntriesProvider.notifier),
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: IndexedStack(
         index: currentPageIndex,
@@ -44,17 +65,17 @@ class _HomePageState extends State<HomePage> {
           NavigationDestination(
             icon: const Icon(Icons.home_outlined),
             selectedIcon: const Icon(Icons.home),
-            label: AppLocalizations.of(context)!.homeViewTitle,
+            label: localizations.homeViewTitle,
           ),
           NavigationDestination(
             icon: const Icon(Icons.calendar_today_outlined),
             selectedIcon: const Icon(Icons.calendar_today),
-            label: AppLocalizations.of(context)!.calendarViewTitle,
+            label: localizations.calendarViewTitle,
           ),
           NavigationDestination(
             icon: const Icon(Icons.settings_outlined),
             selectedIcon: const Icon(Icons.settings),
-            label: AppLocalizations.of(context)!.settingsViewTitle,
+            label: localizations.settingsViewTitle,
           ),
         ],
         selectedIndex: currentPageIndex,
