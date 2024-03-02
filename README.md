@@ -37,8 +37,8 @@ If you run into any problems, or have a suggestion for a new feature, please fir
 
 ### Prerequisites
 
-* Flutter >= 3.16
-* Dart >= 3.2.0
+* Flutter >= 3.13.5
+* Dart >= 3.1.2
 * Java >= 17
 
 A full tutorial on how to get started with Flutter is available at https://docs.flutter.dev/get-started/install
