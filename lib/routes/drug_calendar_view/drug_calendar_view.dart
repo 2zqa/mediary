@@ -2,8 +2,8 @@ import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../formatting/date_formatter.dart';
 
+import '../../formatting/date_formatter.dart';
 import '../../models/drug_entry.dart';
 import '../../providers/drug_entries_provider.dart';
 import '../../util/colors.dart';
