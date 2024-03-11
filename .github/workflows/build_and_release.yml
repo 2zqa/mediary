@@ -58,7 +58,7 @@ jobs:
         with:
           name: build
       - name: "Create Release"
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           fail_on_unmatched_files: true
           files: ${{ steps.download.outputs.download-path }}/* # Upload all files from the artifact
