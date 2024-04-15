@@ -25,7 +25,7 @@ dependencies:
   settings_ui: ^2.0.2
   flutter_localized_locales: ^2.0.5
   shared_preferences: ^2.2.2
-  package_info_plus: ^5.0.1
+  package_info_plus: ^7.0.0
   url_launcher: ^6.1.14
   dynamic_color: ^1.6.8
   flutter_file_dialog: ^3.0.2
